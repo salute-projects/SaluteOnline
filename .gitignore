@@ -3,3 +3,16 @@
 ################################################################################
 
 /src/SaluteOnline/bin
+/src/SaluteOnline.Client/bin/Debug/netcoreapp1.0
+/src/SaluteOnline.Client/node_modules
+/src/SaluteOnline.Client/obj/Debug
+/src/SaluteOnline.Domain/bin/Debug/netstandard1.6
+/src/SaluteOnline.Domain/obj/Debug/netstandard1.6
+/src/SaluteOnline.IdentityServer/bin/Debug/netcoreapp1.0
+/src/SaluteOnline.IdentityServer/obj/Debug/netcoreapp1.0
+/src/SaluteOnline.Tests/bin/Debug/netcoreapp1.0
+/src/SaluteOnline.Tests/obj/Debug/netcoreapp1.0
+/src/nlog-own-2016-11-22.log
+/src/nlog-own-2016-11-21.log
+/src/nlog-all-2016-11-22.log
+/src/nlog-all-2016-11-21.log

@@ -1,0 +1,15 @@
+import "rxjs";
+import "@angular/common";
+import "@angular/compiler";
+import "@angular/core";
+import "@angular/http";
+import "@angular/platform-browser";
+import "@angular/platform-browser-dynamic";
+import "@angular/router";
+import "reflect-metadata";
+import "jquery";
+import "bootstrap/dist/js/bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "angular2-toaster/lib/toaster.css";
+import "angular2-toaster/angular2-toaster";
+import 'primeng/primeng';

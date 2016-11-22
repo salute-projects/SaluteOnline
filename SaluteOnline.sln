@@ -1,0 +1,60 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{3AA63388-843C-49A9-8FF8-08CF690E5E07}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9FC3AA3F-F286-465A-971E-4DD7EAC489D6}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+	EndProjectSection
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SaluteOnline.API", "src\SaluteOnline\SaluteOnline.API.xproj", "{8173627E-FD5D-457A-8C1F-EDC93BE4818D}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SaluteOnline.Domain", "src\SaluteOnline.Domain\SaluteOnline.Domain.xproj", "{FB6FB11B-970C-494B-9DD7-4571F793CF74}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SaluteOnline.IdentityServer", "src\SaluteOnline.IdentityServer\SaluteOnline.IdentityServer.xproj", "{98F11062-862F-4E9C-A05D-F6F27F677CB6}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SaluteOnline.Client", "src\SaluteOnline.Client\SaluteOnline.Client.xproj", "{302B0D54-A2CF-45BF-92A0-924C8A13A2C5}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SaluteOnline.Tests", "src\SaluteOnline.Tests\SaluteOnline.Tests.xproj", "{79CC83BB-B4C5-437A-9E22-5638F3A6841E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8173627E-FD5D-457A-8C1F-EDC93BE4818D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8173627E-FD5D-457A-8C1F-EDC93BE4818D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8173627E-FD5D-457A-8C1F-EDC93BE4818D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8173627E-FD5D-457A-8C1F-EDC93BE4818D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB6FB11B-970C-494B-9DD7-4571F793CF74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB6FB11B-970C-494B-9DD7-4571F793CF74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB6FB11B-970C-494B-9DD7-4571F793CF74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB6FB11B-970C-494B-9DD7-4571F793CF74}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98F11062-862F-4E9C-A05D-F6F27F677CB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98F11062-862F-4E9C-A05D-F6F27F677CB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98F11062-862F-4E9C-A05D-F6F27F677CB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98F11062-862F-4E9C-A05D-F6F27F677CB6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{302B0D54-A2CF-45BF-92A0-924C8A13A2C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{302B0D54-A2CF-45BF-92A0-924C8A13A2C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{302B0D54-A2CF-45BF-92A0-924C8A13A2C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{302B0D54-A2CF-45BF-92A0-924C8A13A2C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79CC83BB-B4C5-437A-9E22-5638F3A6841E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79CC83BB-B4C5-437A-9E22-5638F3A6841E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79CC83BB-B4C5-437A-9E22-5638F3A6841E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79CC83BB-B4C5-437A-9E22-5638F3A6841E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8173627E-FD5D-457A-8C1F-EDC93BE4818D} = {3AA63388-843C-49A9-8FF8-08CF690E5E07}
+		{FB6FB11B-970C-494B-9DD7-4571F793CF74} = {3AA63388-843C-49A9-8FF8-08CF690E5E07}
+		{98F11062-862F-4E9C-A05D-F6F27F677CB6} = {3AA63388-843C-49A9-8FF8-08CF690E5E07}
+		{302B0D54-A2CF-45BF-92A0-924C8A13A2C5} = {3AA63388-843C-49A9-8FF8-08CF690E5E07}
+		{79CC83BB-B4C5-437A-9E22-5638F3A6841E} = {3AA63388-843C-49A9-8FF8-08CF690E5E07}
+	EndGlobalSection
+EndGlobal
