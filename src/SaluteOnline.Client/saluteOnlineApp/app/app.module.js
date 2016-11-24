@@ -9,17 +9,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var router_1 = require("@angular/router");
 var platform_browser_1 = require('@angular/platform-browser');
 var app_component_1 = require('./app.component');
 var kendo_angular_buttons_1 = require('@progress/kendo-angular-buttons');
 var header_component_1 = require('./header/header.component');
 var loading_page_component_1 = require('./loading-page/loading-page.component');
+var appRoutes = [
+    { path: 'index', component: loading_page_component_1.LoadingPageComponent, data: { title: 'SaluteOnline' } }
+];
 var AppModule = (function () {
     function AppModule() {
     }
     AppModule = __decorate([
         core_1.NgModule({
-            imports: [platform_browser_1.BrowserModule, kendo_angular_buttons_1.ButtonsModule],
+            imports: [platform_browser_1.BrowserModule, kendo_angular_buttons_1.ButtonsModule, router_1.RouterModule.forRoot(appRoutes)],
             declarations: [app_component_1.AppComponent, header_component_1.HeaderComponent, loading_page_component_1.LoadingPageComponent],
             bootstrap: [app_component_1.AppComponent]
         }), 

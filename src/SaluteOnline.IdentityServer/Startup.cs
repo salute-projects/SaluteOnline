@@ -36,7 +36,7 @@ namespace SaluteOnline.IdentityServer
                         Type = ScopeType.Resource,
                         ScopeSecrets = new List<Secret>
                         {
-                            new Secret("secret")
+                            new Secret("secret".Sha512())
                         },
                         Claims = new List<ScopeClaim>
                         {
@@ -51,7 +51,7 @@ namespace SaluteOnline.IdentityServer
                         Type = ScopeType.Resource,
                         ScopeSecrets = new List<Secret>
                         {
-                            new Secret("secret")
+                            new Secret("secret".Sha512())
                         },
                         Claims = new List<ScopeClaim>
                         {

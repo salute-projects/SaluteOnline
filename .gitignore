@@ -2,6 +2,8 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
+*.log
+
 /src/SaluteOnline/bin
 /src/SaluteOnline.Client/bin/Debug/netcoreapp1.0
 /src/SaluteOnline.Client/node_modules
@@ -16,3 +18,5 @@
 /src/nlog-own-2016-11-21.log
 /src/nlog-all-2016-11-22.log
 /src/nlog-all-2016-11-21.log
+/src/SaluteOnline/obj/Debug
+/src/SaluteOnline.Client/wwwroot

@@ -27,10 +27,11 @@ namespace SaluteOnline.IdentityServer
                 ClientId = clientId,
                 AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
                 RequireConsent = false,
-                AllowAccessToAllScopes = true,
+                AllowAccessToAllScopes = false,
+                AllowedScopes = client.AllowedScopes,
                 RedirectUris = client.RedirectUris,
                 AllowAccessTokensViaBrowser = true,
-                ClientSecrets = client.ClientSecrets.Select(t => new Secret(t.Sha256())).ToList(),
+                ClientSecrets = client.ClientSecrets.Select(t => new Secret(t.Sha256())).ToList()
             });
         }
     }

@@ -19,7 +19,8 @@ var AppComponent = (function () {
         core_1.Component(({
             selector: 'my-app',
             directives: [header_component_1.HeaderComponent, loading_page_component_1.LoadingPageComponent],
-            template: require('./app.template.html'),
+            //template: require('./app.template.html'),
+            template: "<router-outlet></router-outlet>",
             styles: [require('./app.component.scss').toString()]
         })), 
         __metadata('design:paramtypes', [])

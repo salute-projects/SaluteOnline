@@ -5,7 +5,8 @@ import { LoadingPageComponent } from './loading-page/loading-page.component';
 @Component(({
     selector: 'my-app',
     directives: [ HeaderComponent, LoadingPageComponent ],
-    template: require('./app.template.html'),
+    //template: require('./app.template.html'),
+    template: `<router-outlet></router-outlet>`,    
     styles: [ require('./app.component.scss').toString() ]
 }) as any)
 
