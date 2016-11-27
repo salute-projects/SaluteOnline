@@ -9,21 +9,31 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var header_component_1 = require('./header/header.component');
-var loading_page_component_1 = require('./loading-page/loading-page.component');
+var global_state_1 = require('./services/global.state');
+var so_loading_service_1 = require('./services/so-loading.service');
 var AppComponent = (function () {
-    function AppComponent() {
-        this.title = 'Hello World!';
+    function AppComponent(state, loader) {
+        var _this = this;
+        this.state = state;
+        this.loader = loader;
+        this.isMenuCollapsed = false;
+        this.loader.show();
+        this.state.subscribe('menu.collapsed', function (isCollapsed) {
+            _this.isMenuCollapsed = isCollapsed;
+        });
     }
+    AppComponent.prototype.ngAfterViewInit = function () {
+        this.loader.hide(5000);
+    };
     AppComponent = __decorate([
         core_1.Component(({
-            selector: 'my-app',
-            directives: [header_component_1.HeaderComponent, loading_page_component_1.LoadingPageComponent],
-            //template: require('./app.template.html'),
-            template: "<router-outlet></router-outlet>",
+            selector: 'so-app',
+            encapsulation: core_1.ViewEncapsulation.None,
+            providers: [global_state_1.GlobalState, so_loading_service_1.SoLoader],
+            template: require('./app.template.html'),
             styles: [require('./app.component.scss').toString()]
         })), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [global_state_1.GlobalState, so_loading_service_1.SoLoader])
     ], AppComponent);
     return AppComponent;
 }());

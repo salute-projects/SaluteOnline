@@ -2,17 +2,16 @@
 import { RouterModule, Routes } from "@angular/router";
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
-import { ButtonsModule } from '@progress/kendo-angular-buttons';
-import { HeaderComponent } from './header/header.component';
-import { LoadingPageComponent } from './loading-page/loading-page.component';
+import { PagesModule } from './pages/pages.module';
 
 const appRoutes: Routes = [
-    { path: 'index', component: LoadingPageComponent, data: { title: 'SaluteOnline' } }
+    { path: '', redirectTo: 'pages', pathMatch: 'full' },
+    { path: '**', redirectTo: 'pages' }
 ];
 
 @NgModule({
-    imports: [BrowserModule, ButtonsModule, RouterModule.forRoot(appRoutes)],
-    declarations: [AppComponent, HeaderComponent, LoadingPageComponent],
+    imports: [BrowserModule, PagesModule, RouterModule.forRoot(appRoutes)],
+    declarations: [AppComponent],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

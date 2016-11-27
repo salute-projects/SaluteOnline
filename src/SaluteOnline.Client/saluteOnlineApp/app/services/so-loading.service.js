@@ -9,26 +9,27 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var LoadingPageComponent = (function () {
-    function LoadingPageComponent() {
-        this.name = "Loading Page Component";
-        this.loadingScreenVisibility = true;
+var SoLoader = (function () {
+    function SoLoader() {
+        this.selector = 'loading-page';
+        this.element = document.getElementById(this.selector);
     }
-    LoadingPageComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        setTimeout(function () {
-            _this.loadingScreenVisibility = false;
-        }, 5000);
+    SoLoader.prototype.show = function () {
+        this.element.style['display'] = 'block';
+        this.element.classList.add('active');
     };
-    LoadingPageComponent = __decorate([
-        core_1.Component({
-            selector: 'loading-page',
-            template: require('./loading-page.component.html'),
-            styles: [require('./loading-page.component.scss').toString()]
-        }), 
+    SoLoader.prototype.hide = function (delay) {
+        var _this = this;
+        if (delay === void 0) { delay = 0; }
+        setTimeout(function () {
+            _this.element.classList.remove('active');
+        }, delay);
+    };
+    SoLoader = __decorate([
+        core_1.Injectable(), 
         __metadata('design:paramtypes', [])
-    ], LoadingPageComponent);
-    return LoadingPageComponent;
+    ], SoLoader);
+    return SoLoader;
 }());
-exports.LoadingPageComponent = LoadingPageComponent;
-//# sourceMappingURL=loading-page.component.js.map
+exports.SoLoader = SoLoader;
+//# sourceMappingURL=so-loading.service.js.map

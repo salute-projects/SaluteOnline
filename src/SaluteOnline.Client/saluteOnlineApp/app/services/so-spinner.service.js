@@ -8,20 +8,27 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require("@angular/core");
-var HeaderComponent = (function () {
-    function HeaderComponent() {
-        this.name = "Header Component";
+var core_1 = require('@angular/core');
+var SoSpinner = (function () {
+    function SoSpinner() {
+        this.selector = 'spinner';
+        this.element = document.getElementById(this.selector);
     }
-    HeaderComponent = __decorate([
-        core_1.Component({
-            selector: 'salute-header',
-            template: require('./header.component.html'),
-            styles: [require('./header.component.scss').toString()]
-        }), 
+    SoSpinner.prototype.show = function () {
+        this.element.style['display'] = 'block';
+    };
+    SoSpinner.prototype.hide = function (delay) {
+        var _this = this;
+        if (delay === void 0) { delay = 0; }
+        setTimeout(function () {
+            _this.element.style['display'] = 'none';
+        }, delay);
+    };
+    SoSpinner = __decorate([
+        core_1.Injectable(), 
         __metadata('design:paramtypes', [])
-    ], HeaderComponent);
-    return HeaderComponent;
+    ], SoSpinner);
+    return SoSpinner;
 }());
-exports.HeaderComponent = HeaderComponent;
-//# sourceMappingURL=header.component.js.map
+exports.SoSpinner = SoSpinner;
+//# sourceMappingURL=so-spinner.service.js.map
