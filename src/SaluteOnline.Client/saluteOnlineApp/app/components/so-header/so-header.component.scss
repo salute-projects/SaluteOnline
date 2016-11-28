@@ -1,0 +1,53 @@
+﻿@import "../../styles/vars";
+
+.page-top {
+    background-color: $sidebar;
+    position: fixed;
+    z-index: 904;
+    box-shadow: 2px 0 3px rgba(0, 0, 0, 0.5);
+    height: 66px;
+    width: 100px;
+    min-width: $resMin;
+    padding: 0 32px 0 40px;
+
+    .dropdown-toggle::after {
+        display: none;
+    }
+}
+
+.al-logo {
+    color: $sidebar-text;
+    display: block;
+    font-size: 24px;
+    font-family: $font-family;
+    white-space: nowrap;
+    float: left;
+    outline: none !important;
+    line-height: 60px;
+
+    span {
+        color: $primary;
+    }
+}
+
+.user-profile {
+    float: right;
+    min-width: 230px;
+    margin-top: 10px;
+}
+
+.al-user-profiles {
+    float: right;
+    margin-right: 12px;
+    transition: all .15s ease-in-out;
+    padding: 0;
+    width: 36px;
+    height: 36px;
+    border: 0;
+    opacity: 1;
+    position: relative;
+    
+    a {
+        display: block;
+    }
+}
