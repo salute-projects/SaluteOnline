@@ -1,6 +1,12 @@
 ﻿<div class="page-top clearfix" maxHeight="50">
-    <a routerLink="/pages" class="al-logo clearfix">SALUTE ONLINE</a>
-    <a class="collapse-menu-link ion-navicon"></a>
+    <a routerLink="/pages" class="al-logo clearfix"><span class="logo-leftside">Salute</span><span class="logo-rightside">Online</span></a>
+    <div class="so-hamburger" (click)="toggleMenu()">
+        <div class="hamburger">
+            <span class="line"></span>
+            <span class="line"></span>
+            <span class="line"></span>
+        </div>
+    </div>
     
     <div class="user-profile clearfix">
         <div class="dropdown al-user-profile">

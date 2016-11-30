@@ -7,7 +7,7 @@ import { GlobalState } from "../../services/global.state";
     template: require('./so-header.component.html'),
     encapsulation: ViewEncapsulation.None
 })
-export  class SoHeader {
+export class SoHeader {
     isMenuCollapsed = false;
     
     constructor(private state: GlobalState) {

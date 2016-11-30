@@ -23,7 +23,7 @@ var AppComponent = (function () {
         });
     }
     AppComponent.prototype.ngAfterViewInit = function () {
-        this.loader.hide(5000);
+        this.loader.hide(500);
     };
     AppComponent = __decorate([
         core_1.Component(({

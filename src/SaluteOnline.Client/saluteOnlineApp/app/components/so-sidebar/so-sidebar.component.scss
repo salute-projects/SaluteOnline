@@ -1,0 +1,26 @@
+﻿@import "../../styles/vars";
+@import "../../styles/mixins";
+
+.so-sidebar {
+    width: $sidebar-width;
+    top: $top-height;
+    left: 0;
+    z-index: 1001;
+    display: block;
+    min-height: 100%;
+    background-color: $background-color;
+    height: 100%;
+    position: fixed;
+}
+
+@mixin sidebar-collapsed() {
+  .so-sidebar {
+    width: 52px;
+  }
+}
+
+@media (min-width: 500px) {
+  .menu-collapsed {
+    @include sidebar-collapsed();
+  }
+}

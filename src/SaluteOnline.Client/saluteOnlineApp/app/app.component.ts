@@ -17,12 +17,12 @@ export class AppComponent implements AfterViewInit {
     constructor(private state: GlobalState, private loader: SoLoader) {
         this.loader.show();
 
-        this.state.subscribe('menu.collapsed', (isCollapsed: boolean) => {
+        this.state.subscribe('menu.isCollapsed', (isCollapsed: boolean) => {
             this.isMenuCollapsed = isCollapsed;
         });
     }
 
     ngAfterViewInit(): void {
-        this.loader.hide(5000);
+        this.loader.hide(500);
     }
 }

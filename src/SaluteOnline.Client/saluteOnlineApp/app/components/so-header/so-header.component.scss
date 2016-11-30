@@ -1,32 +1,70 @@
 ﻿@import "../../styles/vars";
+@import "../../styles/mixins";
 
 .page-top {
-    background-color: $sidebar;
+    background-color: $background-color;
     position: fixed;
     z-index: 904;
-    box-shadow: 2px 0 3px rgba(0, 0, 0, 0.5);
+    box-shadow: 2px 0 3px rgba(0, 0, 0, 0.3);
     height: 66px;
-    width: 100px;
+    width: 100%;
     min-width: $resMin;
     padding: 0 32px 0 40px;
 
     .dropdown-toggle::after {
         display: none;
     }
+
+    .al-logo {
+        display: block;
+        font-size: 24px;
+        white-space: nowrap;
+        float: left;
+        outline: none !important;
+        line-height: 60px;
+        
+        &:focus, &:hover, &:visited {
+            text-decoration: none !important;
+        }
+
+        .logo-leftside, .logo-rightside {
+            font-family: $font-family-logo;
+            outline: none !important;
+        }
+
+        .logo-leftside {
+            color: $main-red;
+            @include transition(all 0.2s ease-in);
+
+            &:hover, &:focus {
+                color: $main-red-hover;
+            }
+        }
+
+        .logo-rightside {
+            color: white;
+        }
+    }
 }
 
-.al-logo {
-    color: $sidebar-text;
-    display: block;
-    font-size: 24px;
-    font-family: $font-family;
-    white-space: nowrap;
+.so-hamburger {
     float: left;
-    outline: none !important;
-    line-height: 60px;
+    display: block;
+    margin-left: 24px;
+    margin-top: 20px;
 
-    span {
-        color: $primary;
+    .hamburger {
+        &:hover {
+            cursor: pointer;
+        }
+
+        .line {
+            width: 25px;
+            height: 2px;
+            background-color: $main-white;
+            display: block;
+            margin: 4px 0;
+        }
     }
 }
 

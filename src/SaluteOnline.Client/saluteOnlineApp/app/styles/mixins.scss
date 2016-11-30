@@ -7,3 +7,25 @@
 	margin: auto;
 	text-align: $text-align;
 }
+
+@mixin transition($args...) {
+  -webkit-transition: $args;
+  -moz-transition: $args;
+  -ms-transition: $args;
+  -o-transition: $args;
+  transition: $args;
+}
+
+@mixin transform($args...) {
+  -webkit-transform: $args;
+  -ms-transform: $args;
+  -o-transform: $args;
+  transform: $args;
+}
+
+@mixin hamburger-transition($translateX, $rotate) {
+    -webkit-transform: translateX($translateX) rotate($rotate);
+    -ms-transform: translateX($translateX) rotate($rotate);
+    -o-transform: translateX($translateX) rotate($rotate);
+    transform: translateX($translateX) rotate($rotate);
+}

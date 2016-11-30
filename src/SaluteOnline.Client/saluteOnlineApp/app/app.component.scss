@@ -2,7 +2,7 @@
 @import "styles/mixins";
 
 body {
-    background-image: radial-gradient(circle farthest-corner at center, #282828 0%, #1C262B 100%);
+    background-image: linear-gradient(to left top, #c52a2a, #D32F2F);
 
     .loader {
         display: none;
