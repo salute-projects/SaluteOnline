@@ -1,6 +1,8 @@
 ﻿import { Component, ElementRef, HostListener, ViewEncapsulation, AfterViewInit, OnInit } from "@angular/core";
 import { GlobalState } from "../../services/global.state";
 import { layoutSizes } from "../../styles/constants.ts";
+import { menuList } from "../../configuration/menu-list";
+import * as _ from "lodash";
 
 @Component({
     selector: 'so-sidebar',
@@ -10,6 +12,9 @@ import { layoutSizes } from "../../styles/constants.ts";
 })
 
 export class SoSidebar implements AfterViewInit, OnInit {
+
+    routes = _.cloneDeep(menuList);
+
     isMenuCollapsed = false;    
     isSidebarShouldCollapse = false;
     menuHeight : number;

@@ -17,6 +17,7 @@ import "reflect-metadata";
 // You can import js, ts, css, sass, ...
 
 import "jquery";
+import "lodash";
 import "bootstrap/dist/js/bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "angular2-toaster/lib/toaster.css";

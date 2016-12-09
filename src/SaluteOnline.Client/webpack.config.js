@@ -28,10 +28,13 @@ module.exports = {
                 loader: "html"
             },
             {
-                test: /\.(png|jpg|gif|ico|woff|woff2|ttf|svg|eot)$/,
+                test: /\.(png|jpg|gif|ico|)$/,
                 loader: "file?name=assets/[name]-[hash:6].[ext]",
             },
-
+            {
+                test: /\.woff|\.woff2|\.svg|.eot|\.ttf/,
+                loader: 'file'
+            },
             // Load css files which are required in vendor.ts
             {
                 test: /\.css$/,

@@ -1,5 +1,7 @@
 ﻿@import "~@telerik/kendo-theme-default/styles/packages/all";
 @import "styles/mixins";
+$ionicons-font-path: "~ionicons/fonts";
+@import "~ionicons/scss/ionicons";
 
 body {
     background-image: linear-gradient(to left top, #c52a2a, #D32F2F);

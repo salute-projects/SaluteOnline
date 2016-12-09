@@ -1,14 +1,5 @@
-﻿$font-family: 'Roboto', sans-serif;
+﻿$font-family: 'Ubuntu Condensed', sans-serif;
 $font-family-logo: 'Fjalla One', sans-serif;
-
-$resXXL: 1280px;
-$resXL: 1170px;
-$resL: 991px;
-$resM: 768px;
-$resS: 660px;
-$resXS: 500px;
-$resXXS: 435px;
-$resMin: 320px;
 
 $small-card-height: 114px;
 $xsmall-card-height: 187px;
@@ -43,15 +34,29 @@ $sidebar-text: #ffffff;
 
 $primary: #00abff !default;
 
-//
+// colors
 
 $main-red: #D32F2F;
 $main-red-hover: #d74444;
-
 $main-white: #fcf1f1;
+$background-color: #1F1F1F;
 
-$sidebar-width: 180px;
+$main-blue: #00abff;
+
+// sizes
 
 $top-height: 66px;
 
-$background-color: #1F1F1F;
+$sidebar-width: 180px;
+$sidebar-scroll-width: 4px;
+
+// resolutions
+
+$resXXL: 1280px;
+$resXL: 1170px;
+$resL: 991px;
+$resM: 768px;
+$resS: 660px;
+$resXS: 500px;
+$resXXS: 435px;
+$resMin: 320px;

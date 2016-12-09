@@ -1,0 +1,7 @@
+﻿<ul class="so-sidebar-list" (mouseLeave)="hoverElemTop = outOfArea">
+    <so-menu-item [menuItem]="item"
+                  (itemHover)="hoverItem($event)"
+                  (toggleSubMenu)="toggleSubMenu($event)"
+                  *ngFor="let item of menuItems"></so-menu-item>
+</ul>
+<div class="so-sidebar-hover-elem" [ngStyle]="{ top: hoverElemTop + 'px', height: hoverElemHeight + 'px'}" [class.show-hover-elem]="showHoverElem"></div>

@@ -29,3 +29,7 @@
     -o-transform: translateX($translateX) rotate($rotate);
     transform: translateX($translateX) rotate($rotate);
 }
+
+@mixin bg-translucent-dark($opacity) {
+  background: rgba(0, 0, 0, $opacity);
+}

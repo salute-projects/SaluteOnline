@@ -5,7 +5,6 @@ import { Subject } from "rxjs/Subject";
 export class GlobalState {
     private data = new Subject<Object>();
     private dataStream = this.data.asObservable();
-
     private subscriptions = new Map<string, Array<Function>>();
 
     constructor() {
