@@ -7,7 +7,7 @@ import { SoSidebar } from "../components/so-sidebar/so-sidebar.component";
     declarations: [SoHeader, SoSidebar],
     encapsulation: ViewEncapsulation.None,
     styles: [],
-    template: '<so-header></so-header><so-sidebar></so-sidebar><div></div>'
+    template: require('./pages-template.html')
 }) as any)
 
 export class Pages { }

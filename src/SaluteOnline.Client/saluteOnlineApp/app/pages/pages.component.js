@@ -10,16 +10,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var so_header_component_1 = require("../components/so-header/so-header.component");
+var so_sidebar_component_1 = require("../components/so-sidebar/so-sidebar.component");
 var Pages = (function () {
     function Pages() {
     }
     Pages = __decorate([
         core_1.Component(({
             selector: 'pages',
-            declarations: [so_header_component_1.SoHeader],
+            declarations: [so_header_component_1.SoHeader, so_sidebar_component_1.SoSidebar],
             encapsulation: core_1.ViewEncapsulation.None,
             styles: [],
-            template: '<so-header></so-header><div></div>'
+            template: '<so-header></so-header><so-sidebar></so-sidebar><div></div>'
         })), 
         __metadata('design:paramtypes', [])
     ], Pages);

@@ -13,13 +13,17 @@ var common_1 = require("@angular/common");
 var pages_routing_1 = require("./pages.routing");
 var pages_component_1 = require("./pages.component");
 var so_header_component_1 = require('../components/so-header/so-header.component');
+var so_sidebar_component_1 = require("../components/so-sidebar/so-sidebar.component");
+var so_menu_component_1 = require("../components/so-menu/so-menu.component");
+var so_menuitem_component_1 = require("../components/so-menuitem/so-menuitem.component");
+var so_tooltip_module_1 = require("../components/so-tooltip/so-tooltip-module");
 var PagesModule = (function () {
     function PagesModule() {
     }
     PagesModule = __decorate([
         core_1.NgModule({
-            imports: [common_1.CommonModule, pages_routing_1.routing],
-            declarations: [pages_component_1.Pages, so_header_component_1.SoHeader]
+            imports: [common_1.CommonModule, so_tooltip_module_1.SoTooltipModule, pages_routing_1.routing],
+            declarations: [pages_component_1.Pages, so_header_component_1.SoHeader, so_sidebar_component_1.SoSidebar, so_menu_component_1.SoMenu, so_menuitem_component_1.SoMenuItem]
         }), 
         __metadata('design:paramtypes', [])
     ], PagesModule);

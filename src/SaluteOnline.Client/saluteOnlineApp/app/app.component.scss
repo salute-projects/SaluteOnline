@@ -1,10 +1,12 @@
-﻿@import "~@telerik/kendo-theme-default/styles/packages/all";
+﻿@import '~@angular/material/core/theming/prebuilt/indigo-pink.css';
 @import "styles/mixins";
+@import "styles/vars";
 $ionicons-font-path: "~ionicons/fonts";
 @import "~ionicons/scss/ionicons";
 
 body {
-    background-image: linear-gradient(to left top, #c52a2a, #D32F2F);
+    background: linear-gradient(to left top, #c52a2a, #D32F2F);
+    background-image: url('../app/image/debut_light.png');
 
     .loader {
         display: none;
@@ -44,6 +46,23 @@ body {
                 border-top: 3px solid #EFEFFA;
             }
         }   
+    }
+}
+
+.so-main {
+    margin-left: $sidebar-width;
+    padding: 66px 0 34px 0;
+    min-height: 500px;
+    position: relative;
+
+    .so-content {
+        padding: 8px 32px 8px 40px;
+    }
+
+    @media screen and (max-width: $resXS) {
+        .so-content {
+          padding: 8px 20px;
+        }
     }
 }
 
@@ -116,4 +135,10 @@ body {
   100% {
     transform: rotateX(35deg) rotateY(55deg) rotateZ(360deg);
   }
+}
+
+@media (max-width: 590px) {
+    .so-main {
+        padding-bottom: 76px;
+    }
 }

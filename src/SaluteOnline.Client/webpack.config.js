@@ -1,5 +1,5 @@
 ﻿var ExtractTextPlugin = require("extract-text-webpack-plugin");
-var webpack = require("webpack");
+var Webpack = require("webpack");
 var HtmlWebpackPlugin = require("html-webpack-plugin");
 var CleanWebpackPlugin = require('clean-webpack-plugin');
 
@@ -21,21 +21,26 @@ module.exports = {
         loaders: [
             {
                 test: /\.ts$/,
-                loader: "ts"
+                loaders: [
+                  'awesome-typescript-loader',
+                  'angular-router-loader'
+                ]
             },
             {
                 test: /\.html$/,
                 loader: "html"
             },
             {
-                test: /\.(png|jpg|gif|ico|)$/,
-                loader: "file?name=assets/[name]-[hash:6].[ext]",
+                test: /\.(png|jpe?g|gif|ico|)$/,
+                loader: "file-loader",
+                options: {
+                    name: './images/[name].[ext]'
+                }
             },
             {
                 test: /\.woff|\.woff2|\.svg|.eot|\.ttf/,
                 loader: 'file'
             },
-            // Load css files which are required in vendor.ts
             {
                 test: /\.css$/,
                 loader: ExtractTextPlugin.extract('style', 'css')
@@ -44,7 +49,7 @@ module.exports = {
                 test: /\.scss$/,
                 exclude: /node_modules/,
                 loader: 'style-loader!css-loader!sass-loader'
-            },
+            }
         ]
     },
     plugins: [
@@ -54,11 +59,11 @@ module.exports = {
             ]
         ),
         new ExtractTextPlugin("css/[name]-[hash:8].bundle.css"),
-        new webpack.optimize.CommonsChunkPlugin({
+        new Webpack.optimize.CommonsChunkPlugin({
             name: ["app", "vendor", "polyfills"]
         }),
 
-        new webpack.ProvidePlugin({
+        new Webpack.ProvidePlugin({
             jQuery: 'jquery',
             $: 'jquery',
             jquery: 'jquery'

@@ -42,6 +42,7 @@ $main-white: #fcf1f1;
 $background-color: #1F1F1F;
 
 $main-blue: #00abff;
+$primary-dark: shade($primary, 15%);
 
 // sizes
 
@@ -60,3 +61,9 @@ $resS: 660px;
 $resXS: 500px;
 $resXXS: 435px;
 $resMin: 320px;
+
+// paths
+
+$assets-root: 'assets/';
+$images-root: $assets-root + 'img/';
+$main-bg-image: $images-root + 'debut_light.png';

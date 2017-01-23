@@ -18,7 +18,7 @@ var AppComponent = (function () {
         this.loader = loader;
         this.isMenuCollapsed = false;
         this.loader.show();
-        this.state.subscribe('menu.collapsed', function (isCollapsed) {
+        this.state.subscribe('menu.isCollapsed', function (isCollapsed) {
             _this.isMenuCollapsed = isCollapsed;
         });
     }

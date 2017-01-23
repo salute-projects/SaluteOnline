@@ -1,0 +1,12 @@
+{
+  "app": {
+    "js": "js/app.bundle.js"
+  },
+  "polyfills": {
+    "js": "js/polyfills.bundle.js"
+  },
+  "vendor": {
+    "js": "js/vendor.bundle.js",
+    "css": "css/vendor-4fc1018d.bundle.css"
+  }
+}

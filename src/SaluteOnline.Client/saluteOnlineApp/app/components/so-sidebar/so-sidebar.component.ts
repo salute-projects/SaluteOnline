@@ -1,6 +1,6 @@
 ﻿import { Component, ElementRef, HostListener, ViewEncapsulation, AfterViewInit, OnInit } from "@angular/core";
 import { GlobalState } from "../../services/global.state";
-import { layoutSizes } from "../../styles/constants.ts";
+import { layoutSizes } from "../../styles/constants";
 import { menuList } from "../../configuration/menu-list";
 import * as _ from "lodash";
 
