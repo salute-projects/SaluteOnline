@@ -2,6 +2,7 @@
 var Webpack = require("webpack");
 var HtmlWebpackPlugin = require("html-webpack-plugin");
 var CleanWebpackPlugin = require('clean-webpack-plugin');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     entry: {
@@ -62,17 +63,19 @@ module.exports = {
         new Webpack.optimize.CommonsChunkPlugin({
             name: ["app", "vendor", "polyfills"]
         }),
-
         new Webpack.ProvidePlugin({
             jQuery: 'jquery',
             $: 'jquery',
             jquery: 'jquery'
         }),
-
         new HtmlWebpackPlugin({
             template: "./saluteOnlineApp/index.html",
             inject: "body"
-        })
+        }),
+        new CopyWebpackPlugin([{
+            from: 'saluteOnlineApp/app/image',
+            to: 'content'
+        }])
     ],
     devServer: {
         historyApiFallback: true,
