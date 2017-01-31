@@ -5,6 +5,7 @@ $text-color: #ffffff;
 
 
 .auth-main {
+    font-family: $font-family;
   display: flex;
   align-items: center;
   height: 100%;
@@ -125,4 +126,22 @@ a.forgot-pass {
 
 .btn-auth {
   color: #ffffff!important;
+}
+
+// custom
+
+.so-input {
+    width: 100%;
+
+    .md-input-placeholder {
+        color: $main-white;
+    }
+
+    .md-input-underline {
+        background-color: $main-white;
+    }
+
+    .md-input-element {
+        font-size: 1.8rem;
+    }
 }
