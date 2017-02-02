@@ -124,10 +124,6 @@ a.forgot-pass {
   }
 }
 
-.btn-auth {
-  color: #ffffff!important;
-}
-
 // custom
 
 .so-input {
@@ -144,4 +140,25 @@ a.forgot-pass {
     .md-input-element {
         font-size: 1.8rem;
     }
+
+    &.has-error {
+        .md-input-underline {
+            background-color: $main-red;
+            height: 2px;
+        }
+    }
+
+    &.has-success {
+        .md-input-underline {
+            background-color: $main-green;
+        }
+    }
+}
+
+.btn-auth {
+    background: $main-red-hover;
+}
+
+[md-button][disabled][disabled] {
+    background-color: $main-white;
 }
