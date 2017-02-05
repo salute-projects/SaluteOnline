@@ -2,9 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MongoDB.Driver;
 using SaluteOnline.DAL;
+using SaluteOnline.Domain.Enums;
 using SaluteOnline.Domain.User;
+using MongoUser = SaluteOnline.Domain.User.MongoUser;
 
 namespace SaluteOnline.Controllers
 {
@@ -51,7 +55,7 @@ namespace SaluteOnline.Controllers
         }
 
         [HttpGet("GetPage")]
-        public async Task<IActionResult> GetPage([FromQuery]int page, int items)
+        public async Task<IActionResult> GetPage([FromQuery] int page, int items)
         {
             try
             {
@@ -63,17 +67,35 @@ namespace SaluteOnline.Controllers
             }
         }
 
+        //[HttpPost]
+        //public async Task<IActionResult> Add(User user)
+        //{
+        //    try
+        //    {
+        //        var newUser = await _unitOfWork.Users.InsertAsync(user);
+        //        if (newUser != null)
+        //        {
+        //            return Ok(newUser);
+        //        }
+        //        return BadRequest("User wasn't added");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(ex.Message);
+        //    }
+        //}
+
+        [AllowAnonymous]
         [HttpPost]
-        public async Task<IActionResult> Add(User user)
+        public async Task<IActionResult> Register(MongoUser user)
         {
             try
             {
-                var newUser = await _unitOfWork.Users.InsertAsync(user);
-                if (newUser != null)
-                {
-                    return Ok(newUser);
-                }
-                return BadRequest("User wasn't added");
+                user.Guid = Guid.NewGuid();
+                user.Role = Role.User;
+                var newUser = await _unitOfWork.MongoUsers.InsertAsync(user);
+                if (newUser == null) return BadRequest("User wasn't added");
+                return Ok(newUser);
             }
             catch (Exception ex)
             {

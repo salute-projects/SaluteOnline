@@ -8,23 +8,22 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require("@angular/core");
-var so_header_component_1 = require("../components/so-header/so-header.component");
-var so_sidebar_component_1 = require("../components/so-sidebar/so-sidebar.component");
-var Pages = (function () {
-    function Pages() {
+var core_1 = require('@angular/core');
+var common_1 = require("@angular/common");
+var main_page_component_1 = require('./main-page.component');
+var main_page_routing_1 = require('./main-page.routing');
+var material_1 = require("@angular/material");
+var MainPageModule = (function () {
+    function MainPageModule() {
     }
-    Pages = __decorate([
-        core_1.Component(({
-            selector: 'pages',
-            declarations: [so_header_component_1.SoHeader, so_sidebar_component_1.SoSidebar],
-            encapsulation: core_1.ViewEncapsulation.None,
-            styles: [],
-            template: require('./pages-template.html')
-        })), 
+    MainPageModule = __decorate([
+        core_1.NgModule({
+            imports: [common_1.CommonModule, main_page_routing_1.routing, material_1.MdButtonModule, material_1.MdTooltipModule],
+            declarations: [main_page_component_1.MainPage]
+        }), 
         __metadata('design:paramtypes', [])
-    ], Pages);
-    return Pages;
+    ], MainPageModule);
+    return MainPageModule;
 }());
-exports.Pages = Pages;
-//# sourceMappingURL=pages.component.js.map
+exports.MainPageModule = MainPageModule;
+//# sourceMappingURL=main-page.module.js.map

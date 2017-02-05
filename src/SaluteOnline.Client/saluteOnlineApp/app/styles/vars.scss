@@ -1,7 +1,4 @@
-﻿$font-family: 'Ubuntu Condensed', sans-serif;
-$font-family-logo: 'Fjalla One', sans-serif;
-
-$small-card-height: 114px;
+﻿$small-card-height: 114px;
 $xsmall-card-height: 187px;
 $medium-card-height: 400px;
 $extra-medium-card-height: 550px;
@@ -40,11 +37,18 @@ $main-red: #D32F2F;
 $main-red-hover: #d74444;
 $main-white: #fcf1f1;
 $background-color: #1F1F1F;
-
 $main-blue: #00abff;
 $primary-dark: shade($primary, 15%);
-
 $main-green: #2FD381;
+
+$facebook-color: #3b5998;
+$twitter-color: #55acee;
+$google-color: #dd4b39;
+$linkedin-color: #0177B5;
+$github-color: #6b6b6b;
+$stackoverflow-color: #2F96E8;
+$dribble-color: #F26798;
+$behace-color: #0093FA;
 
 // sizes
 
@@ -69,3 +73,9 @@ $resMin: 320px;
 $assets-root: 'assets/';
 $images-root: $assets-root + 'img/';
 $main-bg-image: $images-root + 'debut_light.png';
+
+// fonts
+
+$font-family: 'Ubuntu Condensed', sans-serif;
+$font-family-logo: 'Fjalla One', sans-serif;
+$font-normal: 400;

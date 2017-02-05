@@ -75,6 +75,10 @@ namespace SaluteOnline
                 AutomaticChallenge = true,
                 RequireHttpsMetadata = false
             });
+            app.UseCors(builder => builder
+                .AllowAnyOrigin()
+                .AllowAnyHeader()
+                .AllowAnyMethod());
             app.UseMvc();
         }
     }

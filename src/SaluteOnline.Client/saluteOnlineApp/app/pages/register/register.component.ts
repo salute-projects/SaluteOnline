@@ -2,6 +2,7 @@
 import { FormGroup, AbstractControl, FormBuilder, Validators } from "@angular/forms";
 import { EmailValidator } from "../../services/validators/email.validator";
 import { EqualPasswordValidator } from "../../services/validators/equal-passwords.validator";
+import { Http, Headers, RequestOptions, URLSearchParams } from "@angular/http";
 
 @Component({
     selector: 'so-register',
@@ -19,7 +20,7 @@ export class SoRegister {
     passwords:FormGroup;
     submitted = false;
 
-    constructor(fb: FormBuilder) {
+    constructor(fb: FormBuilder, public http: Http) {
         this.form = fb.group({
             'name': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
             'email': ['', Validators.compose([Validators.required, EmailValidator.validate])],
@@ -39,5 +40,20 @@ export class SoRegister {
 
     onSubmit(values: Object): void {
         this.submitted = true;
+        const params = new URLSearchParams();
+        params.set('Username', this.name.value);
+        params.set('Password', this.password.value);
+        params.set('Email', this.email.value);        
+
+        const headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
+        const options = new RequestOptions({ headers: headers });
+
+        this.http.post('http://localhost:43713/api/user', params.toString(), options)
+            .map(res => res.json())
+            .subscribe(
+                (data: any) => console.log(data),
+                err => console.log(err),
+                () => console.log('empty')
+            );
     }
 }

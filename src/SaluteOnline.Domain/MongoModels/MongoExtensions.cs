@@ -9,7 +9,7 @@ namespace SaluteOnline.Domain.MongoModels
     {
         public static string ToMongoCollectionName(this Type entityType)
         {
-            return entityType.Name.Replace("Mongo", string.Empty);
+            return entityType.Name.Replace("Mongo", string.Empty) + "s";
         }
     }
 }

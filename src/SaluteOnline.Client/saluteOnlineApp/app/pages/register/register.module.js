@@ -9,22 +9,23 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var so_header_component_1 = require("../components/so-header/so-header.component");
-var so_sidebar_component_1 = require("../components/so-sidebar/so-sidebar.component");
-var Pages = (function () {
-    function Pages() {
+var common_1 = require("@angular/common");
+var forms_1 = require("@angular/forms");
+var material_1 = require("@angular/material");
+var http_1 = require("@angular/http");
+var register_component_1 = require("./register.component");
+var register_routing_1 = require("./register.routing");
+var RegisterModule = (function () {
+    function RegisterModule() {
     }
-    Pages = __decorate([
-        core_1.Component(({
-            selector: 'pages',
-            declarations: [so_header_component_1.SoHeader, so_sidebar_component_1.SoSidebar],
-            encapsulation: core_1.ViewEncapsulation.None,
-            styles: [],
-            template: require('./pages-template.html')
-        })), 
+    RegisterModule = __decorate([
+        core_1.NgModule({
+            imports: [common_1.CommonModule, forms_1.ReactiveFormsModule, forms_1.FormsModule, material_1.MdInputModule, material_1.MdButtonModule, http_1.HttpModule, http_1.JsonpModule, register_routing_1.routing],
+            declarations: [register_component_1.SoRegister]
+        }), 
         __metadata('design:paramtypes', [])
-    ], Pages);
-    return Pages;
+    ], RegisterModule);
+    return RegisterModule;
 }());
-exports.Pages = Pages;
-//# sourceMappingURL=pages.component.js.map
+exports.RegisterModule = RegisterModule;
+//# sourceMappingURL=register.module.js.map

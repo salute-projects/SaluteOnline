@@ -8,6 +8,7 @@ namespace SaluteOnline.DAL
         void Save();
         void SaveAsync();
         GenericRepository<User> Users { get; }
+        GenericRepository<MongoUser> MongoUsers { get; }
         GenericRepository<MongoProtocol> Protocols { get; }
     }
 }

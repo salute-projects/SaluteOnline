@@ -1,6 +1,5 @@
 ﻿using System;
 using Microsoft.Extensions.Configuration;
-using MongoDB.Driver;
 using SaluteOnline.Domain.MongoModels;
 using SaluteOnline.Domain.User;
 
@@ -21,6 +20,9 @@ namespace SaluteOnline.DAL
 
         private GenericRepository<MongoProtocol> _protocols;
         public GenericRepository<MongoProtocol> Protocols => _protocols ?? (_protocols = new GenericRepository<MongoProtocol>(_context, _configuration));
+
+        private GenericRepository<MongoUser> _mongoUsers;
+        public GenericRepository<MongoUser> MongoUsers => _mongoUsers ?? (_mongoUsers = new GenericRepository<MongoUser>(_context, _configuration));
 
         public void Save()
         {

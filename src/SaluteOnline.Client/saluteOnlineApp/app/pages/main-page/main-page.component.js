@@ -9,22 +9,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var so_header_component_1 = require("../components/so-header/so-header.component");
-var so_sidebar_component_1 = require("../components/so-sidebar/so-sidebar.component");
-var Pages = (function () {
-    function Pages() {
+var MainPage = (function () {
+    function MainPage() {
     }
-    Pages = __decorate([
-        core_1.Component(({
-            selector: 'pages',
-            declarations: [so_header_component_1.SoHeader, so_sidebar_component_1.SoSidebar],
+    MainPage = __decorate([
+        core_1.Component({
+            selector: 'main-page',
             encapsulation: core_1.ViewEncapsulation.None,
-            styles: [],
-            template: require('./pages-template.html')
-        })), 
+            styles: [require('./main-page.component.scss').toString()],
+            template: require('./main-page.component.html')
+        }), 
         __metadata('design:paramtypes', [])
-    ], Pages);
-    return Pages;
+    ], MainPage);
+    return MainPage;
 }());
-exports.Pages = Pages;
-//# sourceMappingURL=pages.component.js.map
+exports.MainPage = MainPage;
+//# sourceMappingURL=main-page.component.js.map

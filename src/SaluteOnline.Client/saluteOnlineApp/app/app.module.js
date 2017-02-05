@@ -13,17 +13,16 @@ var router_1 = require("@angular/router");
 var platform_browser_1 = require('@angular/platform-browser');
 var app_component_1 = require('./app.component');
 var pages_module_1 = require('./pages/pages.module');
-var so_tooltip_module_1 = require("./components/so-tooltip/so-tooltip-module");
+var material_1 = require('@angular/material');
 var appRoutes = [
-    { path: '', redirectTo: 'pages', pathMatch: 'full' },
-    { path: '**', redirectTo: 'pages' }
+    { path: '', redirectTo: 'pages', pathMatch: 'full' }
 ];
 var AppModule = (function () {
     function AppModule() {
     }
     AppModule = __decorate([
         core_1.NgModule({
-            imports: [platform_browser_1.BrowserModule, pages_module_1.PagesModule, so_tooltip_module_1.SoTooltipModule, router_1.RouterModule.forRoot(appRoutes, { useHash: true })],
+            imports: [platform_browser_1.BrowserModule, pages_module_1.PagesModule, material_1.MaterialModule.forRoot(), router_1.RouterModule.forRoot(appRoutes, { useHash: true })],
             declarations: [app_component_1.AppComponent],
             bootstrap: [app_component_1.AppComponent]
         }), 
