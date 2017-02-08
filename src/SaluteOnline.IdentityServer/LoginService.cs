@@ -16,7 +16,7 @@ namespace SaluteOnline.IdentityServer
             return _repository.ValidatePassword(username, password);
         }
 
-        public MongoDbUser FindByUserName(string username)
+        public Domain.User.MongoUser FindByUserName(string username)
         {
             return _repository.GetUserByUsername(username);
         }

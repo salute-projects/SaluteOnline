@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using IdentityModel.Client;
+using IdentityServer4.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
@@ -60,42 +62,6 @@ namespace SaluteOnline.Controllers
             try
             {
                 return Ok(await _unitOfWork.Users.GetPageAsync(page, items));
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
-        //[HttpPost]
-        //public async Task<IActionResult> Add(User user)
-        //{
-        //    try
-        //    {
-        //        var newUser = await _unitOfWork.Users.InsertAsync(user);
-        //        if (newUser != null)
-        //        {
-        //            return Ok(newUser);
-        //        }
-        //        return BadRequest("User wasn't added");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest(ex.Message);
-        //    }
-        //}
-
-        [AllowAnonymous]
-        [HttpPost]
-        public async Task<IActionResult> Register(MongoUser user)
-        {
-            try
-            {
-                user.Guid = Guid.NewGuid();
-                user.Role = Role.User;
-                var newUser = await _unitOfWork.MongoUsers.InsertAsync(user);
-                if (newUser == null) return BadRequest("User wasn't added");
-                return Ok(newUser);
             }
             catch (Exception ex)
             {

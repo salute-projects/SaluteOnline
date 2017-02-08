@@ -31,7 +31,8 @@ namespace SaluteOnline.IdentityServer
                 AllowedScopes = client.AllowedScopes,
                 RedirectUris = client.RedirectUris,
                 AllowAccessTokensViaBrowser = true,
-                ClientSecrets = client.ClientSecrets.Select(t => new Secret(t.Sha256())).ToList()
+                ClientSecrets = client.ClientSecrets.Select(t => new Secret(t.Sha256())).ToList(),
+                AllowedCorsOrigins = { "http://localhost:8080" }
             });
         }
     }

@@ -1,43 +1,37 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
 using SaluteOnline.Domain.Enums;
-using SaluteOnline.IdentityServer.DAL;
-using SaluteOnline.Domain.Extensions;
+using SaluteOnline.Domain.User;
 
 namespace SaluteOnline.IdentityServer.Controllers
 {
     [Route("api/[controller]")]
     public class AccountController : Controller
     {
-        private readonly IPasswordHasher<MongoDbUser> _passwordHasher;
+        private readonly IPasswordHasher<Domain.User.MongoUser> _passwordHasher;
         private readonly IMongoDatabase _mongoDatabase;
         public const string UsersCollectionName = "Users";
 
-        public AccountController(IPasswordHasher<MongoDbUser> passwordHasher)
+        public AccountController(IPasswordHasher<Domain.User.MongoUser> passwordHasher)
         {
             _mongoDatabase = new MongoClient("mongodb://localhost:27017").GetDatabase("SaluteOnlineMongoDB");
             _passwordHasher = passwordHasher;
         }
 
         [HttpPost]
-        [Authorize(nameof(Role.Admin))]
-        public async Task<IActionResult> Register(MongoDbUser newUser)
+        public async Task<IActionResult> Register(Domain.User.MongoUser newUser)
         {
-            var collection = _mongoDatabase.GetCollection<MongoDbUser>(UsersCollectionName);
-            var filter = Builders<MongoDbUser>.Filter.Eq(t => t.Username, newUser.Username ) | Builders<MongoDbUser>.Filter.Eq(t => t.Email, newUser.Email);
+            var collection = _mongoDatabase.GetCollection<Domain.User.MongoUser>(UsersCollectionName);
+            var filter = Builders<Domain.User.MongoUser>.Filter.Eq(t => t.Username, newUser.Username ) | Builders<Domain.User.MongoUser>.Filter.Eq(t => t.Email, newUser.Email);
             var target = collection.Find(filter).SingleOrDefaultAsync().Result;
             if (target != null) return BadRequest("User with same login or email already exists");
-            var userToAdd = new MongoDbUser
+            var userToAdd = new Domain.User.MongoUser
             {
-                Id = Guid.NewGuid().ToString(),
-                LastName = newUser.LastName.EmptyIfNull(),
-                FirstName = newUser.FirstName.EmptyIfNull(),
+                Guid = Guid.NewGuid(),
                 Email = newUser.Email,
                 IsActive = true,
                 Username = newUser.Username,
@@ -46,18 +40,18 @@ namespace SaluteOnline.IdentityServer.Controllers
             };
             userToAdd.Password = _passwordHasher.HashPassword(userToAdd, newUser.Password);
             await collection.InsertOneAsync(userToAdd);
-            return Ok();
+            return Ok(userToAdd);
         }
 
         [HttpPatch]
         [Authorize(nameof(Role.SilentDon))]
         public async Task<IActionResult> ChangeUserRole(string userName, Role role)
         {
-            var collection = _mongoDatabase.GetCollection<MongoDbUser>(UsersCollectionName);
-            var filter = Builders<MongoDbUser>.Filter.Eq(t => t.Username, userName);
+            var collection = _mongoDatabase.GetCollection<Domain.User.MongoUser>(UsersCollectionName);
+            var filter = Builders<Domain.User.MongoUser>.Filter.Eq(t => t.Username, userName);
             var target = collection.Find(filter).SingleOrDefaultAsync().Result;
             if (target == null) return BadRequest($"User with UserName {userName} wasn't found");
-            var update = Builders<MongoDbUser>.Update.Set(t => t.Role, role);
+            var update = Builders<Domain.User.MongoUser>.Update.Set(t => t.Role, role);
             var result = await collection.UpdateOneAsync(filter, update);
             if (result.IsAcknowledged)
             {

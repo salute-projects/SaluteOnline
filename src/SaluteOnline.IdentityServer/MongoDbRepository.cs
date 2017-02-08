@@ -6,28 +6,28 @@ namespace SaluteOnline.IdentityServer
 {
     public class MongoDbRepository : IRepository
     {
-        private readonly IPasswordHasher<MongoDbUser> _passwordHasher;
+        private readonly IPasswordHasher<Domain.User.MongoUser> _passwordHasher;
         private readonly IMongoDatabase _mongoDatabase;
         public const string UsersCollectionName = "Users";
         public const string ClientsCollectionName = "Clients";
 
-        public MongoDbRepository(IPasswordHasher<MongoDbUser> passwordHasher)
+        public MongoDbRepository(IPasswordHasher<Domain.User.MongoUser> passwordHasher)
         {
             _mongoDatabase = new MongoClient("mongodb://localhost:27017").GetDatabase("SaluteOnlineMongoDB");
             _passwordHasher = passwordHasher;
         }
 
-        public MongoDbUser GetUserByUsername(string username)
+        public Domain.User.MongoUser GetUserByUsername(string username)
         {
-            var collection = _mongoDatabase.GetCollection<MongoDbUser>(UsersCollectionName);
-            var filter = Builders<MongoDbUser>.Filter.Eq(t => t.Username, username);
+            var collection = _mongoDatabase.GetCollection<Domain.User.MongoUser>(UsersCollectionName);
+            var filter = Builders<Domain.User.MongoUser>.Filter.Eq(t => t.Username, username);
             return collection.Find(filter).SingleOrDefaultAsync().Result;
         }
 
-        public MongoDbUser GetUserById(string id)
+        public Domain.User.MongoUser GetUserById(string id)
         {
-            var collection = _mongoDatabase.GetCollection<MongoDbUser>(UsersCollectionName);
-            var filter = Builders<MongoDbUser>.Filter.Eq(t => t.Id, id);
+            var collection = _mongoDatabase.GetCollection<Domain.User.MongoUser>(UsersCollectionName);
+            var filter = Builders<Domain.User.MongoUser>.Filter.Eq(t => t.Guid.ToString(), id);
             return collection.Find(filter).SingleOrDefaultAsync().Result;
         }
 

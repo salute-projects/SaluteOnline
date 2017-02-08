@@ -2,8 +2,8 @@
 {
     public interface IRepository
     {
-        MongoDbUser GetUserByUsername(string username);
-        MongoDbUser GetUserById(string id);
+        Domain.User.MongoUser GetUserByUsername(string username);
+        Domain.User.MongoUser GetUserById(string id);
         bool ValidatePassword(string username, string plainTextPassword);
         MongoDbClient GetClient(string clientId);
     }

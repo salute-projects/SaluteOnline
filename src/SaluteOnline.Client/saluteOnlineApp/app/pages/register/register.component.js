@@ -13,9 +13,11 @@ var forms_1 = require("@angular/forms");
 var email_validator_1 = require("../../services/validators/email.validator");
 var equal_passwords_validator_1 = require("../../services/validators/equal-passwords.validator");
 var http_1 = require("@angular/http");
+var login_service_1 = require("../../services/login.service");
 var SoRegister = (function () {
-    function SoRegister(fb, http) {
+    function SoRegister(fb, http, _loginService) {
         this.http = http;
+        this._loginService = _loginService;
         this.submitted = false;
         this.form = fb.group({
             'name': ['', forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.minLength(4)])],
@@ -32,26 +34,29 @@ var SoRegister = (function () {
         this.confirmPassword = this.passwords.controls["confirmPassword"];
     }
     SoRegister.prototype.onSubmit = function (values) {
+        var _this = this;
         this.submitted = true;
-        var body = JSON.stringify({
-            Username: this.name.value,
-            Password: this.password.value,
-            Email: this.email.value
-        });
-        var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+        var params = new http_1.URLSearchParams();
+        params.set('Username', this.name.value);
+        params.set('Password', this.password.value);
+        params.set('Email', this.email.value);
+        var headers = new http_1.Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
         var options = new http_1.RequestOptions({ headers: headers });
-        this.http.post('http://localhost:43713/api/user', body, options)
+        this.http.post('http://localhost:43713/api/user', params.toString(), options)
             .map(function (res) { return res.json(); })
-            .subscribe(function (data) { return console.log(data); }, function (err) { return console.log(err); }, function () { return console.log('empty'); });
+            .subscribe(function (data) {
+            _this._loginService.login(_this.name.value, _this.password.value);
+        }, function (err) { return console.log(err); }, function () { return console.log('empty'); });
     };
     SoRegister = __decorate([
         core_1.Component({
             selector: 'so-register',
+            providers: [login_service_1.LoginService],
             encapsulation: core_1.ViewEncapsulation.None,
             styles: [require('./register.component.scss').toString()],
             template: require('./register.component.html')
         }), 
-        __metadata('design:paramtypes', [forms_1.FormBuilder, http_1.Http])
+        __metadata('design:paramtypes', [forms_1.FormBuilder, http_1.Http, login_service_1.LoginService])
     ], SoRegister);
     return SoRegister;
 }());

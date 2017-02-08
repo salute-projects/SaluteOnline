@@ -3,9 +3,11 @@ import { FormGroup, AbstractControl, FormBuilder, Validators } from "@angular/fo
 import { EmailValidator } from "../../services/validators/email.validator";
 import { EqualPasswordValidator } from "../../services/validators/equal-passwords.validator";
 import { Http, Headers, RequestOptions, URLSearchParams } from "@angular/http";
+import { LoginService } from "../../services/login.service"
 
 @Component({
     selector: 'so-register',
+    providers: [LoginService],
     encapsulation: ViewEncapsulation.None,
     styles: [require('./register.component.scss').toString()],
     template: require('./register.component.html')
@@ -20,7 +22,7 @@ export class SoRegister {
     passwords:FormGroup;
     submitted = false;
 
-    constructor(fb: FormBuilder, public http: Http) {
+    constructor(fb: FormBuilder, public http: Http, private _loginService: LoginService) {
         this.form = fb.group({
             'name': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
             'email': ['', Validators.compose([Validators.required, EmailValidator.validate])],
@@ -48,10 +50,12 @@ export class SoRegister {
         const headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
         const options = new RequestOptions({ headers: headers });
 
-        this.http.post('http://localhost:43713/api/user', params.toString(), options)
+        this.http.post('http://localhost:9657/api/account', params.toString(), options)
             .map(res => res.json())
             .subscribe(
-                (data: any) => console.log(data),
+                (data: any) => {
+                    this._loginService.login(this.name.value, this.password.value);
+                },
                 err => console.log(err),
                 () => console.log('empty')
             );

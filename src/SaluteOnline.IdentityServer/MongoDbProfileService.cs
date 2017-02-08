@@ -23,10 +23,8 @@ namespace SaluteOnline.IdentityServer
             var subjectId = context.Subject.GetSubjectId();
             var user = Repository.GetUserByUsername(subjectId);
             var claims = new List<Claim> {
-                new Claim(JwtClaimTypes.Subject, user.Id),
-                new Claim(JwtClaimTypes.Name, $"{user.FirstName} {user.LastName}"),
-                new Claim(JwtClaimTypes.GivenName, user.FirstName),
-                new Claim(JwtClaimTypes.FamilyName, user.LastName),
+                new Claim(JwtClaimTypes.Subject, user.Guid.ToString()),
+                new Claim(JwtClaimTypes.Name, user.Username),
                 new Claim(JwtClaimTypes.Email, user.Email),
                 new Claim(JwtClaimTypes.EmailVerified, user.EmailVerified.ToString().ToLower(), ClaimValueTypes.Boolean),
                 new Claim(JwtClaimTypes.Role, user.Role.ToString())

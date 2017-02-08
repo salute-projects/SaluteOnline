@@ -63,8 +63,11 @@ namespace SaluteOnline.IdentityServer
             services.AddTransient<IClientStore, MongoClientStore>();
             services.AddTransient<IProfileService, MongoDbProfileService>();
             services.AddTransient<IResourceOwnerPasswordValidator, MongoDbResourceOwnerPasswordValidator>();
-            services.AddTransient<IPasswordHasher<MongoDbUser>, PasswordHasher<MongoDbUser>>();
+            services.AddTransient<IPasswordHasher<Domain.User.MongoUser>, PasswordHasher<Domain.User.MongoUser>>();
             services.AddTransient<LoginService>();
+            services.AddCors(
+                options =>
+                        options.AddPolicy("AllowSpecificOrigin", builder => builder.WithOrigins("http://localhost:8080")));
             services.AddAuthorization(
                 options =>
                 {
@@ -79,6 +82,10 @@ namespace SaluteOnline.IdentityServer
         {
             loggerFactory.AddConsole();
             app.UseDeveloperExceptionPage();
+            app.UseCors(builder => builder
+                .AllowAnyOrigin()
+                .AllowAnyHeader()
+                .AllowAnyMethod());
             app.UseIdentityServer();
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
             app.UseIdentityServerAuthentication(new IdentityServerAuthenticationOptions
