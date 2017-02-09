@@ -42,7 +42,7 @@ var SoRegister = (function () {
         params.set('Email', this.email.value);
         var headers = new http_1.Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
         var options = new http_1.RequestOptions({ headers: headers });
-        this.http.post('http://localhost:43713/api/user', params.toString(), options)
+        this.http.post('http://localhost:9657/api/account', params.toString(), options)
             .map(function (res) { return res.json(); })
             .subscribe(function (data) {
             _this._loginService.login(_this.name.value, _this.password.value);

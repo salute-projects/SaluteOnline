@@ -10,11 +10,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
+var angular2_jwt_1 = require('angular2-jwt');
 var LoginService = (function () {
-    function LoginService(http) {
+    function LoginService(http, authHttp) {
         this.http = http;
+        this.authHttp = authHttp;
     }
     LoginService.prototype.login = function (username, password) {
+        var _this = this;
         var params = new http_1.URLSearchParams();
         params.set('username', username);
         params.set('password', password);
@@ -26,11 +29,15 @@ var LoginService = (function () {
         var options = new http_1.RequestOptions({ headers: headers });
         this.http.post('http://localhost:9657/connect/token', params.toString(), options)
             .map(function (res) { return res.json(); })
-            .subscribe(function (data) { return console.log(data); }, function (err) { return console.log(err); }, function () { return console.log('empty'); });
+            .subscribe(function (data) {
+            localStorage.setItem("token", data.access_token);
+            _this.authHttp.get("http://localhost:9658/api/protocols")
+                .subscribe(function (dat) { return _this.thing = dat; }, function (err) { return console.log(err); }, function () { return console.log('Request Complete'); });
+        }, function (err) { return console.log(err); }, function () { return console.log('empty'); });
     };
     LoginService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [http_1.Http])
+        __metadata('design:paramtypes', [http_1.Http, angular2_jwt_1.AuthHttp])
     ], LoginService);
     return LoginService;
 }());

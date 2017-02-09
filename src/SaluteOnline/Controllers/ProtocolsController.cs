@@ -24,7 +24,7 @@ namespace SaluteOnline.Controllers
         }
 
         [HttpGet]
-        [Authorize(nameof(Role.Admin))]
+        [Authorize(nameof(Role.User))]
         public async Task<IActionResult> Get()
         {
             try

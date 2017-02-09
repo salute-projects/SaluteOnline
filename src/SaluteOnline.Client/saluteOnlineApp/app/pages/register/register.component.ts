@@ -3,7 +3,7 @@ import { FormGroup, AbstractControl, FormBuilder, Validators } from "@angular/fo
 import { EmailValidator } from "../../services/validators/email.validator";
 import { EqualPasswordValidator } from "../../services/validators/equal-passwords.validator";
 import { Http, Headers, RequestOptions, URLSearchParams } from "@angular/http";
-import { LoginService } from "../../services/login.service"
+import { LoginService } from "../../services/login.service";
 
 @Component({
     selector: 'so-register',
