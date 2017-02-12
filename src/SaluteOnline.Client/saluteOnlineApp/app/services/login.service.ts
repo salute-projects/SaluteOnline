@@ -1,13 +1,14 @@
 ﻿import { Injectable } from "@angular/core";
 import { Http, Headers, RequestOptions, URLSearchParams } from "@angular/http";
 import { AuthHttp } from 'angular2-jwt';
+import { UrlsService } from "./urls";
 
 @Injectable()
 export class LoginService {
     
     thing: {};
 
-    constructor(public http: Http, public authHttp: AuthHttp) {
+    constructor(public http: Http, public authHttp: AuthHttp, private _urlsService: UrlsService) {
         
     }
 
@@ -18,11 +19,11 @@ export class LoginService {
         params.set('grant_type', 'password');
         params.set('client_id', 'salute_web_client');
         params.set('client_secret', '4295960dae5e9e6aab6fe53f7b720f79358274cf83a0f0041386a0f9983dc8f5');
-        params.set('scope', 'SaluteOnlineApi');     
+        params.set('scope', 'SaluteOnlineApi offline_access');     
         const headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
         const options = new RequestOptions({ headers: headers });
 
-        this.http.post('http://localhost:9657/connect/token', params.toString(), options)
+        this.http.post(this._urlsService.loginEndpoint, params.toString(), options)
             .map(res => res.json())
             .subscribe(
                 (data: any) => {

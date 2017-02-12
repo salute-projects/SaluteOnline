@@ -15,13 +15,24 @@ var material_1 = require("@angular/material");
 var http_1 = require("@angular/http");
 var register_component_1 = require("./register.component");
 var register_routing_1 = require("./register.routing");
+var angular2_jwt_1 = require('angular2-jwt');
 var RegisterModule = (function () {
     function RegisterModule() {
     }
     RegisterModule = __decorate([
         core_1.NgModule({
             imports: [common_1.CommonModule, forms_1.ReactiveFormsModule, forms_1.FormsModule, material_1.MdInputModule, material_1.MdButtonModule, http_1.HttpModule, http_1.JsonpModule, register_routing_1.routing],
-            declarations: [register_component_1.SoRegister]
+            declarations: [register_component_1.SoRegister],
+            providers: [
+                angular2_jwt_1.AuthHttp,
+                angular2_jwt_1.provideAuth({
+                    headerName: 'Authorization',
+                    headerPrefix: 'bearer',
+                    tokenName: 'token',
+                    tokenGetter: (function () { return localStorage.getItem('token'); }),
+                    globalHeaders: [{ 'Content-Type': 'application/x-www-form-urlencoded' }],
+                    noJwtError: true
+                })]
         }), 
         __metadata('design:paramtypes', [])
     ], RegisterModule);

@@ -24,14 +24,14 @@ var LoginService = (function () {
         params.set('grant_type', 'password');
         params.set('client_id', 'salute_web_client');
         params.set('client_secret', '4295960dae5e9e6aab6fe53f7b720f79358274cf83a0f0041386a0f9983dc8f5');
-        params.set('scope', 'offline_access');
+        params.set('scope', 'SaluteOnlineApi');
         var headers = new http_1.Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
         var options = new http_1.RequestOptions({ headers: headers });
         this.http.post('http://localhost:9657/connect/token', params.toString(), options)
             .map(function (res) { return res.json(); })
             .subscribe(function (data) {
             localStorage.setItem("token", data.access_token);
-            _this.authHttp.get("http://localhost:9658/api/protocols")
+            _this.authHttp.get("http://localhost:43713/api/protocols")
                 .subscribe(function (dat) { return _this.thing = dat; }, function (err) { return console.log(err); }, function () { return console.log('Request Complete'); });
         }, function (err) { return console.log(err); }, function () { return console.log('empty'); });
     };
