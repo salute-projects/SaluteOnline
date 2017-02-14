@@ -4,10 +4,11 @@ import { EmailValidator } from "../../services/validators/email.validator";
 import { EqualPasswordValidator } from "../../services/validators/equal-passwords.validator";
 import { Http, Headers, RequestOptions, URLSearchParams } from "@angular/http";
 import { LoginService } from "../../services/login.service";
+import { UrlsService } from "../../services/urls";
 
 @Component({
     selector: 'so-register',
-    providers: [LoginService],
+    providers: [LoginService, UrlsService],
     encapsulation: ViewEncapsulation.None,
     styles: [require('./register.component.scss').toString()],
     template: require('./register.component.html')

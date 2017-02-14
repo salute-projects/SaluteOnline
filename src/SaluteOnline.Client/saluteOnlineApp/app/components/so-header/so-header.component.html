@@ -8,15 +8,11 @@
         </div>
     </div>
     
-    <div class="user-profile clearfix">
-        <div class="dropdown al-user-profile">
-            <a class="profile-toggle-link dropdown-toggle" id="user-profile-dd" data-toggle="dropdown" aria-expanded="false" mdTooltip="some message" mdTooltipPosition="below">
-                Link
-            </a>
-            <ul class="dropdown-menu top-dropdown-menu profile-dropdown" aria-labelledby="user-profile-dd">
-                <li class="dropdown-item"><i class="dropdown-arr"></i></li>
-                <li class="dropdown-item"><a href="#"><i class="fa fa-user"></i>Profile</a></li>
-            </ul>
-        </div>
-    </div>
+    <md-menu #soMenu="mdMenu" class="user-login-menu">
+        <button md-menu-item> Увійти </button>
+        <button md-menu-item> Зареєструватись </button>
+    </md-menu>
+    <button md-button [mdMenuTriggerFor]="soMenu" class="user-login-button">
+        Увійти/Зареєструватись
+    </button>
 </div>

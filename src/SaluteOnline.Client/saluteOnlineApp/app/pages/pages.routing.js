@@ -6,6 +6,9 @@ var routes = [
         path: 'register', loadChildren: './register/register.module#RegisterModule'
     },
     {
+        path: 'login', loadChildren: './login/login.module#LoginModule'
+    },
+    {
         path: 'pages', component: pages_component_1.Pages,
         children: [
             { path: 'main-page', loadChildren: './main-page/main-page.module#MainPageModule' },

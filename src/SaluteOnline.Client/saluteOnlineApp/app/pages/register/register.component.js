@@ -14,6 +14,7 @@ var email_validator_1 = require("../../services/validators/email.validator");
 var equal_passwords_validator_1 = require("../../services/validators/equal-passwords.validator");
 var http_1 = require("@angular/http");
 var login_service_1 = require("../../services/login.service");
+var urls_1 = require("../../services/urls");
 var SoRegister = (function () {
     function SoRegister(fb, http, _loginService) {
         this.http = http;
@@ -51,7 +52,7 @@ var SoRegister = (function () {
     SoRegister = __decorate([
         core_1.Component({
             selector: 'so-register',
-            providers: [login_service_1.LoginService],
+            providers: [login_service_1.LoginService, urls_1.UrlsService],
             encapsulation: core_1.ViewEncapsulation.None,
             styles: [require('./register.component.scss').toString()],
             template: require('./register.component.html')

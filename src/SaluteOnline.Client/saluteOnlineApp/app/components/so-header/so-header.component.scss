@@ -68,24 +68,24 @@
     }
 }
 
-.user-profile {
+[md-button].user-login-button {
+    margin-top: 14px;
     float: right;
-    min-width: 230px;
-    margin-top: 10px;
+    background: $main-red-hover;
+
+    .md-button-wrapper {
+        color: $main-white;
+    }
 }
 
-.al-user-profiles {
-    float: right;
-    margin-right: 12px;
-    transition: all .15s ease-in-out;
-    padding: 0;
-    width: 36px;
-    height: 36px;
-    border: 0;
-    opacity: 1;
-    position: relative;
-    
-    a {
-        display: block;
+.user-login-menu {
+    border-radius: 1px;
+
+    .md-menu-content{
+        background-color: $main-red;
+
+        button {
+            color: $main-white;
+        }
     }
 }

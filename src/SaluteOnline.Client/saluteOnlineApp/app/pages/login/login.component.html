@@ -1,0 +1,38 @@
+﻿<div class="auth-main">
+    <div class="auth-block">
+        <h1>Вхід в Salute Online</h1>
+        <a routerLink="/login" class="auth-link">Уже зареєстровані?</a>
+
+        <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" class="form-horizontal">
+            <div class="form-group row">
+                <div class="col-sm-8 col-sm-push-2">
+                    <md-input-container class="so-input">
+                        <input md-input placeholder="Нік" [formControl]="name">
+                    </md-input-container>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-8 col-sm-push-2">
+                    <md-input-container class="so-input">
+                        <input md-input placeholder="Пароль" [formControl]="password" type="password">
+                    </md-input-container>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-8 col-sm-push-2 text-center">
+                    <button md-button [disabled]="!form.valid" type="submit" class="btn-auth">Увійти</button>
+                </div>
+            </div>
+        </form>
+
+        <div class="auth-sep"><span><span>Увійти з допомогою соцмереж</span></span></div>
+
+        <div class="so-share-auth">
+            <ul class="so-share clearfix">
+                <li><i class="socicon socicon-facebook" title="Share on Facebook"></i></li>
+                <li><i class="socicon socicon-twitter" title="Share on Twitter"></i></li>
+                <li><i class="socicon socicon-google" title="Share on Google Plus"></i></li>
+            </ul>
+        </div>
+    </div>
+</div>

@@ -2,13 +2,14 @@
 import { Http, Headers, RequestOptions, URLSearchParams } from "@angular/http";
 import { AuthHttp } from 'angular2-jwt';
 import { UrlsService } from "./urls";
+import { Router } from "@angular/router";
 
 @Injectable()
 export class LoginService {
     
     thing: {};
 
-    constructor(public http: Http, public authHttp: AuthHttp, private _urlsService: UrlsService) {
+    constructor(public http: Http, public authHttp: AuthHttp, private _urlsService: UrlsService, private _router: Router) {
         
     }
 
@@ -28,11 +29,8 @@ export class LoginService {
             .subscribe(
                 (data: any) => {
                     localStorage.setItem("token", data.access_token);
-                    this.authHttp.get("http://localhost:43713/api/protocols")
-                        .subscribe(
-                            (dat: any) => this.thing = dat,
-                            err => console.log(err),
-                            () => console.log('Request Complete'));
+                    localStorage.setItem("refresh_token", data.refresh_token);
+                    this._router.navigate(['pages']);
                 },
                 err => console.log(err),
                 () => console.log('empty')

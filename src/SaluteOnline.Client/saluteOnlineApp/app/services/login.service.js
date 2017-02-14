@@ -11,10 +11,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 var angular2_jwt_1 = require('angular2-jwt');
+var urls_1 = require("./urls");
+var router_1 = require("@angular/router");
 var LoginService = (function () {
-    function LoginService(http, authHttp) {
+    function LoginService(http, authHttp, _urlsService, _router) {
         this.http = http;
         this.authHttp = authHttp;
+        this._urlsService = _urlsService;
+        this._router = _router;
     }
     LoginService.prototype.login = function (username, password) {
         var _this = this;
@@ -24,20 +28,20 @@ var LoginService = (function () {
         params.set('grant_type', 'password');
         params.set('client_id', 'salute_web_client');
         params.set('client_secret', '4295960dae5e9e6aab6fe53f7b720f79358274cf83a0f0041386a0f9983dc8f5');
-        params.set('scope', 'SaluteOnlineApi');
+        params.set('scope', 'SaluteOnlineApi offline_access');
         var headers = new http_1.Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
         var options = new http_1.RequestOptions({ headers: headers });
-        this.http.post('http://localhost:9657/connect/token', params.toString(), options)
+        this.http.post(this._urlsService.loginEndpoint, params.toString(), options)
             .map(function (res) { return res.json(); })
             .subscribe(function (data) {
             localStorage.setItem("token", data.access_token);
-            _this.authHttp.get("http://localhost:43713/api/protocols")
-                .subscribe(function (dat) { return _this.thing = dat; }, function (err) { return console.log(err); }, function () { return console.log('Request Complete'); });
+            localStorage.setItem("refresh_token", data.refresh_token);
+            _this._router.navigate(['pages']);
         }, function (err) { return console.log(err); }, function () { return console.log('empty'); });
     };
     LoginService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [http_1.Http, angular2_jwt_1.AuthHttp])
+        __metadata('design:paramtypes', [http_1.Http, angular2_jwt_1.AuthHttp, urls_1.UrlsService, router_1.Router])
     ], LoginService);
     return LoginService;
 }());
