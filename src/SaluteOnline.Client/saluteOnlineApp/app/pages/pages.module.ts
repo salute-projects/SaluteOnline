@@ -7,9 +7,21 @@ import { SoSidebar } from "../components/so-sidebar/so-sidebar.component";
 import { SoMenu } from "../components/so-menu/so-menu.component";
 import { SoMenuItem } from "../components/so-menuitem/so-menuitem.component";
 import { MdMenuModule, MdButtonModule } from '@angular/material';
+import { LoginService } from "../services/login.service";
+import { AuthHttp, AuthConfig, AUTH_PROVIDERS, provideAuth, tokenNotExpired } from 'angular2-jwt';
+import { UrlsService } from "../services/urls";
 
 @NgModule({
     imports: [CommonModule, MdMenuModule, MdButtonModule, routing],
+    providers: [LoginService, AuthHttp, UrlsService,
+        provideAuth({
+            headerName: 'Authorization',
+            headerPrefix: 'bearer',
+            tokenName: 'token',
+            tokenGetter: (() => localStorage.getItem('token')),
+            globalHeaders: [{ 'Content-Type': 'application/x-www-form-urlencoded' }],
+            noJwtError: true
+        })],
     declarations: [Pages, SoHeader, SoSidebar, SoMenu, SoMenuItem]
 
 })

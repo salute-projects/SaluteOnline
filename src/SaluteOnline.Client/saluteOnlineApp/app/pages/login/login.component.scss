@@ -22,7 +22,7 @@ $text-color: #ffffff;
   padding: 32px;
   h1 {
     font-weight: $font-light;
-    margin-bottom: 28px;
+    margin-bottom: 70px;
     text-align: center;
   }
   p {
@@ -175,6 +175,20 @@ input:-webkit-autofill:active {
                 font-size: 24px;
                 padding: 8px;
             }
+        }
+    }
+}
+
+.so-spinner-container {
+    min-height: 50px;
+
+    .so-inpage-spinner {
+        height: 50px !important;
+        width: 50px !important;
+        margin: auto !important;
+    
+        path {
+            stroke: $main-light;
         }
     }
 }

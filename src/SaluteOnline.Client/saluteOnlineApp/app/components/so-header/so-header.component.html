@@ -7,12 +7,20 @@
             <span class="line"></span>
         </div>
     </div>
-    
+
     <md-menu #soMenu="mdMenu" class="user-login-menu">
-        <button md-menu-item> Увійти </button>
-        <button md-menu-item> Зареєструватись </button>
+        <button md-menu-item [routerLink]="['/login']"> Увійти </button>
+        <button md-menu-item [routerLink]="['/register']"> Зареєструватись </button>
     </md-menu>
-    <button md-button [mdMenuTriggerFor]="soMenu" class="user-login-button">
+    <button md-button [mdMenuTriggerFor]="soMenu" class="user-login-button" *ngIf="!userLogged">
         Увійти/Зареєструватись
+    </button>
+    
+    <md-menu #soUserMenu="mdMenu" class="user-login-menu">
+        <button md-menu-item > Налаштування </button>
+        <button md-menu-item (click)="logout()"> Вийти </button>
+    </md-menu>
+    <button md-fab [mdMenuTriggerFor]="soUserMenu" class="user-profile-button" *ngIf="userLogged">
+        
     </button>
 </div>

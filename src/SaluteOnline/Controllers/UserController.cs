@@ -1,16 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using IdentityModel.Client;
-using IdentityServer4.Models;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MongoDB.Driver;
 using SaluteOnline.DAL;
-using SaluteOnline.Domain.Enums;
 using SaluteOnline.Domain.User;
-using MongoUser = SaluteOnline.Domain.User.MongoUser;
 
 namespace SaluteOnline.Controllers
 {

@@ -1,5 +1,6 @@
 ﻿import { Component, ViewEncapsulation } from "@angular/core";
 import { GlobalState } from "../../services/global.state";
+import { LoginService } from "../../services/login.service";
 
 @Component({
     selector: 'so-header',
@@ -9,15 +10,25 @@ import { GlobalState } from "../../services/global.state";
 })
 export class SoHeader {
     isMenuCollapsed = false;
+    userLogged = this._state.loggedIn();
     
-    constructor(private state: GlobalState) {
-        this.state.subscribe('menu.isCollapsed', (isCollapsed: boolean) => {
+    constructor(private _state: GlobalState, private _loginService: LoginService) {
+        this._state.subscribe('menu.isCollapsed', (isCollapsed: boolean) => {
             this.isMenuCollapsed = isCollapsed;
         });
     }
 
     toggleMenu() {
         this.isMenuCollapsed = !this.isMenuCollapsed;
-        this.state.notifyDataChanged('menu.isCollapsed', this.isMenuCollapsed);
+        this._state.notifyDataChanged('menu.isCollapsed', this.isMenuCollapsed);
+    }
+
+    logout() {
+        this._loginService.logout();
+        this.userLogged = this._state.loggedIn();
+    }
+
+    getUsername() {
+        return localStorage.getItem('username');
     }
 }

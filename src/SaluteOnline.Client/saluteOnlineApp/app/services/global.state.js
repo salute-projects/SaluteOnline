@@ -10,31 +10,35 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var Subject_1 = require("rxjs/Subject");
+var angular2_jwt_1 = require('angular2-jwt');
 var GlobalState = (function () {
     function GlobalState() {
         var _this = this;
-        this.data = new Subject_1.Subject();
-        this.dataStream = this.data.asObservable();
-        this.subscriptions = new Map();
-        this.dataStream.subscribe(function (data) { _this.onEvent(data); });
+        this._data = new Subject_1.Subject();
+        this._dataStream = this._data.asObservable();
+        this._subscriptions = new Map();
+        this._dataStream.subscribe(function (data) { _this.onEvent(data); });
     }
+    GlobalState.prototype.loggedIn = function () {
+        return angular2_jwt_1.tokenNotExpired('token');
+    };
     GlobalState.prototype.notifyDataChanged = function (event, value) {
-        var current = this.data[event];
+        var current = this._data[event];
         if (current !== value) {
-            this.data[event] = value;
-            this.data.next({
+            this._data[event] = value;
+            this._data.next({
                 event: event,
-                data: this.data[event]
+                data: this._data[event]
             });
         }
     };
     GlobalState.prototype.subscribe = function (event, callback) {
-        var subscribers = this.subscriptions.get(event) || [];
+        var subscribers = this._subscriptions.get(event) || [];
         subscribers.push(callback);
-        this.subscriptions.set(event, subscribers);
+        this._subscriptions.set(event, subscribers);
     };
     GlobalState.prototype.onEvent = function (data) {
-        var subscribers = this.subscriptions.get(data['event']) || [];
+        var subscribers = this._subscriptions.get(data['event']) || [];
         subscribers.forEach(function (callback) {
             callback.call(null, data['data']);
         });

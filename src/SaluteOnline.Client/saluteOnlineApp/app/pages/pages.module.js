@@ -16,12 +16,25 @@ var so_header_component_1 = require('../components/so-header/so-header.component
 var so_sidebar_component_1 = require("../components/so-sidebar/so-sidebar.component");
 var so_menu_component_1 = require("../components/so-menu/so-menu.component");
 var so_menuitem_component_1 = require("../components/so-menuitem/so-menuitem.component");
+var material_1 = require('@angular/material');
+var login_service_1 = require("../services/login.service");
+var angular2_jwt_1 = require('angular2-jwt');
+var urls_1 = require("../services/urls");
 var PagesModule = (function () {
     function PagesModule() {
     }
     PagesModule = __decorate([
         core_1.NgModule({
-            imports: [common_1.CommonModule, pages_routing_1.routing],
+            imports: [common_1.CommonModule, material_1.MdMenuModule, material_1.MdButtonModule, pages_routing_1.routing],
+            providers: [login_service_1.LoginService, angular2_jwt_1.AuthHttp, urls_1.UrlsService,
+                angular2_jwt_1.provideAuth({
+                    headerName: 'Authorization',
+                    headerPrefix: 'bearer',
+                    tokenName: 'token',
+                    tokenGetter: (function () { return localStorage.getItem('token'); }),
+                    globalHeaders: [{ 'Content-Type': 'application/x-www-form-urlencoded' }],
+                    noJwtError: true
+                })],
             declarations: [pages_component_1.Pages, so_header_component_1.SoHeader, so_sidebar_component_1.SoSidebar, so_menu_component_1.SoMenu, so_menuitem_component_1.SoMenuItem]
         }), 
         __metadata('design:paramtypes', [])

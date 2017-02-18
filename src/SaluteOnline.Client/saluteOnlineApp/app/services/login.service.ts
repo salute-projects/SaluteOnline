@@ -1,16 +1,23 @@
-﻿import { Injectable } from "@angular/core";
+﻿import { Injectable, EventEmitter  } from "@angular/core";
 import { Http, Headers, RequestOptions, URLSearchParams } from "@angular/http";
-import { AuthHttp } from 'angular2-jwt';
+import { AuthHttp, tokenNotExpired } from 'angular2-jwt';
 import { UrlsService } from "./urls";
-import { Router } from "@angular/router";
+import { MdSnackBar } from "@angular/material";
 
 @Injectable()
 export class LoginService {
     
-    thing: {};
+    emitter = new EventEmitter<boolean>();
 
-    constructor(public http: Http, public authHttp: AuthHttp, private _urlsService: UrlsService, private _router: Router) {
-        
+    constructor(public http: Http, public authHttp: AuthHttp, private _urlsService: UrlsService, public snackBar: MdSnackBar) { 
+    }
+    
+    emit(success: boolean) {
+        this.emitter.emit(success);
+    }
+
+    getEmitter() {
+        return this.emitter;
     }
 
     login(username: string, password: string): void {
@@ -30,10 +37,23 @@ export class LoginService {
                 (data: any) => {
                     localStorage.setItem("token", data.access_token);
                     localStorage.setItem("refresh_token", data.refresh_token);
-                    this._router.navigate(['pages']);
+                    localStorage.setItem('username', username);
+                    this.emit(true);
                 },
-                err => console.log(err),
-                () => console.log('empty')
+                () => {
+                    const snackBar = this.snackBar.open("Не вдалось увійти", "Закрити", { duration: 10000 });
+                    snackBar.onAction().subscribe(() => {
+                        snackBar.dismiss();
+                    });
+                    this.emit(false);
+                }
             );
+    }
+
+    logout() {
+        localStorage.removeItem('token');
+        localStorage.removeItem('refresh-token');
+        localStorage.removeItem('username');
+        this.emit(false);
     }
 }

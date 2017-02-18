@@ -12,14 +12,21 @@ var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 var angular2_jwt_1 = require('angular2-jwt');
 var urls_1 = require("./urls");
-var router_1 = require("@angular/router");
+var material_1 = require("@angular/material");
 var LoginService = (function () {
-    function LoginService(http, authHttp, _urlsService, _router) {
+    function LoginService(http, authHttp, _urlsService, snackBar) {
         this.http = http;
         this.authHttp = authHttp;
         this._urlsService = _urlsService;
-        this._router = _router;
+        this.snackBar = snackBar;
+        this.emitter = new core_1.EventEmitter();
     }
+    LoginService.prototype.emit = function (success) {
+        this.emitter.emit(success);
+    };
+    LoginService.prototype.getEmitter = function () {
+        return this.emitter;
+    };
     LoginService.prototype.login = function (username, password) {
         var _this = this;
         var params = new http_1.URLSearchParams();
@@ -36,12 +43,25 @@ var LoginService = (function () {
             .subscribe(function (data) {
             localStorage.setItem("token", data.access_token);
             localStorage.setItem("refresh_token", data.refresh_token);
-            _this._router.navigate(['pages']);
-        }, function (err) { return console.log(err); }, function () { return console.log('empty'); });
+            localStorage.setItem('username', username);
+            _this.emit(true);
+        }, function () {
+            var snackBar = _this.snackBar.open("Не вдалось увійти", "Закрити", { duration: 10000 });
+            snackBar.onAction().subscribe(function () {
+                snackBar.dismiss();
+            });
+            _this.emit(false);
+        });
+    };
+    LoginService.prototype.logout = function () {
+        localStorage.removeItem('token');
+        localStorage.removeItem('refresh-token');
+        localStorage.removeItem('username');
+        this.emit(false);
     };
     LoginService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [http_1.Http, angular2_jwt_1.AuthHttp, urls_1.UrlsService, router_1.Router])
+        __metadata('design:paramtypes', [http_1.Http, angular2_jwt_1.AuthHttp, urls_1.UrlsService, material_1.MdSnackBar])
     ], LoginService);
     return LoginService;
 }());

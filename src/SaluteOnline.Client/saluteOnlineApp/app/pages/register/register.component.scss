@@ -169,3 +169,17 @@ a.forgot-pass {
         }
     }
 }
+
+.so-spinner-container {
+    min-height: 50px;
+
+    .so-inpage-spinner {
+        height: 50px !important;
+        width: 50px !important;
+        margin: auto !important;
+    
+        path {
+            stroke: $main-light;
+        }
+    }
+}

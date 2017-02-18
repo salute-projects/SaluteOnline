@@ -26,6 +26,7 @@ namespace SaluteOnline.IdentityServer
                 new Claim(JwtClaimTypes.Subject, user.Guid.ToString()),
                 new Claim(JwtClaimTypes.Name, user.Username),
                 new Claim(JwtClaimTypes.Email, user.Email),
+                new Claim(JwtClaimTypes.Id, user.Id.ToString()),
                 new Claim(JwtClaimTypes.EmailVerified, user.EmailVerified.ToString().ToLower(), ClaimValueTypes.Boolean),
                 new Claim(JwtClaimTypes.Role, user.Role.ToString())
             };

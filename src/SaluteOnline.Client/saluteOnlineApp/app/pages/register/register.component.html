@@ -43,6 +43,14 @@
                     <button md-button [disabled]="!form.valid" type="submit" class="btn-auth">Зареєструватись</button>
                 </div>  
             </div>
+            
+            <div class="text-center so-spinner-container">
+                <md-progress-circle class="so-inpage-spinner" *ngIf="spinnerVisibility"
+                                    color="primary"
+                                    mode="indeterminate">
+                </md-progress-circle>
+            </div>
+
         </form>
 
         <div class="auth-sep"><span><span>Увійти з допомогою соцмереж</span></span></div>

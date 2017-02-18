@@ -15,12 +15,12 @@ var material_1 = require("@angular/material");
 var login_component_1 = require("./login.component");
 var login_routing_1 = require("./login.routing");
 var angular2_jwt_1 = require('angular2-jwt');
-var RegisterModule = (function () {
-    function RegisterModule() {
+var LoginModule = (function () {
+    function LoginModule() {
     }
-    RegisterModule = __decorate([
+    LoginModule = __decorate([
         core_1.NgModule({
-            imports: [common_1.CommonModule, forms_1.ReactiveFormsModule, forms_1.FormsModule, material_1.MdInputModule, material_1.MdButtonModule, login_routing_1.routing],
+            imports: [common_1.CommonModule, forms_1.ReactiveFormsModule, forms_1.FormsModule, material_1.MdInputModule, material_1.MdButtonModule, material_1.MdProgressSpinnerModule, login_routing_1.routing],
             declarations: [login_component_1.SoLogin],
             providers: [
                 angular2_jwt_1.AuthHttp,
@@ -34,8 +34,8 @@ var RegisterModule = (function () {
                 })]
         }), 
         __metadata('design:paramtypes', [])
-    ], RegisterModule);
-    return RegisterModule;
+    ], LoginModule);
+    return LoginModule;
 }());
-exports.RegisterModule = RegisterModule;
+exports.LoginModule = LoginModule;
 //# sourceMappingURL=login.module.js.map

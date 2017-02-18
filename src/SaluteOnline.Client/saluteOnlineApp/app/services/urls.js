@@ -12,6 +12,7 @@ var core_1 = require("@angular/core");
 var UrlsService = (function () {
     function UrlsService() {
         this.loginEndpoint = 'http://localhost:9657/connect/token';
+        this.revokeEndpoint = 'http://localhost:9657/connect/revocation';
     }
     UrlsService = __decorate([
         core_1.Injectable(), 

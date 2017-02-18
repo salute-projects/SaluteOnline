@@ -9,12 +9,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
 var forms_1 = require("@angular/forms");
 var login_service_1 = require("../../services/login.service");
 var urls_1 = require("../../services/urls");
 var SoLogin = (function () {
-    function SoLogin(fb, _loginService) {
+    function SoLogin(fb, _loginService, _router) {
         this._loginService = _loginService;
+        this._router = _router;
+        this.spinnerVisibility = false;
         this.form = fb.group({
             'name': '',
             'password': ''
@@ -23,17 +26,30 @@ var SoLogin = (function () {
         this.password = this.form.controls['password'];
     }
     SoLogin.prototype.onSubmit = function (values) {
+        this.spinnerVisibility = true;
         this._loginService.login(this.name.value, this.password.value);
+    };
+    SoLogin.prototype.ngOnInit = function () {
+        var _this = this;
+        this.subsctiption = this._loginService.getEmitter().subscribe(function (success) {
+            _this.spinnerVisibility = success;
+            if (success) {
+                _this._router.navigate(['pages']);
+            }
+        });
+    };
+    SoLogin.prototype.ngOnDestroy = function () {
+        this.subsctiption.unsubscribe();
     };
     SoLogin = __decorate([
         core_1.Component({
-            selector: 'so-register',
+            selector: 'so-login',
             providers: [login_service_1.LoginService, urls_1.UrlsService],
             encapsulation: core_1.ViewEncapsulation.None,
             styles: [require('./login.component.scss').toString()],
             template: require('./login.component.html')
         }), 
-        __metadata('design:paramtypes', [forms_1.FormBuilder, login_service_1.LoginService])
+        __metadata('design:paramtypes', [forms_1.FormBuilder, login_service_1.LoginService, router_1.Router])
     ], SoLogin);
     return SoLogin;
 }());
