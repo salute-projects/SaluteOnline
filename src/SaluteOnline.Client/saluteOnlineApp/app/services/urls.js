@@ -13,6 +13,8 @@ var UrlsService = (function () {
     function UrlsService() {
         this.loginEndpoint = 'http://localhost:9657/connect/token';
         this.revokeEndpoint = 'http://localhost:9657/connect/revocation';
+        this.checkEmailUniquity = 'http://localhost:9657/api/account/EmailUniquity';
+        this.checkUsernameUniquity = 'http://localhost:9657/api/account/UsernameUniquity';
     }
     UrlsService = __decorate([
         core_1.Injectable(), 

@@ -13,21 +13,23 @@ var router_1 = require("@angular/router");
 var forms_1 = require("@angular/forms");
 var email_validator_1 = require("../../services/validators/email.validator");
 var equal_passwords_validator_1 = require("../../services/validators/equal-passwords.validator");
+var email_unique_validator_1 = require("../../services/validators/email.unique.validator");
 var http_1 = require("@angular/http");
 var login_service_1 = require("../../services/login.service");
 var urls_1 = require("../../services/urls");
 var material_1 = require("@angular/material");
 var SoRegister = (function () {
-    function SoRegister(fb, http, _loginService, snackBar, _router) {
+    function SoRegister(fb, http, _loginService, snackBar, _router, _urls) {
         this.http = http;
         this._loginService = _loginService;
         this.snackBar = snackBar;
         this._router = _router;
+        this._urls = _urls;
         this.submitted = false;
         this.spinnerVisibility = false;
         this.form = fb.group({
             'name': ['', forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.minLength(4)])],
-            'email': ['', forms_1.Validators.compose([forms_1.Validators.required, email_validator_1.EmailValidator.validate])],
+            'email': ['', forms_1.Validators.compose([forms_1.Validators.required, email_validator_1.EmailValidator.validate]), new email_unique_validator_1.EmailUniqueValidator(http, _urls).validate],
             'passwords': fb.group({
                 'password': ['', forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.minLength(4)])],
                 'confirmPassword': ['', forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.minLength(4)])]
@@ -81,7 +83,7 @@ var SoRegister = (function () {
             styles: [require('./register.component.scss').toString()],
             template: require('./register.component.html')
         }), 
-        __metadata('design:paramtypes', [forms_1.FormBuilder, http_1.Http, login_service_1.LoginService, material_1.MdSnackBar, router_1.Router])
+        __metadata('design:paramtypes', [forms_1.FormBuilder, http_1.Http, login_service_1.LoginService, material_1.MdSnackBar, router_1.Router, urls_1.UrlsService])
     ], SoRegister);
     return SoRegister;
 }());

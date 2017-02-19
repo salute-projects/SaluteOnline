@@ -3,6 +3,7 @@ import { Router } from "@angular/router";
 import { FormGroup, AbstractControl, FormBuilder, Validators } from "@angular/forms";
 import { EmailValidator } from "../../services/validators/email.validator";
 import { EqualPasswordValidator } from "../../services/validators/equal-passwords.validator";
+import { EmailUniqueValidator } from "../../services/validators/email.unique.validator";
 import { Http, Headers, RequestOptions, URLSearchParams } from "@angular/http";
 import { LoginService } from "../../services/login.service";
 import { UrlsService } from "../../services/urls";
@@ -27,10 +28,10 @@ export class SoRegister implements OnInit, OnDestroy {
     spinnerVisibility = false;
     subscription: any;
 
-    constructor(fb: FormBuilder, public http: Http, private _loginService: LoginService, public snackBar: MdSnackBar, private _router: Router) {
+    constructor(fb: FormBuilder, public http: Http, private _loginService: LoginService, public snackBar: MdSnackBar, private _router: Router, private _urls: UrlsService) {
         this.form = fb.group({
             'name': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
-            'email': ['', Validators.compose([Validators.required, EmailValidator.validate])],
+            'email': ['', Validators.compose([Validators.required, EmailValidator.validate]), (control: AbstractControl) => { return new EmailUniqueValidator(http, _urls).validate(control) }],
             'passwords': fb.group({
                     'password': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
                     'confirmPassword': ['', Validators.compose([Validators.required, Validators.minLength(4)])]

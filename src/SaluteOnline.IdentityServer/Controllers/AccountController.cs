@@ -26,7 +26,8 @@ namespace SaluteOnline.IdentityServer.Controllers
         public async Task<IActionResult> Register(Domain.User.MongoUser newUser)
         {
             var collection = _mongoDatabase.GetCollection<Domain.User.MongoUser>(UsersCollectionName);
-            var filter = Builders<Domain.User.MongoUser>.Filter.Eq(t => t.Username, newUser.Username ) | Builders<Domain.User.MongoUser>.Filter.Eq(t => t.Email, newUser.Email);
+            var filter = Builders<Domain.User.MongoUser>.Filter.Eq(t => t.Username, newUser.Username) |
+                         Builders<Domain.User.MongoUser>.Filter.Eq(t => t.Email, newUser.Email);
             var target = collection.Find(filter).SingleOrDefaultAsync().Result;
             if (target != null) return BadRequest("User with same login or email already exists");
             var userToAdd = new Domain.User.MongoUser
@@ -58,6 +59,23 @@ namespace SaluteOnline.IdentityServer.Controllers
                 return Json("Succesfully updated");
             }
             return BadRequest("Error while updating role");
+        }
+
+        [HttpGet("EmailUniquity")]
+        [AllowAnonymous]
+        public async Task<IActionResult> EmailUniquity(string email)
+        {
+            try
+            {
+                var collection = _mongoDatabase.GetCollection<Domain.User.MongoUser>(UsersCollectionName);
+                var filter = Builders<Domain.User.MongoUser>.Filter.Eq(t => t.Email, email);
+                var target = collection.FindAsync(filter).Result;
+                return Ok(await target.AnyAsync());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
