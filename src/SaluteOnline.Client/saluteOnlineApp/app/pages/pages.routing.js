@@ -11,8 +11,9 @@ var routes = [
     {
         path: 'pages', component: pages_component_1.Pages,
         children: [
+            { path: '', redirectTo: 'main-page', pathMatch: 'full' },
             { path: 'main-page', loadChildren: './main-page/main-page.module#MainPageModule' },
-            { path: '', redirectTo: 'main-page', pathMatch: 'full' }
+            { path: 'usersettings', loadChildren: './user-settings/user.settings.module#SoUserSettingsModule' }
         ]
     }];
 exports.routing = router_1.RouterModule.forChild(routes);

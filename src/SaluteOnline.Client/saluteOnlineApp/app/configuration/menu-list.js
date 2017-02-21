@@ -4,7 +4,7 @@ exports.menuList = [
         path: 'pages',
         children: [
             {
-                path: 'main',
+                path: 'main-page',
                 data: {
                     menu: {
                         title: 'Головна',

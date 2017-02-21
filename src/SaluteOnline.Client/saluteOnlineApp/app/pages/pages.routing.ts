@@ -11,8 +11,9 @@ const routes: Routes = [
     { 
         path: 'pages', component: Pages,
         children: [
+            { path: '', redirectTo: 'main-page', pathMatch: 'full' },
             { path: 'main-page', loadChildren: './main-page/main-page.module#MainPageModule' },
-            { path: '', redirectTo: 'main-page', pathMatch: 'full' }
+            { path: 'usersettings', loadChildren: './user-settings/user.settings.module#SoUserSettingsModule' }
         ]        
     }];
 
