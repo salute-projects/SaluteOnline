@@ -77,5 +77,22 @@ namespace SaluteOnline.IdentityServer.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet("UsernameUniquity")]
+        [AllowAnonymous]
+        public async Task<IActionResult> UsernameUniquity(string username)
+        {
+            try
+            {
+                var collection = _mongoDatabase.GetCollection<Domain.User.MongoUser>(UsersCollectionName);
+                var filter = Builders<Domain.User.MongoUser>.Filter.Eq(t => t.Username, username);
+                var target = collection.FindAsync(filter).Result;
+                return Ok(await target.AnyAsync());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

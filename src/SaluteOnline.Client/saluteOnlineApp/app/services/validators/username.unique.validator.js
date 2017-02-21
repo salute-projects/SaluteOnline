@@ -1,34 +1,34 @@
 "use strict";
 var http_1 = require("@angular/http");
-var EmailUniqueValidator = (function () {
-    function EmailUniqueValidator(_http, _urls) {
+var UsernameUniqueValidator = (function () {
+    function UsernameUniqueValidator(_http, _urls) {
         this._http = _http;
         this._urls = _urls;
     }
-    EmailUniqueValidator.prototype.validate = function (c) {
+    UsernameUniqueValidator.prototype.validate = function (c) {
         var _this = this;
         return new Promise(function (resolve) {
             var params = new http_1.URLSearchParams();
-            params.set('email', c.value);
-            return _this._http.get(_this._urls.checkEmailUniquity, { search: params })
+            params.set('username', c.value);
+            return _this._http.get(_this._urls.checkUsernameUniquity, { search: params })
                 .map(function (res) { return res.json(); })
                 .subscribe(function (data) {
                 return data
                     ? resolve({
-                        emailUnique: {
+                        usernameUnique: {
                             valid: false
                         }
                     }) : resolve(null);
             }, function () {
                 return resolve({
-                    emailUnique: {
+                    usernameUnique: {
                         valid: false
                     }
                 });
             });
         });
     };
-    return EmailUniqueValidator;
+    return UsernameUniqueValidator;
 }());
-exports.EmailUniqueValidator = EmailUniqueValidator;
-//# sourceMappingURL=email.unique.validator.js.map
+exports.UsernameUniqueValidator = UsernameUniqueValidator;
+//# sourceMappingURL=username.unique.validator.js.map

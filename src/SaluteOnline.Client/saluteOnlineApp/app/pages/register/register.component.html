@@ -9,6 +9,7 @@
                     <md-input-container class="so-input" [ngClass]="{'has-error': (!name.valid && name.touched), 'has-success': (name.valid && name.touched)}">
                         <input md-input placeholder="Нік" [formControl]="name">
                         <md-hint *ngIf="name.hasError('minlength') && name.touched" align="end">Мінімум 4 літери</md-hint>
+                        <md-hint *ngIf="name.value.length && name.hasError('usernameUnique') && name.touched" align="end">Нік уже зареєстровано</md-hint>
                         <md-hint *ngIf="name.hasError('required') && name.touched" align="end">Обов'язкове поле</md-hint>
                     </md-input-container>
                 </div>

@@ -14,6 +14,7 @@ var forms_1 = require("@angular/forms");
 var email_validator_1 = require("../../services/validators/email.validator");
 var equal_passwords_validator_1 = require("../../services/validators/equal-passwords.validator");
 var email_unique_validator_1 = require("../../services/validators/email.unique.validator");
+var username_unique_validator_1 = require("../../services/validators/username.unique.validator");
 var http_1 = require("@angular/http");
 var login_service_1 = require("../../services/login.service");
 var urls_1 = require("../../services/urls");
@@ -28,8 +29,8 @@ var SoRegister = (function () {
         this.submitted = false;
         this.spinnerVisibility = false;
         this.form = fb.group({
-            'name': ['', forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.minLength(4)])],
-            'email': ['', forms_1.Validators.compose([forms_1.Validators.required, email_validator_1.EmailValidator.validate]), new email_unique_validator_1.EmailUniqueValidator(http, _urls).validate],
+            'name': ['', forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.minLength(4)]), function (control) { return new username_unique_validator_1.UsernameUniqueValidator(http, _urls).validate(control); }],
+            'email': ['', forms_1.Validators.compose([forms_1.Validators.required, email_validator_1.EmailValidator.validate]), function (control) { return new email_unique_validator_1.EmailUniqueValidator(http, _urls).validate(control); }],
             'passwords': fb.group({
                 'password': ['', forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.minLength(4)])],
                 'confirmPassword': ['', forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.minLength(4)])]
