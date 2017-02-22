@@ -4,6 +4,7 @@ import { routing } from "./pages.routing";
 import { Pages } from "./pages.component";
 import { SoHeader } from '../components/so-header/so-header.component';
 import { SoSidebar } from "../components/so-sidebar/so-sidebar.component";
+import { SoRightSidebar } from "../components/so-right-sidebar/so-right-sidebar.component";
 import { SoMenu } from "../components/so-menu/so-menu.component";
 import { SoMenuItem } from "../components/so-menuitem/so-menuitem.component";
 import { MdMenuModule, MdButtonModule } from '@angular/material';
@@ -22,7 +23,7 @@ import { UrlsService } from "../services/urls";
             globalHeaders: [{ 'Content-Type': 'application/x-www-form-urlencoded' }],
             noJwtError: true
         })],
-    declarations: [Pages, SoHeader, SoSidebar, SoMenu, SoMenuItem]
+    declarations: [Pages, SoHeader, SoSidebar, SoRightSidebar, SoMenu, SoMenuItem]
 
 })
 

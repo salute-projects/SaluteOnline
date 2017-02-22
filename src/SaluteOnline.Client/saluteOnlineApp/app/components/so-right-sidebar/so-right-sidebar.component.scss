@@ -1,0 +1,15 @@
+﻿@import "../../styles/vars";
+@import "../../styles/mixins";
+
+.so-right-sidebar {
+    font-family: $font-family;
+    width: $sidebar-right-width;
+    top: $top-height;
+    right: 0;
+    z-index: 999;
+    display: block;
+    min-height: 100%;
+    background-color: $main-dark-grey;
+    height: 100%;
+    position: fixed;
+}

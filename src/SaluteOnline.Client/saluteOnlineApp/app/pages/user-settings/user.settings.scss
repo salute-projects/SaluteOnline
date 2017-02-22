@@ -1,1 +1,51 @@
-﻿
+﻿@import "../../styles/vars";
+
+.so-card {
+    border-radius: 0;
+    background: $background-color;
+    color: $main-white;
+
+    md-card-header {
+        height: 100px;
+
+        img {
+            height: 100px;
+            width: 100px;
+        }
+
+        .md-card-header-text {
+            * {
+                font-size: 2rem;
+            }
+
+            md-card-subtitle {
+                color: $main-red;
+            }
+        }
+    }
+}
+
+.so-dark-tabgroup {
+    .md-tab-header {
+        background-color: $background-color;
+        border-bottom: none;
+
+        .md-tab-label {
+            color: $main-white;
+            opacity: 1;
+        }
+    }
+
+    md-tab-body {
+        background: $background-color;
+
+        .md-tab-body-content {
+            padding: 0 16px;
+            color: $main-white;
+        }
+    }
+}
+
+md-ink-bar {
+    background-color: $main-red;
+}

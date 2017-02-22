@@ -7,7 +7,7 @@ $ionicons-font-path: "~ionicons/fonts";
 
 body {
     background: linear-gradient(to left top, #c52a2a, #D32F2F);
-    background-image: url('/content/background.jpg');
+    //background-image: url('/content/grey-background.jpg');
 
     .loader {
         display: none;
@@ -52,6 +52,7 @@ body {
 
 .so-main {
     margin-left: $sidebar-width;
+    margin-right: $sidebar-right-width;
     padding: 66px 0 34px 0;
     min-height: 500px;
     position: relative;

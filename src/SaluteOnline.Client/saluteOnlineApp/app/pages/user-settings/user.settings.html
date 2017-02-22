@@ -1,10 +1,23 @@
-﻿<md-tab-group>
-    <md-tab label="Профіль">
-        <h1>Some tab content</h1>
-        <p>...</p>
-    </md-tab>
-    <md-tab label="Two">
-        <h1>Some more tab content</h1>
-        <p>...</p>
-    </md-tab>
-</md-tab-group>
+﻿<div class="row">
+    <div class="col-md-10 col-md-push-1">
+        <md-card class="so-card">
+            <md-card-header>
+                <md-card-title>Username</md-card-title>
+                <md-card-subtitle>
+                    <md-input-container>
+                        <input md-input placeholder="Email" value="melomaniac.taras@gmail.com">
+                    </md-input-container>
+                </md-card-subtitle>
+                <img md-card-avatar src="/content/user-icon.png" alt="">
+            </md-card-header>
+        </md-card>
+        <md-tab-group class="so-dark-tabgroup">
+            <md-tab label="Профіль">
+                <h1>Some tab content</h1>
+            </md-tab>
+            <md-tab label="Приватність">
+                <h1>Some more tab content</h1>
+            </md-tab>
+        </md-tab-group>
+    </div>
+</div>
