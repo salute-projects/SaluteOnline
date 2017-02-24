@@ -1,6 +1,6 @@
 ﻿@import "../../styles/vars";
 
-.so-card {
+.user-profile {
     border-radius: 0;
     background: $background-color;
     color: $main-white;
@@ -14,12 +14,24 @@
         }
 
         .md-card-header-text {
-            * {
+            md-card-title {
                 font-size: 2rem;
             }
 
             md-card-subtitle {
-                color: $main-red;
+                color: $main-white;
+                margin-top: 10px;
+                
+
+                .email-field {
+                    .md-input-wrapper {
+                        width: 300px;
+
+                        input.md-input-element {
+                            font-size: 1.6rem;
+                        }
+                    }   
+                }
             }
         }
     }
@@ -48,4 +60,21 @@
 
 md-ink-bar {
     background-color: $main-red;
+}
+
+.md-input-placeholder {
+    color: $main-red;
+    font-family: $font-family;
+    font-weight: normal;
+    font-size: 2rem !important;
+
+    &.md-focused {
+        color: $main-red-hover;
+    }
+}
+
+.md-input-underline {
+    .md-input-ripple {
+        background-color: $main-red-hover;
+    }
 }
