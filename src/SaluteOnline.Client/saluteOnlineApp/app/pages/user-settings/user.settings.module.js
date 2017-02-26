@@ -13,12 +13,15 @@ var common_1 = require("@angular/common");
 var material_1 = require("@angular/material");
 var user_settings_1 = require("./user.settings");
 var user_settings_routing_1 = require("./user.settings.routing");
+var countries_service_1 = require("../../services/geo/countries.service");
+var primeng_1 = require("primeng/primeng");
 var SoUserSettingsModule = (function () {
     function SoUserSettingsModule() {
     }
     SoUserSettingsModule = __decorate([
         core_1.NgModule({
-            imports: [common_1.CommonModule, material_1.MdTabsModule, user_settings_routing_1.routing],
+            imports: [common_1.CommonModule, material_1.MdTabsModule, material_1.MdCardModule, material_1.MdInputModule, primeng_1.AutoCompleteModule, user_settings_routing_1.routing],
+            providers: [countries_service_1.CountriesService],
             declarations: [user_settings_1.SoUserSettings]
         }), 
         __metadata('design:paramtypes', [])

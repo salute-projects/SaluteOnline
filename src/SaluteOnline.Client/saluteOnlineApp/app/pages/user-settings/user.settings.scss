@@ -1,4 +1,5 @@
 ﻿@import "../../styles/vars";
+@import "../../styles/mixins";
 
 .user-profile {
     border-radius: 0;
@@ -67,6 +68,7 @@ md-ink-bar {
     font-family: $font-family;
     font-weight: normal;
     font-size: 2rem !important;
+    margin-top: -4px;
 
     &.md-focused {
         color: $main-red-hover;
@@ -74,7 +76,71 @@ md-ink-bar {
 }
 
 .md-input-underline {
+    background-color: $main-grey;
+
     .md-input-ripple {
         background-color: $main-red-hover;
+    }
+}
+
+.so-form {
+    margin-top: 20px;
+}
+
+.profile-form {
+    md-input-container {
+        @include h-margin(10px);
+        min-width: 250px;
+    }
+
+    .so-autocomplete-popup {
+        @include h-margin(10px);
+        
+        .so-autocomplete-input {
+            min-width: 250px;
+        }
+    }
+}
+
+.so-autocomplete-popup {
+    border-radius: 0 !important;
+    font-family: $font-family !important;
+    font-size: 1.4rem !important;
+}
+
+.so-autocomplete-input {
+    border-radius: 0 !important;
+    background-color: transparent !important;
+    border: none !important;
+    border-bottom: 1px solid $main-grey !important;
+    color: $main-white !important;
+    outline: none !important;
+
+    &:focus {
+        box-shadow: none !important;
+        border-bottom: 2px solid $main-red !important;
+    }
+}
+
+.ui-autocomplete-panel {
+    border: none !important;
+    width: 250px !important;
+    border-radius: 0 !important;
+    background-color: $main-white;
+
+    .ui-autocomplete-list {
+        border-radius: 0 !important;
+        padding: 0 !important;
+        background-color: $main-white;
+
+        .ui-autocomplete-list-item {
+            border-radius: 0 !important;
+            padding: 0.4em 0.8em !important;
+
+            &.ui-state-highlight {
+                background-color: $main-red-hover !important;
+                color: $main-white;
+            }
+        }
     }
 }

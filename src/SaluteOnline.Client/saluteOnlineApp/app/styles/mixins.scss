@@ -33,3 +33,13 @@
 @mixin bg-translucent-dark($opacity) {
   background: rgba(0, 0, 0, $opacity);
 }
+
+@mixin h-margin($value) {
+    margin-left: $value;
+    margin-right: $value;
+}
+
+@mixin v-margin($value) {
+    margin-top: $value;
+    margin-bottom: $value;
+}

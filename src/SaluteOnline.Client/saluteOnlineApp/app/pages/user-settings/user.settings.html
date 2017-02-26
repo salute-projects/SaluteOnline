@@ -13,7 +13,37 @@
         </md-card>
         <md-tab-group class="so-dark-tabgroup">
             <md-tab label="Профіль">
-                <h1>Some tab content</h1>
+                <div class="so-form profile-form text-center">
+                    <div class="row form-group">
+                        <div class="col-md-8 col-md-push-2">
+                            <md-input-container>
+                                <input md-input placeholder="Ім'я" value="Тарас">
+                            </md-input-container>
+                            <md-input-container>
+                                <input md-input placeholder="Прізвище" value="Яремків">
+                            </md-input-container>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-8 col-md-push-2">
+                            <md-input-container>
+                                <input md-input placeholder="Телефон" value="+380938188646">
+                            </md-input-container>
+                            <md-input-container>
+                                <input md-input placeholder="Телефон (додатковий)" value="+380966366078">
+                            </md-input-container>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-8 col-md-push-2">
+                            <p-autoComplete formControlName="country" placeholder="Країна" minLength="3" [suggestions]="filteredContries" appendTo="body"
+                                            (completeMethod)="searchCountry($event)" inputStyleClass="so-autocomplete-input" styleClass="so-autocomplete-popup">
+                            </p-autoComplete>
+                            <p-autoComplete formControlName="city" placeholder="Країна" minLength="3" [suggestions]="filteredCities" appendTo="body"
+                                            (completeMethod)="searchCity($event)" inputStyleClass="so-autocomplete-input" styleClass="so-autocomplete-popup"></p-autoComplete>
+                        </div>
+                    </div>
+                </div>
             </md-tab>
             <md-tab label="Приватність">
                 <h1>Some more tab content</h1>

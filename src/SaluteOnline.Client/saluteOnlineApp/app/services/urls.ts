@@ -2,9 +2,15 @@
 
 @Injectable()
 export class UrlsService {
-    loginEndpoint = 'http://localhost:9657/connect/token';
-    revokeEndpoint = 'http://localhost:9657/connect/revocation';
 
-    checkEmailUniquity = 'http://localhost:9657/api/account/EmailUniquity';
-    checkUsernameUniquity = 'http://localhost:9657/api/account/UsernameUniquity';
+    identityServerUrl = 'http://localhost:9657/';
+    apiUrl = 'http://localhost:43713/api/';
+
+    loginEndpoint = this.identityServerUrl + 'connect/token';
+    revokeEndpoint = this.identityServerUrl + 'connect/revocation';
+
+    checkEmailUniquity = this.identityServerUrl + 'api/account/EmailUniquity';
+    checkUsernameUniquity = this.identityServerUrl + 'api/account/UsernameUniquity';
+
+    getCity = this.apiUrl + 'Geo/GetCity';
 }

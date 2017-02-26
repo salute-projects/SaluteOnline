@@ -14,6 +14,7 @@ var pages_routing_1 = require("./pages.routing");
 var pages_component_1 = require("./pages.component");
 var so_header_component_1 = require('../components/so-header/so-header.component');
 var so_sidebar_component_1 = require("../components/so-sidebar/so-sidebar.component");
+var so_right_sidebar_component_1 = require("../components/so-right-sidebar/so-right-sidebar.component");
 var so_menu_component_1 = require("../components/so-menu/so-menu.component");
 var so_menuitem_component_1 = require("../components/so-menuitem/so-menuitem.component");
 var material_1 = require('@angular/material');
@@ -35,7 +36,7 @@ var PagesModule = (function () {
                     globalHeaders: [{ 'Content-Type': 'application/x-www-form-urlencoded' }],
                     noJwtError: true
                 })],
-            declarations: [pages_component_1.Pages, so_header_component_1.SoHeader, so_sidebar_component_1.SoSidebar, so_menu_component_1.SoMenu, so_menuitem_component_1.SoMenuItem]
+            declarations: [pages_component_1.Pages, so_header_component_1.SoHeader, so_sidebar_component_1.SoSidebar, so_right_sidebar_component_1.SoRightSidebar, so_menu_component_1.SoMenu, so_menuitem_component_1.SoMenuItem]
         }), 
         __metadata('design:paramtypes', [])
     ], PagesModule);

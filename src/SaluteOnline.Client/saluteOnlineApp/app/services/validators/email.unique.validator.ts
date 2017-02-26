@@ -11,25 +11,25 @@ export class EmailUniqueValidator  {
     validate(c: AbstractControl) {
         return new Promise(resolve => {
             const params = new URLSearchParams();
-                params.set('email', c.value);
-                return this._http.get(this._urls.checkEmailUniquity, { search: params })
-                    .map(res => res.json())
-                    .subscribe(
-                        (data: boolean) => {
-                            return data
-                                ? resolve({
-                                    emailUnique: {
-                                        valid: false
-                                    }
-                                }) : resolve(null);
-                        },
-                        () => {
-                            return resolve({
+            params.set('email', c.value);
+            return this._http.get(this._urls.checkEmailUniquity, { search: params })
+                .map(res => res.json())
+                .subscribe(
+                    (data: boolean) => {
+                        return data
+                            ? resolve({
                                 emailUnique: {
                                     valid: false
                                 }
-                            });
+                            }) : resolve(null);
+                    },
+                    () => {
+                        return resolve({
+                            emailUnique: {
+                                valid: false
+                            }
                         });
+                    });
         });
     }
 }

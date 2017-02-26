@@ -11,10 +11,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var UrlsService = (function () {
     function UrlsService() {
-        this.loginEndpoint = 'http://localhost:9657/connect/token';
-        this.revokeEndpoint = 'http://localhost:9657/connect/revocation';
-        this.checkEmailUniquity = 'http://localhost:9657/api/account/EmailUniquity';
-        this.checkUsernameUniquity = 'http://localhost:9657/api/account/UsernameUniquity';
+        this.identityServerUrl = 'http://localhost:9657/';
+        this.apiUrl = 'http://localhost:43713/api/';
+        this.loginEndpoint = this.identityServerUrl + 'connect/token';
+        this.revokeEndpoint = this.identityServerUrl + 'connect/revocation';
+        this.checkEmailUniquity = this.identityServerUrl + 'api/account/EmailUniquity';
+        this.checkUsernameUniquity = this.identityServerUrl + 'api/account/UsernameUniquity';
+        this.getCity = this.apiUrl + 'Geo/GetCity';
     }
     UrlsService = __decorate([
         core_1.Injectable(), 

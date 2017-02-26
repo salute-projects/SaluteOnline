@@ -9,23 +9,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var so_header_component_1 = require("../components/so-header/so-header.component");
-var so_sidebar_component_1 = require("../components/so-sidebar/so-sidebar.component");
-var so_right_sidebar_component_1 = require("../components/so-right-sidebar/so-right-sidebar.component");
-var Pages = (function () {
-    function Pages() {
+var SoRightSidebar = (function () {
+    function SoRightSidebar() {
     }
-    Pages = __decorate([
-        core_1.Component(({
-            selector: 'pages',
-            declarations: [so_header_component_1.SoHeader, so_sidebar_component_1.SoSidebar, so_right_sidebar_component_1.SoRightSidebar],
-            encapsulation: core_1.ViewEncapsulation.None,
-            styles: [],
-            template: require('./pages-template.html')
-        })), 
+    SoRightSidebar = __decorate([
+        core_1.Component({
+            selector: 'so-right-sidebar',
+            styles: [require('./so-right-sidebar.component.scss').toString()],
+            template: require('./so-right-sidebar.component.html'),
+            encapsulation: core_1.ViewEncapsulation.None
+        }), 
         __metadata('design:paramtypes', [])
-    ], Pages);
-    return Pages;
+    ], SoRightSidebar);
+    return SoRightSidebar;
 }());
-exports.Pages = Pages;
-//# sourceMappingURL=pages.component.js.map
+exports.SoRightSidebar = SoRightSidebar;
+//# sourceMappingURL=so-right-sidebar.component.js.map

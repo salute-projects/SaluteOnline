@@ -228,6 +228,7 @@
 --resource:"C:\VS Projects\SaluteOnline GitHub\SaluteOnline\src\SaluteOnline\obj\Debug\netcoreapp1.0\SaluteOnlinedotnet-compile.deps.json",SaluteOnline.deps.json
 C:\VS Projects\SaluteOnline GitHub\SaluteOnline\src\SaluteOnline\Program.cs
 C:\VS Projects\SaluteOnline GitHub\SaluteOnline\src\SaluteOnline\Startup.cs
+C:\VS Projects\SaluteOnline GitHub\SaluteOnline\src\SaluteOnline\Controllers\GeoController.cs
 C:\VS Projects\SaluteOnline GitHub\SaluteOnline\src\SaluteOnline\Controllers\ProtocolsController.cs
 C:\VS Projects\SaluteOnline GitHub\SaluteOnline\src\SaluteOnline\Controllers\UserController.cs
 C:\VS Projects\SaluteOnline GitHub\SaluteOnline\src\SaluteOnline\Controllers\ValuesController.cs
