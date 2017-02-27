@@ -144,3 +144,67 @@ md-ink-bar {
         }
     }
 }
+
+.so-datepicker {
+    margin-top: 20px;
+
+    .so-datepicker-input {
+        border-radius: 0 !important;
+        background-color: transparent !important;
+        border: none !important;
+        border-bottom: 1px solid $main-grey !important;
+        color: $main-white !important;
+        outline: none !important;
+
+        &:focus {
+            box-shadow: none !important;
+            border-bottom: 2px solid $main-red !important;
+        }
+    }
+
+    .ui-datepicker-trigger {
+        border: 1px solid $main-red !important;
+        background-color: $main-red !important;
+
+        &:hover {
+            border: 1px solid $main-red-hover !important;
+            background-color: $main-red-hover !important;
+        }
+    }
+}
+
+.ui-datepicker {
+    border-radius: 0 !important;
+
+    .ui-datepicker-header {
+        background: none;
+        background-color: $main-light;
+    }
+
+    .ui-datepicker-calendar {
+        td:not(.ui-state-disabled) {
+            a.ui-state-active {
+                background-color: $main-red !important;
+                color: $main-white !important;
+            }
+            
+            a:hover {
+                background-color: $main-red-hover !important;
+                color: $main-white !important;
+            }
+        } 
+    }
+}
+
+.so-float-label {
+    font-weight: normal;
+    font-family: $font-family;
+    color: $main-red;
+    position: absolute;
+    transform: translateX(4px);
+}
+
+.so-autocomplete-wrapper {
+    display: inline-block;
+
+}

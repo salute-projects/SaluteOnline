@@ -17,6 +17,19 @@ export class SoUserSettings implements OnInit {
     city: string;
     filteredCities: any[];
     
+    pickerOptions = {
+        minDateValue: new Date('1950/01/01'),
+        maxDateValue: new Date('2010/12/31'),
+        locale: {
+            firstDayOfWeek: 0,
+            dayNames: ["Неділя", "Понеділок", "Вівторок", "Середа", "Четвер", "П'ятниця", "Субота"],
+            dayNamesShort: ["Нед", "Пон", "Вів", "Сер", "Чет", "Птн", "Суб"],
+            dayNamesMin: ["Н","П","В","С","Ч","Пт","Сб"],
+            monthNames: [ "Січень","Лютий","Березень","Квітень","Травень","Червень","Липень","Серпень","Вересень","Жовтень","Листопад","Грудень" ],
+            monthNamesShort: [ "Січ", "Лют", "Бер", "Кві", "Тра", "Чер","Лип", "Сер", "Вер", "Жов", "Лис", "Гру" ]
+        } 
+    }
+
     searchCountry(event: any) {
         const query = event.query;
         this.filteredContries = this.countries.filter(item => item.toLowerCase().indexOf(query.toLowerCase()) > -1);
@@ -24,7 +37,7 @@ export class SoUserSettings implements OnInit {
 
     searchCity(event: any) {
         const query = event.query;
-        this._geoService.getCities("China", query).subscribe((result: string[]) => this.filteredCities = result);
+        this.filteredCities = this._geoService.getCities('Україна', query);
     }
 
     constructor(private _geoService: GeoService) {

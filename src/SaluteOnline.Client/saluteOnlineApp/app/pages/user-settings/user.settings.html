@@ -36,11 +36,26 @@
                     </div>
                     <div class="row form-group">
                         <div class="col-md-8 col-md-push-2">
-                            <p-autoComplete formControlName="country" placeholder="Країна" minLength="3" [suggestions]="filteredContries" appendTo="body"
-                                            (completeMethod)="searchCountry($event)" inputStyleClass="so-autocomplete-input" styleClass="so-autocomplete-popup">
-                            </p-autoComplete>
-                            <p-autoComplete formControlName="city" placeholder="Країна" minLength="3" [suggestions]="filteredCities" appendTo="body"
-                                            (completeMethod)="searchCity($event)" inputStyleClass="so-autocomplete-input" styleClass="so-autocomplete-popup"></p-autoComplete>
+                            <div class="so-autocomplete-wrapper" style="margin-top: 10px">
+                                <label class="so-float-label" style="transform: translateY(-18px) translateX(12px)">Країна</label>
+                                <p-autoComplete formControlName="country" placeholder="Країна" minLength="3" [suggestions]="filteredContries" appendTo="body"
+                                                (completeMethod)="searchCountry($event)" inputStyleClass="so-autocomplete-input" styleClass="so-autocomplete-popup">
+                                </p-autoComplete>
+                            </div>
+                            <div class="so-autocomplete-wrapper" style="margin-top: 10px">
+                                <label class="so-float-label" style="transform: translateY(-18px) translateX(12px)">Місто</label>
+                                <p-autoComplete formControlName="city" placeholder="Місто" minLength="3" [suggestions]="filteredCities" appendTo="body"
+                                                (completeMethod)="searchCity($event)" inputStyleClass="so-autocomplete-input" styleClass="so-autocomplete-popup"></p-autoComplete>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-8 col-md-push-2">
+                            <label class="so-float-label">Дата народження</label>
+                            <p-calendar formControlName="date" appendTo="body" dateFormat="dd.mm.yy" [minDate]="pickerOptions.minDateValue" [maxDate]="pickerOptions.maxDateValue"
+                                        [locale]="pickerOptions.locale" [defaultDate]="pickerOptions.maxDateValue" placeholder="Дата народження"
+                                        [showIcon]="true" [readonlyInput]="true" [monthNavigator]="true" [yearNavigator]="true" yearRange="1950:2010"
+                                        styleClass="so-datepicker" inputStyleClass="so-datepicker-input"></p-calendar>
                         </div>
                     </div>
                 </div>
