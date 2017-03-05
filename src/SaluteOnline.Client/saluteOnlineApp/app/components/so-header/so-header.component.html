@@ -9,8 +9,8 @@
     </div>
 
     <md-menu #soMenu="mdMenu" class="user-login-menu">
-        <button md-menu-item [routerLink]="['/login']"> Увійти </button>
-        <button md-menu-item [routerLink]="['/register']"> Зареєструватись </button>
+        <a md-menu-item [routerLink]="['/login']"> Увійти </a>
+        <a md-menu-item [routerLink]="['/register']"> Зареєструватись </a>
     </md-menu>
     <button md-button [mdMenuTriggerFor]="soMenu" class="user-login-button" *ngIf="!userLogged">
         Увійти/Зареєструватись

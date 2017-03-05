@@ -206,5 +206,35 @@ md-ink-bar {
 
 .so-autocomplete-wrapper {
     display: inline-block;
+}
 
+.so-upload {
+    .ui-fileupload-buttonbar {
+        border: none;
+        border-radius: 0;
+        background: none;
+    }
+
+    .ui-fileupload-content {
+        border: 1px solid transparent;
+        background: none;
+        color: $main-white;
+        border-radius: 0;
+
+        .ui-progressbar {
+            background: none;
+        }
+    }
+
+    .ui-button {
+        border-radius: 0;
+        background: $main-red !important;
+        color: $main-white;
+        border: 1px solid $main-red !important;
+
+        &:hover {
+            background: $main-red-hover !important;
+            border: 1px solid $main-red-hover !important;
+        }
+    }
 }

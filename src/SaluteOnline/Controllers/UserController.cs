@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using IdentityServer4.Extensions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SaluteOnline.DAL;
+using SaluteOnline.Domain.Enums;
 using SaluteOnline.Domain.User;
 
 namespace SaluteOnline.Controllers
@@ -63,11 +66,32 @@ namespace SaluteOnline.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update(User user)
+        public async Task<IActionResult> Insert(MongoUser user)
         {
             try
             {
-                var updatedUser = await _unitOfWork.Users.UpdateAsync(user);
+                var updatedUser = await _unitOfWork.MongoUsers.InsertAsync(user);
+                if (updatedUser != null)
+                {
+                    return Ok(updatedUser);
+                }
+                return BadRequest("User info wasn't updated");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPatch]
+        [Authorize("AllAuthorized")]
+        public async Task<IActionResult> Update(MongoUser user)
+        {
+            try
+            {
+                user.Guid = Guid.Parse(User.Claims.SingleOrDefault(t => t.Type == "guid").Value);
+                user.Username = User.Claims.SingleOrDefault(t => t.Type == "sub").Value;
+                var updatedUser = await _unitOfWork.MongoUsers.UpdateAsync(user);
                 if (updatedUser != null)
                 {
                     return Ok(updatedUser);

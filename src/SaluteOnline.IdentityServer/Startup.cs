@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using IdentityModel;
+using IdentityServer4;
 using IdentityServer4.Models;
 using IdentityServer4.Services;
 using IdentityServer4.Stores;
@@ -40,8 +42,11 @@ namespace SaluteOnline.IdentityServer
                         },
                         Claims = new List<ScopeClaim>
                         {
-                            new ScopeClaim("role")
-                        }
+                            new ScopeClaim("role"),
+                            new ScopeClaim("subject"),
+                            new ScopeClaim("guid")
+                        },
+                        IncludeAllClaimsForUser = true
                     },
                     new Scope
                     {

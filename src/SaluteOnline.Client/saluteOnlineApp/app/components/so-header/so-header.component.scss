@@ -84,9 +84,16 @@
     .md-menu-content{
         background-color: $main-light;
 
-        button {
+        a {
             color: $background-color;
             font-size: 1em;
+            text-decoration: none;
+            outline: none;
+
+            &:hover, &:focus {
+                text-decoration: none;
+                outline: none;
+            }
         }
     }
 }

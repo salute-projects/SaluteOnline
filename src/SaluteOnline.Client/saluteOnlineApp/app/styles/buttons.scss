@@ -1,0 +1,17 @@
+﻿@import "vars";
+
+.btn-auth {
+    background: $main-red-hover;
+}
+
+.so-primary-button {
+    border-radius: 0 !important;
+    background: $main-red;
+    color: $main-white;
+
+    &:hover, &:focus {
+        background: $main-red-hover;
+        color: $main-white;
+    }
+    
+}

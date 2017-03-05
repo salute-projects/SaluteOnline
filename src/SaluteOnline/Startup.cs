@@ -47,6 +47,8 @@ namespace SaluteOnline
                     options.AddPolicy(Role.User.ToString(), policyUser => policyUser.RequireClaim("role", Role.User.ToString()));
                     options.AddPolicy(Role.Admin.ToString(), policyUser => policyUser.RequireClaim("role", Role.Admin.ToString()));
                     options.AddPolicy(Role.SilentDon.ToString(), policyUser => policyUser.RequireClaim("role", Role.SilentDon.ToString()));
+                    options.AddPolicy("AdminAndUser", policyUser => policyUser.RequireClaim("role", Role.User.ToString(), Role.Admin.ToString()));
+                    options.AddPolicy("AllAuthorized", policyUser => policyUser.RequireClaim("role", Role.User.ToString(), Role.Admin.ToString(), Role.SilentDon.ToString()));
                 });
             services.AddMvc();
             services.AddIdentityServer()

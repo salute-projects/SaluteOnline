@@ -4,6 +4,7 @@
 @import "styles/socicon";
 $ionicons-font-path: "~ionicons/fonts";
 @import "~ionicons/scss/ionicons";
+@import "styles/buttons";
 
 body {
     background: linear-gradient(to left top, #c52a2a, #D32F2F);
@@ -105,6 +106,14 @@ body {
 		    }
 	    }
     }
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-text-fill-color: $main-white;
 }
 
 @keyframes blur-text {

@@ -11,12 +11,27 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 var urls_1 = require("../urls");
-var CountriesService = (function () {
-    function CountriesService(_http, _urls) {
+var GeoService = (function () {
+    function GeoService(_http, _urls) {
         this._http = _http;
         this._urls = _urls;
+        this.cities = ["Алушта", "Армянськ", "Красноперекопськ", "Джанкой", "Євпаторія", "Керч", "Саки", "Сімферополь", "Судак", "Феодосія", "Ялта", "Вінниця",
+            "Жмеринка", "Козятин", "Ладижин", "Могилів-Подільський", "Хмільник", "Володимир-Волинський", "Ковель", "Луцьк", "Нововолинськ", "Вільногірськ", "Кам'янське", "Дніпро",
+            "Жовті Води", "Кривий Ріг", "Марганець", "Нікополь", "Новомосковськ", "Покров", "Павлоград", "Першотравенськ", "Синельникове", "Тернівка", "Авдіївка", "Бахмут",
+            "Вугледар", "Горліка", "Дебальцеве", "Торецьк", "Мирноград", "Добропілля", "Докучаєвськ", "Донецьк", "Дружківка", "Жданівка", "Єнакієве", "Хрестівка", "Костянтинівка",
+            "Краматорськ", "Лиман", "Покровськ", "Макіївка", "Маріуполь", "Новогродівка", "Селидове", "Слов'янськ", "Сніжне", "Чистякове", "Харцизьк", "Шахтарськ", "Ясинувата",
+            "Бердичів", "Житомир", "Коростень", "Малин", "Новоград-Волинський", "Берегове", "Мукачеве", "Ужгород", "Хуст", "Чоп", "Бердянськ", "Енергодар", "Запоріжжя",
+            "Мелітополь", "Токмак", "Болехів", "Івано-Франківськ", "Калуш", "Коломия", "Яремче", "Бориспіль", "Березань", "Біла Церква", "Бровари", "Буча", "Васильків",
+            "Ірпінь", "Обухів", "Переяслав-Хмельницький", "Прип'ять", "Ржищів", "Славутич", "Фастів", "Знам'янка", "Кропивницький", "Олександрія", "Світловодськ", "Алчевськ",
+            "Антрацит", "Брянка", "Голубівка", "Хрустальний", "Сорокине", "Лисичанськ", "Луганськ", "Первомайськ", "Ровеньки", "Рубіжне", "Довжанськ", "Сєвєродонецьк", "Кадіївка",
+            "Борислав", "Дрогобич", "Львів", "Моршин", "Новий Розділ", "Самбір", "Стрий", "Трускавець", "Червоноград", "Вознесенськ", "Миколаїв", "Очаків", "Первомайськ",
+            "Южноукраїнськ", "Білгород-Дністровський", "Ізмаїл", "Чорноморськ", "Подільськ", "Одеса", "Теплодар", "Южне", "Горішні Плавні", "Кременчук", "Лубни", "Миргород",
+            "Полтава", "Дубно", "Вараш", "Острог", "Рівне", "Охтирка", "Глухів", "Конотоп", "Лебедин", "Ромни", "Суми", "Шостка", "Тернопіль", "Бережани", "Кременець", "Чортків",
+            "Ізюм", "Куп'янськ", "Лозова", "Люботин", "Первомайськ", "Харків", "Чугуїв", "Каховка", "Нова Каховка", "Херсон", "Кам'янець-Подільський", "Нетішин", "Славута",
+            "Старокостянтинів", "Хмельницький", "Шепетівка", "Ватутіне", "Золотоноша", "Канів", "Сміла", "Умань", "Черкаси", "Новодністровськ", "Чернівці", "Ніжин", "Прилуки", "Чернігів"
+        ];
     }
-    CountriesService.prototype.getCountries = function () {
+    GeoService.prototype.getCountries = function () {
         return [
             "Afghanistan",
             "Albania",
@@ -37,7 +52,7 @@ var CountriesService = (function () {
             "Bahrain",
             "Bangladesh",
             "Barbados",
-            "Belarus",
+            "Беларусь",
             "Belgium",
             "Belize",
             "Benin",
@@ -194,7 +209,6 @@ var CountriesService = (function () {
             "Qatar",
             "Reunion",
             "Romania",
-            "Russian Federation",
             "Rwanda",
             "Saint Helena",
             "Saint Kitts and Nevis",
@@ -240,7 +254,7 @@ var CountriesService = (function () {
             "Turks and Caicos Islands",
             "Tuvalu",
             "Uganda",
-            "Ukraine",
+            "Україна",
             "United Arab Emirates",
             "United Kingdom",
             "United States",
@@ -259,18 +273,16 @@ var CountriesService = (function () {
             "Zimbabwe"
         ];
     };
-    CountriesService.prototype.getCities = function (country, query) {
-        var params = new http_1.URLSearchParams();
-        params.set('country', country);
-        params.set('filter', query);
-        return this._http.get(this._urls.getCity, { search: params })
-            .map(function (res) { return res.json(); });
+    GeoService.prototype.getCities = function (country, query) {
+        if (country !== 'Україна')
+            return [];
+        return this.cities.filter(function (item) { return item.toLowerCase().indexOf(query.toLowerCase()) > -1; });
     };
-    CountriesService = __decorate([
+    GeoService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [http_1.Http, urls_1.UrlsService])
-    ], CountriesService);
-    return CountriesService;
+    ], GeoService);
+    return GeoService;
 }());
-exports.CountriesService = CountriesService;
+exports.GeoService = GeoService;
 //# sourceMappingURL=geo.service.js.map

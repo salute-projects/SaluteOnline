@@ -107,14 +107,6 @@ a.forgot-pass {
 
 // custom
 
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-input:-webkit-autofill:active {
-    transition: background-color 5000s ease-in-out 0s;
-    -webkit-text-fill-color: $main-white;
-}
-
 
 .so-input {
     width: 100%;
@@ -143,10 +135,6 @@ input:-webkit-autofill:active {
             background-color: $main-green;
         }
     }
-}
-
-.btn-auth {
-    background: $main-red-hover;
 }
 
 [md-button][disabled][disabled] {

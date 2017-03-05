@@ -17,7 +17,7 @@ var UrlsService = (function () {
         this.revokeEndpoint = this.identityServerUrl + 'connect/revocation';
         this.checkEmailUniquity = this.identityServerUrl + 'api/account/EmailUniquity';
         this.checkUsernameUniquity = this.identityServerUrl + 'api/account/UsernameUniquity';
-        this.getCity = this.apiUrl + 'Geo/GetCity';
+        this.updateUser = this.apiUrl + 'User';
     }
     UrlsService = __decorate([
         core_1.Injectable(), 

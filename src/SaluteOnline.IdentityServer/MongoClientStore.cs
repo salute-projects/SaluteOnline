@@ -28,7 +28,7 @@ namespace SaluteOnline.IdentityServer
                 AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
                 RequireConsent = false,
                 AllowAccessToAllScopes = false,
-                AccessTokenLifetime = 360,
+                AccessTokenLifetime = 3600,
                 AllowedScopes = client.AllowedScopes,
                 RedirectUris = client.RedirectUris,
                 AllowAccessTokensViaBrowser = true,

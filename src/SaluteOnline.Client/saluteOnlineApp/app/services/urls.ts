@@ -12,5 +12,5 @@ export class UrlsService {
     checkEmailUniquity = this.identityServerUrl + 'api/account/EmailUniquity';
     checkUsernameUniquity = this.identityServerUrl + 'api/account/UsernameUniquity';
 
-    getCity = this.apiUrl + 'Geo/GetCity';
+    updateUser = this.apiUrl + 'User';
 }
