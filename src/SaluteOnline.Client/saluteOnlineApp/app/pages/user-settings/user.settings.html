@@ -6,7 +6,8 @@
                     <md-card-title>Username</md-card-title>
                     <md-card-subtitle>
                         <md-input-container class="email-field">
-                            <input md-input [formControl]="email" placeholder="Email" value="melomaniac.taras@gmail.com">
+                            <input mdInput [formControl]="email">
+                            <md-placeholder>Email</md-placeholder>
                         </md-input-container>
                     </md-card-subtitle>
                     <img md-card-avatar src="/content/user-icon.png" alt="">
@@ -18,20 +19,24 @@
                         <div class="row form-group">
                             <div class="col-md-8 col-md-push-2">
                                 <md-input-container>
-                                    <input md-input [formControl]="name" placeholder="Ім'я" value="Тарас">
+                                    <input mdInput [formControl]="name">
+                                    <md-placeholder>Ім'я</md-placeholder>
                                 </md-input-container>
                                 <md-input-container>
-                                    <input md-input [formControl]="lastname" placeholder="Прізвище" value="Яремків">
+                                    <input mdInput [formControl]="lastname">
+                                    <md-placeholder>Прізвище</md-placeholder>
                                 </md-input-container>
                             </div>
                         </div>
                         <div class="row form-group">
                             <div class="col-md-8 col-md-push-2">
                                 <md-input-container>
-                                    <input md-input [formControl]="phoneMain" placeholder="Телефон" value="+380938188646">
+                                    <input mdInput [formControl]="phoneMain">
+                                    <md-placeholder>Телефон</md-placeholder>
                                 </md-input-container>
                                 <md-input-container>
-                                    <input md-input [formControl]="phoneSecond" placeholder="Телефон (додатковий)" value="+380966366078">
+                                    <input mdInput [formControl]="phoneSecond">
+                                    <md-placeholder>Телефон (додатковий)</md-placeholder>
                                 </md-input-container>
                             </div>
                         </div>

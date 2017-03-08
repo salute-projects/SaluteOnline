@@ -18,6 +18,7 @@ var UrlsService = (function () {
         this.checkEmailUniquity = this.identityServerUrl + 'api/account/EmailUniquity';
         this.checkUsernameUniquity = this.identityServerUrl + 'api/account/UsernameUniquity';
         this.updateUser = this.apiUrl + 'User';
+        this.getLoggedUser = this.apiUrl + 'User/GetLogged';
     }
     UrlsService = __decorate([
         core_1.Injectable(), 

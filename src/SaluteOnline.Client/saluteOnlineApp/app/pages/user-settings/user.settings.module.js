@@ -21,7 +21,7 @@ var SoUserSettingsModule = (function () {
     }
     SoUserSettingsModule = __decorate([
         core_1.NgModule({
-            imports: [common_1.CommonModule, material_1.MdTabsModule, material_1.MdCardModule, material_1.MdInputModule, primeng_1.AutoCompleteModule, primeng_1.CalendarModule, primeng_1.FileUploadModule, user_settings_routing_1.routing, forms_1.FormsModule, forms_1.ReactiveFormsModule],
+            imports: [common_1.CommonModule, material_1.MdTabsModule, material_1.MdCardModule, material_1.MdInputModule, material_1.MdButtonModule, primeng_1.AutoCompleteModule, primeng_1.CalendarModule, primeng_1.FileUploadModule, user_settings_routing_1.routing, forms_1.FormsModule, forms_1.ReactiveFormsModule],
             providers: [geo_service_1.GeoService],
             declarations: [user_settings_1.SoUserSettings]
         }), 

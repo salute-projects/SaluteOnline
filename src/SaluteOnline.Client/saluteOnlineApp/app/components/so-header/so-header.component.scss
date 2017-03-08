@@ -68,12 +68,13 @@
     }
 }
 
-[md-button].user-login-button {
+button.user-login-button {
+    border-radius: 0 !important;
     margin-top: 14px;
     float: right;
     background: $main-red-hover;
 
-    .md-button-wrapper {
+    .mat-button-wrapper {
         color: $main-white;
     }
 }
@@ -81,7 +82,7 @@
 .user-login-menu {
     border-radius: 1px;
 
-    .md-menu-content{
+    .mat-menu-content{
         background-color: $main-light;
 
         a {

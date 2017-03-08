@@ -15,12 +15,15 @@ var http_1 = require("@angular/http");
 var urls_1 = require("../../services/urls");
 var email_validator_1 = require("../../services/validators/email.validator");
 var angular2_jwt_1 = require('angular2-jwt');
+var material_1 = require("@angular/material");
+var moment = require('moment');
 var SoUserSettings = (function () {
-    function SoUserSettings(_geoService, fb, _http, _urls, _authHttp) {
+    function SoUserSettings(_geoService, fb, _http, _urls, _authHttp, snackBar) {
         this._geoService = _geoService;
         this._http = _http;
         this._urls = _urls;
         this._authHttp = _authHttp;
+        this.snackBar = snackBar;
         this.submitted = false;
         this.pickerOptions = {
             minDateValue: new Date('1950/01/01'),
@@ -39,8 +42,8 @@ var SoUserSettings = (function () {
             'email': ['', forms_1.Validators.compose([forms_1.Validators.required, email_validator_1.EmailValidator.validate])],
             'name': ['', forms_1.Validators.compose([forms_1.Validators.minLength(4), forms_1.Validators.maxLength(50)])],
             'lastname': ['', forms_1.Validators.compose([forms_1.Validators.minLength(4), forms_1.Validators.maxLength(50)])],
-            'phoneMain': ['', forms_1.Validators.compose([forms_1.Validators.pattern('/^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s\./0-9]*$/g')])],
-            'phoneSecond': ['', forms_1.Validators.compose([forms_1.Validators.pattern('/^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s\./0-9]*$/g')])],
+            'phoneMain': [''],
+            'phoneSecond': [''],
             'state': [''],
             'city': [''],
             'birthday': ['']
@@ -81,7 +84,28 @@ var SoUserSettings = (function () {
             .map(function (res) { return res.json(); })
             .subscribe();
     };
-    SoUserSettings.prototype.ngOnInit = function () {
+    SoUserSettings.prototype.setUserValues = function (user) {
+        this.email.setValue(user.email);
+        this.name.setValue(user.name);
+        this.lastname.setValue(user.lastName);
+        this.phoneMain.setValue(user.phoneMain);
+        this.phoneSecond.setValue(user.phoneSecond);
+        this.birthday.setValue(moment(user.birthday));
+    };
+    SoUserSettings.prototype.ngAfterViewInit = function () {
+        var _this = this;
+        this._authHttp.get(this._urls.getLoggedUser)
+            .map(function (res) { return res.json(); })
+            .subscribe(function (result) {
+            _this.user = result;
+            _this.setUserValues(result);
+        }, function () {
+            var snackBar = _this.snackBar.open("Не вдалось отримати профіль", "Закрити", { duration: 10000 });
+            snackBar.onAction()
+                .subscribe(function () {
+                snackBar.dismiss();
+            });
+        });
     };
     SoUserSettings = __decorate([
         core_1.Component({
@@ -91,7 +115,7 @@ var SoUserSettings = (function () {
             styles: [require('./user.settings.scss').toString()],
             template: require('./user.settings.html')
         }), 
-        __metadata('design:paramtypes', [geo_service_1.GeoService, forms_1.FormBuilder, http_1.Http, urls_1.UrlsService, angular2_jwt_1.AuthHttp])
+        __metadata('design:paramtypes', [geo_service_1.GeoService, forms_1.FormBuilder, http_1.Http, urls_1.UrlsService, angular2_jwt_1.AuthHttp, material_1.MdSnackBar])
     ], SoUserSettings);
     return SoUserSettings;
 }());

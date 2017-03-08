@@ -1,4 +1,7 @@
-﻿// RxJS.
+﻿// Reflect Metadata.
+import "reflect-metadata";
+
+// RxJS.
 import "rxjs";
 
 // Angular 2.
@@ -10,9 +13,6 @@ import "@angular/platform-browser";
 import "@angular/platform-browser-dynamic";
 import "@angular/router";
 
-// Reflect Metadata.
-import "reflect-metadata";
-
 // Other vendors for example jQuery, Lodash or Bootstrap
 // You can import js, ts, css, sass, ...
 
@@ -23,3 +23,4 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "angular2-toaster/lib/toaster.css";
 import "angular2-toaster/angular2-toaster";
 import 'primeng/primeng';
+import "moment";

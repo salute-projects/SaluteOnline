@@ -1,4 +1,4 @@
-﻿import { Component, ViewEncapsulation, OnInit } from "@angular/core";
+﻿import { Component, ViewEncapsulation, AfterViewInit } from "@angular/core";
 import { GeoService } from "../../services/geo/geo.service";
 import { FormGroup, AbstractControl, FormBuilder, Validators } from "@angular/forms";
 import { Http, Headers, RequestOptions, URLSearchParams } from "@angular/http";
@@ -6,6 +6,25 @@ import { UrlsService } from "../../services/urls";
 import { EmailValidator } from "../../services/validators/email.validator";
 import { EmailUniqueValidator } from "../../services/validators/email.unique.validator";
 import { AuthHttp, tokenNotExpired } from 'angular2-jwt';
+import { MdSnackBar } from "@angular/material";
+const moment = require("moment");
+
+interface IUser {
+    guid: string;
+    id: number;
+    username: string;
+    password: string;
+    email: string;
+    isActive: boolean;
+    emailVerified: boolean;
+    role: number;
+    name: string;
+    lastName: string;
+    phoneMain: string;
+    phoneSecond: string;
+    birthday: Date;
+    avatar: string;
+}
 
 @Component({
     selector: 'so-user-settings',
@@ -15,7 +34,7 @@ import { AuthHttp, tokenNotExpired } from 'angular2-jwt';
     template: require('./user.settings.html')
 })
 
-export class SoUserSettings implements OnInit {
+export class SoUserSettings implements AfterViewInit {
     form: FormGroup;
     email: AbstractControl;
     name: AbstractControl;
@@ -36,6 +55,8 @@ export class SoUserSettings implements OnInit {
     city: string;
     filteredCities: any[];
     
+    user: IUser;
+
     pickerOptions = {
         minDateValue: new Date('1950/01/01'),
         maxDateValue: new Date('2010/12/31'),
@@ -61,7 +82,7 @@ export class SoUserSettings implements OnInit {
         }
     }
 
-    constructor(private _geoService: GeoService, fb: FormBuilder, private _http: Http, private _urls: UrlsService, private _authHttp: AuthHttp) {
+    constructor(private _geoService: GeoService, fb: FormBuilder, private _http: Http, private _urls: UrlsService, private _authHttp: AuthHttp, public snackBar: MdSnackBar) {
         this.countries = _geoService.getCountries();
         this.form = fb.group({
             'email': ['', Validators.compose([Validators.required, EmailValidator.validate])],
@@ -101,6 +122,29 @@ export class SoUserSettings implements OnInit {
             .subscribe();      
     }
 
-    ngOnInit(): void {
+    private setUserValues(user: IUser): void {
+        this.email.setValue(user.email);
+        this.name.setValue(user.name);
+        this.lastname.setValue(user.lastName);
+        this.phoneMain.setValue(user.phoneMain);
+        this.phoneSecond.setValue(user.phoneSecond);
+        //this.birthday.setValue(moment(user.birthday).utc());
+    }
+
+    ngAfterViewInit(): void {
+        this._authHttp.get(this._urls.getLoggedUser)
+            .map(res => res.json())
+            .subscribe(
+                (result: IUser) => {
+                    this.user = result;
+                    this.setUserValues(result);
+                },
+                () => {
+                    const snackBar = this.snackBar.open("Не вдалось отримати профіль", "Закрити", { duration: 10000 });
+                    snackBar.onAction()
+                        .subscribe(() => {
+                            snackBar.dismiss();
+                        });
+                });
     }
 }

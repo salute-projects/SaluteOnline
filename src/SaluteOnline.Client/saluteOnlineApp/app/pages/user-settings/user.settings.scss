@@ -6,7 +6,7 @@
     background: $background-color;
     color: $main-white;
 
-    md-card-header {
+    .mat-card-header {
         height: 100px;
 
         img {
@@ -14,21 +14,21 @@
             width: 100px;
         }
 
-        .md-card-header-text {
-            md-card-title {
+        .mat-card-header-text {
+            .mat-card-title {
                 font-size: 2rem;
             }
 
-            md-card-subtitle {
+            .mat-card-subtitle {
                 color: $main-white;
                 margin-top: 10px;
                 
 
                 .email-field {
-                    .md-input-wrapper {
+                    .mat-input-wrapper {
                         width: 300px;
 
-                        input.md-input-element {
+                        input.mat-input-element {
                             font-size: 1.6rem;
                         }
                     }   
@@ -39,17 +39,17 @@
 }
 
 .so-dark-tabgroup {
-    .md-tab-header {
+    .mat-tab-header {
         background-color: $background-color;
         border-bottom: none;
 
-        .md-tab-label {
+        .mat-tab-label {
             color: $main-white;
             opacity: 1;
         }
     }
 
-    md-tab-body {
+    .mat-tab-body {
         background: $background-color;
 
         .md-tab-body-content {
@@ -59,26 +59,29 @@
     }
 }
 
-md-ink-bar {
+.mat-ink-bar {
     background-color: $main-red;
 }
 
-.md-input-placeholder {
-    color: $main-red;
-    font-family: $font-family;
-    font-weight: normal;
-    font-size: 2rem !important;
-    margin-top: -4px;
-
-    &.md-focused {
-        color: $main-red-hover;
+.mat-input-placeholder-wrapper {
+    top: -1.5em !important;
+    
+    .mat-input-placeholder {
+        color: $main-red;
+        font-family: $font-family;
+        font-weight: normal;
+        font-size: 2rem !important;
+    
+        &.mat-focused {
+            color: $main-red-hover;
+        }
     }
 }
 
-.md-input-underline {
+.mat-input-underline {
     background-color: $main-grey;
 
-    .md-input-ripple {
+    .mat-input-ripple {
         background-color: $main-red-hover;
     }
 }
@@ -88,9 +91,14 @@ md-ink-bar {
 }
 
 .profile-form {
-    md-input-container {
+    .mat-input-container {
         @include h-margin(10px);
         min-width: 250px;
+
+        .mat-input-element {
+            color: $main-white !important;
+        }
+
     }
 
     .so-autocomplete-popup {

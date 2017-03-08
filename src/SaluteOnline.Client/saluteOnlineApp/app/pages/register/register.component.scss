@@ -20,32 +20,32 @@ $text-color: #ffffff;
   @include bg-translucent-dark(0.3);
   color: #fff;
   padding: 32px;
-  h1 {
-    font-weight: $font-light;
-    margin-bottom: 28px;
-    text-align: center;
-  }
-  p {
-    font-size: 16px;
-  }
-  a {
-    text-decoration: none;
-    outline: none;
-    transition: all 0.2s ease;
-    color: $primary;
-    &:hover {
-      color: $primary-dark;
+    h1 {
+      font-weight: $font-light;
+      margin-bottom: 28px;
+      text-align: center;
     }
-  }
+    p {
+      font-size: 16px;
+    }
+    a {
+      text-decoration: none;
+      outline: none;
+      transition: all 0.2s ease;
+      color: $primary;
+      &:hover {
+        color: $primary-dark;
+      }
+    }
 
-  .control-label {
-    padding-top: 11px;
-    color: $text-color;
-  }
+    .control-label {
+      padding-top: 11px;
+      color: $text-color;
+    }
 
-  .form-group {
-    margin-bottom: 12px;
-  }
+    .form-group {
+      margin-bottom: 12px;
+    }
 }
 
 .auth-input {
@@ -110,33 +110,37 @@ a.forgot-pass {
 .so-input {
     width: 100%;
 
-    .md-input-placeholder {
+    .mat-input-placeholder-wrapper {
+        height: 40px;
+    }
+
+    .mat-input-placeholder {
         color: $main-white;
     }
 
-    .md-input-underline {
+    .mat-input-underline {
         background-color: $main-white;
     }
 
-    .md-input-element {
+    .mat-input-element {
         font-size: 1.8rem;
     }
 
     &.has-error {
-        .md-input-underline {
+        .mat-input-underline {
             background-color: $main-red;
             height: 2px;
         }
     }
 
     &.has-success {
-        .md-input-underline {
+        .mat-input-underline {
             background-color: $main-green;
         }
     }
 }
 
-[md-button][disabled][disabled] {
+[mat-button][disabled][disabled] {
     background-color: $main-white;
 }
 

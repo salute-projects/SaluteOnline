@@ -65,6 +65,20 @@ namespace SaluteOnline.Controllers
             }
         }
 
+        [HttpGet("GetLogged")]
+        public async Task<IActionResult> GetLogged()
+        {
+            try
+            {
+                var guid = Guid.Parse(User.Claims.SingleOrDefault(t => t.Type == "guid").Value);
+                return Ok(await _unitOfWork.MongoUsers.GetByIdAsync(guid));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPut]
         public async Task<IActionResult> Insert(MongoUser user)
         {
@@ -89,9 +103,15 @@ namespace SaluteOnline.Controllers
         {
             try
             {
-                user.Guid = Guid.Parse(User.Claims.SingleOrDefault(t => t.Type == "guid").Value);
-                user.Username = User.Claims.SingleOrDefault(t => t.Type == "sub").Value;
-                var updatedUser = await _unitOfWork.MongoUsers.UpdateAsync(user);
+                var guid = Guid.Parse(User.Claims.SingleOrDefault(t => t.Type == "guid").Value);
+                var target = await _unitOfWork.MongoUsers.GetByIdAsync(guid);
+                target.Birthday = user.Birthday;
+                target.LastName = user.LastName;
+                target.Email = user.Email;
+                target.Name = user.Name;
+                target.PhoneMain = user.PhoneMain;
+                target.PhoneSecond = user.PhoneSecond;
+                var updatedUser = await _unitOfWork.MongoUsers.UpdateAsync(target);
                 if (updatedUser != null)
                 {
                     return Ok(updatedUser);
