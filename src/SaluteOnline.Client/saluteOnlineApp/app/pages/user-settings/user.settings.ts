@@ -7,24 +7,8 @@ import { EmailValidator } from "../../services/validators/email.validator";
 import { EmailUniqueValidator } from "../../services/validators/email.unique.validator";
 import { AuthHttp, tokenNotExpired } from 'angular2-jwt';
 import { MdSnackBar } from "@angular/material";
+import { IUser } from "../../domain/IUser";
 const moment = require("moment");
-
-interface IUser {
-    guid: string;
-    id: number;
-    username: string;
-    password: string;
-    email: string;
-    isActive: boolean;
-    emailVerified: boolean;
-    role: number;
-    name: string;
-    lastName: string;
-    phoneMain: string;
-    phoneSecond: string;
-    birthday: Date;
-    avatar: string;
-}
 
 @Component({
     selector: 'so-user-settings',
@@ -35,6 +19,8 @@ interface IUser {
 })
 
 export class SoUserSettings implements AfterViewInit {
+    avatar: string;
+
     form: FormGroup;
     email: AbstractControl;
     name: AbstractControl;
@@ -114,7 +100,7 @@ export class SoUserSettings implements AfterViewInit {
         params.set('PhoneSecond', this.phoneSecond.value);
         params.set('State', this.stateControl.value);
         params.set('City', this.cityControl.value);
-        params.set('Birthday', this.birthday.value);
+        params.set('Birthday', this.birthday.value.toISOString());
         const headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
         const options = new RequestOptions({ headers: headers });
         this._authHttp.patch(this._urls.updateUser, params.toString(), options)
@@ -128,7 +114,10 @@ export class SoUserSettings implements AfterViewInit {
         this.lastname.setValue(user.lastName);
         this.phoneMain.setValue(user.phoneMain);
         this.phoneSecond.setValue(user.phoneSecond);
-        //this.birthday.setValue(moment(user.birthday).utc());
+        this.birthday.setValue(moment(user.birthday).toDate());
+        this.stateControl.setValue(user.state);
+        this.cityControl.setValue(user.city);
+        this.avatar = user.avatar;
     }
 
     ngAfterViewInit(): void {
@@ -146,5 +135,14 @@ export class SoUserSettings implements AfterViewInit {
                             snackBar.dismiss();
                         });
                 });
+    }
+
+    onBeforeSend(event: any){
+        const accessToken = localStorage.getItem('token');
+        event.xhr.setRequestHeader('Authorization', `bearer ${accessToken}`);
+    }
+
+    onUpload(event: any) {
+        this.avatar = event.xhr.response;
     }
 }

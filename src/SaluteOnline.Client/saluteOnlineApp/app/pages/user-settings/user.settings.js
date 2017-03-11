@@ -16,7 +16,7 @@ var urls_1 = require("../../services/urls");
 var email_validator_1 = require("../../services/validators/email.validator");
 var angular2_jwt_1 = require('angular2-jwt');
 var material_1 = require("@angular/material");
-var moment = require('moment');
+var moment = require("moment");
 var SoUserSettings = (function () {
     function SoUserSettings(_geoService, fb, _http, _urls, _authHttp, snackBar) {
         this._geoService = _geoService;
@@ -77,7 +77,7 @@ var SoUserSettings = (function () {
         params.set('PhoneSecond', this.phoneSecond.value);
         params.set('State', this.stateControl.value);
         params.set('City', this.cityControl.value);
-        params.set('Birthday', this.birthday.value);
+        params.set('Birthday', this.birthday.value.toISOString());
         var headers = new http_1.Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
         var options = new http_1.RequestOptions({ headers: headers });
         this._authHttp.patch(this._urls.updateUser, params.toString(), options)
@@ -90,7 +90,9 @@ var SoUserSettings = (function () {
         this.lastname.setValue(user.lastName);
         this.phoneMain.setValue(user.phoneMain);
         this.phoneSecond.setValue(user.phoneSecond);
-        this.birthday.setValue(moment(user.birthday));
+        this.birthday.setValue(moment(user.birthday).toDate());
+        this.stateControl.setValue(user.state);
+        this.cityControl.setValue(user.city);
     };
     SoUserSettings.prototype.ngAfterViewInit = function () {
         var _this = this;

@@ -1,0 +1,71 @@
+﻿@import "../vars";
+
+.mat-input-container {
+    .mat-input-wrapper {
+        .mat-input-table {
+            .mat-input-infix {
+                .mat-input-element {
+                    font-size: 1.6rem;
+                }
+
+                .mat-input-placeholder-wrapper {
+                    top: -1em !important;
+                    height: 40px;
+                    
+                    .mat-input-placeholder {
+                        font-family: $font-family;
+                        font-weight: normal;
+                        font-size: 1.6rem !important;
+                    }
+                }
+            }
+        }
+
+        .mat-input-underline {
+            background-color: $main-grey;
+        
+            .mat-input-ripple {
+                background-color: $main-red-hover;
+            }
+        }
+    }
+
+    // red background input with white font color 
+    &.white {
+        .mat-input-placeholder {
+            color: $main-white;
+            
+            &.mat-focused {
+                color: $main-white;
+            }
+        }
+    
+        .mat-input-underline {
+            background-color: $main-white;
+        }
+    }
+    
+    // white background input with red font color
+    &.red {
+        .mat-input-placeholder {
+            color: $main-red;
+            
+            &.mat-focused {
+                color: $main-red-hover;
+            }
+        }
+    }
+
+    &.has-error {
+        .mat-input-underline {
+            background-color: $main-red;
+            height: 2px;
+        }
+    }
+
+    &.has-success {
+        .mat-input-underline {
+            background-color: $main-green;
+        }
+    }
+}

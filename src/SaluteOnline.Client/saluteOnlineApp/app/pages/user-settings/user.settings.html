@@ -5,12 +5,12 @@
                 <md-card-header>
                     <md-card-title>Username</md-card-title>
                     <md-card-subtitle>
-                        <md-input-container class="email-field">
+                        <md-input-container class="email-field red">
                             <input mdInput [formControl]="email">
                             <md-placeholder>Email</md-placeholder>
                         </md-input-container>
                     </md-card-subtitle>
-                    <img md-card-avatar src="/content/user-icon.png" alt="">
+                    <img md-card-avatar [src]="avatar ? 'data:image/PNG;base64,' + avatar : '/content/user-icon.png'" alt="">
                 </md-card-header>
             </md-card>
             <md-tab-group class="so-dark-tabgroup">
@@ -18,11 +18,11 @@
                     <div class="so-form profile-form text-center">
                         <div class="row form-group">
                             <div class="col-md-8 col-md-push-2">
-                                <md-input-container>
+                                <md-input-container class="red">
                                     <input mdInput [formControl]="name">
                                     <md-placeholder>Ім'я</md-placeholder>
                                 </md-input-container>
-                                <md-input-container>
+                                <md-input-container class="red">
                                     <input mdInput [formControl]="lastname">
                                     <md-placeholder>Прізвище</md-placeholder>
                                 </md-input-container>
@@ -30,11 +30,11 @@
                         </div>
                         <div class="row form-group">
                             <div class="col-md-8 col-md-push-2">
-                                <md-input-container>
+                                <md-input-container class="red">
                                     <input mdInput [formControl]="phoneMain">
                                     <md-placeholder>Телефон</md-placeholder>
                                 </md-input-container>
-                                <md-input-container>
+                                <md-input-container class="red">
                                     <input mdInput [formControl]="phoneSecond">
                                     <md-placeholder>Телефон (додатковий)</md-placeholder>
                                 </md-input-container>
@@ -44,13 +44,13 @@
                             <div class="col-md-8 col-md-push-2">
                                 <div class="so-autocomplete-wrapper" style="margin-top: 10px">
                                     <label class="so-float-label" style="transform: translateY(-18px) translateX(12px)">Країна</label>
-                                    <p-autoComplete formControlName="state" placeholder="Країна" minLength="3" [suggestions]="filteredContries" appendTo="body"
+                                    <p-autoComplete formControlName="state" minLength="3" [suggestions]="filteredContries" appendTo="body"
                                                     (completeMethod)="searchCountry($event)" inputStyleClass="so-autocomplete-input" styleClass="so-autocomplete-popup">
                                     </p-autoComplete>
                                 </div>
                                 <div class="so-autocomplete-wrapper" style="margin-top: 10px">
                                     <label class="so-float-label" style="transform: translateY(-18px) translateX(12px)">Місто</label>
-                                    <p-autoComplete formControlName="city" placeholder="Місто" minLength="3" [suggestions]="filteredCities" appendTo="body"
+                                    <p-autoComplete formControlName="city" minLength="3" [suggestions]="filteredCities" appendTo="body"
                                                     (completeMethod)="searchCity($event)" inputStyleClass="so-autocomplete-input" styleClass="so-autocomplete-popup"></p-autoComplete>
                                 </div>
                             </div>
@@ -66,7 +66,8 @@
                         </div>
                         <div class="row form-group">
                             <div class="col-md-6 col-md-push-3">
-                                <p-fileUpload name="avatar[]" url="http://localhost:43713/api/upload" accept="image/*" styleClass="so-upload"
+                                <p-fileUpload name="avatar[]" url="http://localhost:43713/api/User/UpdateAvatar" accept="image/*" styleClass="so-upload"
+                                              (onBeforeSend)="onBeforeSend($event)" (onUpload)="onUpload($event)"
                                               chooseLabel="Вибрати аватар" uploadLabel="Завантажити" cancelLabel="Відмінити"></p-fileUpload>
                             </div>
                         </div>

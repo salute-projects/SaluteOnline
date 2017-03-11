@@ -21,13 +21,14 @@ var material_1 = require('@angular/material');
 var login_service_1 = require("../services/login.service");
 var angular2_jwt_1 = require('angular2-jwt');
 var urls_1 = require("../services/urls");
+var auth_guard_service_1 = require("../services/auth-guard.service");
 var PagesModule = (function () {
     function PagesModule() {
     }
     PagesModule = __decorate([
         core_1.NgModule({
             imports: [common_1.CommonModule, material_1.MdMenuModule, material_1.MdButtonModule, pages_routing_1.routing],
-            providers: [login_service_1.LoginService, angular2_jwt_1.AuthHttp, urls_1.UrlsService,
+            providers: [login_service_1.LoginService, angular2_jwt_1.AuthHttp, urls_1.UrlsService, auth_guard_service_1.AuthGuard,
                 angular2_jwt_1.provideAuth({
                     headerName: 'Authorization',
                     headerPrefix: 'bearer',

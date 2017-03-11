@@ -1,5 +1,6 @@
 ﻿import { Routes, RouterModule } from "@angular/router";
 import { Pages } from "./pages.component";
+import { AuthGuard } from "../services/auth-guard.service";
 
 const routes: Routes = [
     {
@@ -13,7 +14,7 @@ const routes: Routes = [
         children: [
             { path: '', redirectTo: 'main-page', pathMatch: 'full' },
             { path: 'main-page', loadChildren: './main-page/main-page.module#MainPageModule' },
-            { path: 'usersettings', loadChildren: './user-settings/user.settings.module#SoUserSettingsModule' }
+            { path: 'usersettings', loadChildren: './user-settings/user.settings.module#SoUserSettingsModule', canActivate: [AuthGuard] }
         ]        
     }];
 

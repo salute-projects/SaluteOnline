@@ -1,8 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using IdentityServer4.Extensions;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SaluteOnline.DAL;
 using SaluteOnline.Domain.Enums;
@@ -111,12 +117,43 @@ namespace SaluteOnline.Controllers
                 target.Name = user.Name;
                 target.PhoneMain = user.PhoneMain;
                 target.PhoneSecond = user.PhoneSecond;
+                target.State = user.State;
+                target.City = user.City;
                 var updatedUser = await _unitOfWork.MongoUsers.UpdateAsync(target);
                 if (updatedUser != null)
                 {
                     return Ok(updatedUser);
                 }
                 return BadRequest("User info wasn't updated");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("UpdateAvatar")]
+        [Authorize("AllAuthorized")]
+        public async Task<IActionResult> UpdateAvatar()
+        {
+            try
+            {
+                var avatar = Request.Form.Files.FirstOrDefault();
+                var stream = avatar.OpenReadStream();
+                using (var reader = new BinaryReader(stream))
+                {
+                    var bytes = reader.ReadBytes((int)stream.Length);
+                    var base64 = Convert.ToBase64String(bytes);
+                    var guid = Guid.Parse(User.Claims.SingleOrDefault(t => t.Type == "guid").Value);
+                    var target = await _unitOfWork.MongoUsers.GetByIdAsync(guid);
+                    target.Avatar = base64;
+                    var updatedUser = await _unitOfWork.MongoUsers.UpdateAsync(target);
+                    if (updatedUser != null)
+                    {
+                        return Ok(base64);
+                    }
+                    return BadRequest("User info wasn't updated");
+                }
             }
             catch (Exception ex)
             {

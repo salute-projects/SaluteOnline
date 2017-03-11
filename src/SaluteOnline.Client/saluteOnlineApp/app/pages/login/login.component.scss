@@ -110,35 +110,6 @@ a.forgot-pass {
 
 .so-input {
     width: 100%;
-
-    .md-input-placeholder {
-        color: $main-white;
-    }
-
-    .md-input-underline {
-        background-color: $main-white;
-    }
-
-    .md-input-element {
-        font-size: 1.8rem;
-    }
-
-    &.has-error {
-        .md-input-underline {
-            background-color: $main-red;
-            height: 2px;
-        }
-    }
-
-    &.has-success {
-        .md-input-underline {
-            background-color: $main-green;
-        }
-    }
-}
-
-[md-button][disabled][disabled] {
-    background-color: $main-white;
 }
 
 .so-share-auth {
@@ -163,20 +134,6 @@ a.forgot-pass {
                 font-size: 24px;
                 padding: 8px;
             }
-        }
-    }
-}
-
-.so-spinner-container {
-    min-height: 50px;
-
-    .so-inpage-spinner {
-        height: 50px !important;
-        width: 50px !important;
-        margin: auto !important;
-    
-        path {
-            stroke: $main-light;
         }
     }
 }

@@ -1,6 +1,7 @@
 "use strict";
 var router_1 = require("@angular/router");
 var pages_component_1 = require("./pages.component");
+var auth_guard_service_1 = require("../services/auth-guard.service");
 var routes = [
     {
         path: 'register', loadChildren: './register/register.module#RegisterModule'
@@ -13,7 +14,7 @@ var routes = [
         children: [
             { path: '', redirectTo: 'main-page', pathMatch: 'full' },
             { path: 'main-page', loadChildren: './main-page/main-page.module#MainPageModule' },
-            { path: 'usersettings', loadChildren: './user-settings/user.settings.module#SoUserSettingsModule' }
+            { path: 'usersettings', loadChildren: './user-settings/user.settings.module#SoUserSettingsModule', canActivate: [auth_guard_service_1.AuthGuard] }
         ]
     }];
 exports.routing = router_1.RouterModule.forChild(routes);

@@ -63,29 +63,6 @@
     background-color: $main-red;
 }
 
-.mat-input-placeholder-wrapper {
-    top: -1.5em !important;
-    
-    .mat-input-placeholder {
-        color: $main-red;
-        font-family: $font-family;
-        font-weight: normal;
-        font-size: 2rem !important;
-    
-        &.mat-focused {
-            color: $main-red-hover;
-        }
-    }
-}
-
-.mat-input-underline {
-    background-color: $main-grey;
-
-    .mat-input-ripple {
-        background-color: $main-red-hover;
-    }
-}
-
 .so-form {
     margin-top: 20px;
 }

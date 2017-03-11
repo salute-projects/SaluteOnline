@@ -109,39 +109,6 @@ a.forgot-pass {
 
 .so-input {
     width: 100%;
-
-    .mat-input-placeholder-wrapper {
-        height: 40px;
-    }
-
-    .mat-input-placeholder {
-        color: $main-white;
-    }
-
-    .mat-input-underline {
-        background-color: $main-white;
-    }
-
-    .mat-input-element {
-        font-size: 1.8rem;
-    }
-
-    &.has-error {
-        .mat-input-underline {
-            background-color: $main-red;
-            height: 2px;
-        }
-    }
-
-    &.has-success {
-        .mat-input-underline {
-            background-color: $main-green;
-        }
-    }
-}
-
-[mat-button][disabled][disabled] {
-    background-color: $main-white;
 }
 
 .so-share-auth {
@@ -166,20 +133,6 @@ a.forgot-pass {
                 font-size: 24px;
                 padding: 8px;
             }
-        }
-    }
-}
-
-.so-spinner-container {
-    min-height: 50px;
-
-    .so-inpage-spinner {
-        height: 50px !important;
-        width: 50px !important;
-        margin: auto !important;
-    
-        path {
-            stroke: $main-light;
         }
     }
 }
