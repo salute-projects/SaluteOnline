@@ -21,6 +21,6 @@
         <button md-menu-item (click)="logout()"> Вийти </button>
     </md-menu>
     <button md-fab [mdMenuTriggerFor]="soUserMenu" class="user-profile-button" *ngIf="userLogged">
-        
+        <img [src]="user?.avatar ? 'data:image/PNG;base64,' + user.avatar : '/content/user-icon.png'" alt=""/>
     </button>
 </div>

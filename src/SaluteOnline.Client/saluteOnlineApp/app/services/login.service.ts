@@ -3,13 +3,15 @@ import { Http, Headers, RequestOptions, URLSearchParams } from "@angular/http";
 import { AuthHttp, tokenNotExpired } from 'angular2-jwt';
 import { UrlsService } from "./urls";
 import { MdSnackBar } from "@angular/material";
+import { IUser } from "../domain/IUser";
+import { GlobalState } from "./global.state";
 
 @Injectable()
 export class LoginService {
     
     emitter = new EventEmitter<boolean>();
 
-    constructor(public http: Http, public authHttp: AuthHttp, private _urlsService: UrlsService, public snackBar: MdSnackBar) { 
+    constructor(public http: Http, private _authHttp: AuthHttp, private _urlsService: UrlsService, public snackBar: MdSnackBar, private _gloabalState: GlobalState) { 
     }
     
     emit(success: boolean) {
@@ -38,7 +40,7 @@ export class LoginService {
                     localStorage.setItem("token", data.access_token);
                     localStorage.setItem("refresh_token", data.refresh_token);
                     localStorage.setItem('username', username);
-                    this.emit(true);
+                    this.getUserProfile();
                 },
                 () => {
                     const snackBar = this.snackBar.open("Не вдалось увійти", "Закрити", { duration: 10000 });
@@ -55,5 +57,18 @@ export class LoginService {
         localStorage.removeItem('refresh-token');
         localStorage.removeItem('username');
         this.emit(false);
+    }
+
+    getUserProfile() {
+        this._authHttp.get(this._urlsService.getLoggedUser)
+            .map(res => res.json())
+            .subscribe(
+                (result: IUser) => {
+                    this._gloabalState.setUser(result);
+                },
+                () => {},
+                () => {
+                    this.emit(true);
+                });
     }
 }

@@ -11,11 +11,12 @@ import { MdMenuModule, MdButtonModule } from '@angular/material';
 import { LoginService } from "../services/login.service";
 import { AuthHttp, AuthConfig, AUTH_PROVIDERS, provideAuth, tokenNotExpired } from 'angular2-jwt';
 import { UrlsService } from "../services/urls";
+import { GlobalState } from "../services/global.state";
 import { AuthGuard } from "../services/auth-guard.service";
 
 @NgModule({
     imports: [CommonModule, MdMenuModule, MdButtonModule, routing],
-    providers: [LoginService, AuthHttp, UrlsService, AuthGuard,
+    providers: [GlobalState, LoginService, AuthHttp, UrlsService, AuthGuard,
         provideAuth({
             headerName: 'Authorization',
             headerPrefix: 'bearer',

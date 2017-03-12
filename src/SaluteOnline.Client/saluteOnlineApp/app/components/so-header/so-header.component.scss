@@ -102,6 +102,13 @@ button.user-login-button {
 .user-profile-button {
     float: right;
     background-color: $main-red;
-    background-image: url('/content/user-icon.png');
     margin-top: 4px !important;
+
+    .mat-button-wrapper {
+        img {
+            border-radius: 50%;
+            width: 56px;
+            height: 56px;
+        }
+    }
 }

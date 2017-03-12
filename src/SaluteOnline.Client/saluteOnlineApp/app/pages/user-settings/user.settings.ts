@@ -5,6 +5,7 @@ import { Http, Headers, RequestOptions, URLSearchParams } from "@angular/http";
 import { UrlsService } from "../../services/urls";
 import { EmailValidator } from "../../services/validators/email.validator";
 import { EmailUniqueValidator } from "../../services/validators/email.unique.validator";
+import { GlobalState } from "../../services/global.state";
 import { AuthHttp, tokenNotExpired } from 'angular2-jwt';
 import { MdSnackBar } from "@angular/material";
 import { IUser } from "../../domain/IUser";
@@ -68,7 +69,7 @@ export class SoUserSettings implements AfterViewInit {
         }
     }
 
-    constructor(private _geoService: GeoService, fb: FormBuilder, private _http: Http, private _urls: UrlsService, private _authHttp: AuthHttp, public snackBar: MdSnackBar) {
+    constructor(private _geoService: GeoService, fb: FormBuilder, private _http: Http, private _urls: UrlsService, private _authHttp: AuthHttp, public snackBar: MdSnackBar, private _state: GlobalState) {
         this.countries = _geoService.getCountries();
         this.form = fb.group({
             'email': ['', Validators.compose([Validators.required, EmailValidator.validate])],
@@ -105,7 +106,9 @@ export class SoUserSettings implements AfterViewInit {
         const options = new RequestOptions({ headers: headers });
         this._authHttp.patch(this._urls.updateUser, params.toString(), options)
             .map(res => res.json())
-            .subscribe();      
+            .subscribe((result: IUser) => {
+                this._state.setUser(result);
+            });      
     }
 
     private setUserValues(user: IUser): void {

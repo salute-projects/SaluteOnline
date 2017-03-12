@@ -93,6 +93,7 @@ var SoUserSettings = (function () {
         this.birthday.setValue(moment(user.birthday).toDate());
         this.stateControl.setValue(user.state);
         this.cityControl.setValue(user.city);
+        this.avatar = user.avatar;
     };
     SoUserSettings.prototype.ngAfterViewInit = function () {
         var _this = this;
@@ -108,6 +109,13 @@ var SoUserSettings = (function () {
                 snackBar.dismiss();
             });
         });
+    };
+    SoUserSettings.prototype.onBeforeSend = function (event) {
+        var accessToken = localStorage.getItem('token');
+        event.xhr.setRequestHeader('Authorization', "bearer " + accessToken);
+    };
+    SoUserSettings.prototype.onUpload = function (event) {
+        this.avatar = event.xhr.response;
     };
     SoUserSettings = __decorate([
         core_1.Component({

@@ -1,6 +1,7 @@
-﻿import { Component, ViewEncapsulation } from "@angular/core";
+﻿import { Component, ViewEncapsulation, OnInit } from "@angular/core";
 import { GlobalState } from "../../services/global.state";
 import { LoginService } from "../../services/login.service";
+import { IUser } from "../../domain/IUser";
 
 @Component({
     selector: 'so-header',
@@ -8,27 +9,32 @@ import { LoginService } from "../../services/login.service";
     template: require('./so-header.component.html'),
     encapsulation: ViewEncapsulation.None
 })
-export class SoHeader {
+export class SoHeader implements OnInit {
     isMenuCollapsed = false;
-    userLogged = this._state.loggedIn();
-    
-    constructor(private _state: GlobalState, private _loginService: LoginService) {
-        this._state.subscribe('menu.isCollapsed', (isCollapsed: boolean) => {
+    userLogged = this.state.loggedIn();
+    user : IUser;    
+
+    constructor(public state: GlobalState, private _loginService: LoginService) {
+        this.state.subscribe('menu.isCollapsed', (isCollapsed: boolean) => {
             this.isMenuCollapsed = isCollapsed;
         });
     }
 
     toggleMenu() {
         this.isMenuCollapsed = !this.isMenuCollapsed;
-        this._state.notifyDataChanged('menu.isCollapsed', this.isMenuCollapsed);
+        this.state.notifyDataChanged('menu.isCollapsed', this.isMenuCollapsed);
     }
 
     logout() {
         this._loginService.logout();
-        this.userLogged = this._state.loggedIn();
+        this.userLogged = this.state.loggedIn();
     }
 
     getUsername() {
         return localStorage.getItem('username');
+    }
+
+    ngOnInit(): void {
+        this.state.getUser.subscribe(o => this.user = o);
     }
 }
