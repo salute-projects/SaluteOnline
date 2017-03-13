@@ -2,6 +2,7 @@
 using System.IdentityModel.Tokens.Jwt;
 using IdentityServer4.Models;
 using IdentityServer4.Services.InMemory;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -42,6 +43,7 @@ namespace SaluteOnline
                 options => options.UseSqlServer(connectionString));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddSingleton<IConfiguration>(Configuration);
+            services.AddTransient<IPasswordHasher<Domain.User.MongoUser>, PasswordHasher<Domain.User.MongoUser>>();
             services.AddAuthorization(
                 options =>
                 {

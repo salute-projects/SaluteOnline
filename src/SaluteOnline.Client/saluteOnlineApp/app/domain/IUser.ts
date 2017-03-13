@@ -15,4 +15,5 @@
     avatar: string;
     state: string;
     city: string;
+    hideProfile: boolean;
 }

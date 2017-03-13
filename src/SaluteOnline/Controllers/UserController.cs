@@ -1,18 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using IdentityServer4.Extensions;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SaluteOnline.DAL;
-using SaluteOnline.Domain.Enums;
 using SaluteOnline.Domain.User;
+using MongoUser = SaluteOnline.Domain.User.MongoUser;
 
 namespace SaluteOnline.Controllers
 {
@@ -20,10 +15,12 @@ namespace SaluteOnline.Controllers
     public class UserController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IPasswordHasher<MongoUser> _passwordHasher;
 
-        public UserController(IUnitOfWork unitOfWork)
+        public UserController(IUnitOfWork unitOfWork, IPasswordHasher<MongoUser> passwordHasher)
         {
             _unitOfWork = unitOfWork;
+            _passwordHasher = passwordHasher;
         }
 
         [HttpGet]
@@ -119,6 +116,32 @@ namespace SaluteOnline.Controllers
                 target.PhoneSecond = user.PhoneSecond;
                 target.State = user.State;
                 target.City = user.City;
+                var updatedUser = await _unitOfWork.MongoUsers.UpdateAsync(target);
+                if (updatedUser != null)
+                {
+                    return Ok(updatedUser);
+                }
+                return BadRequest("User info wasn't updated");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPatch("UpdatePrivacy")]
+        [Authorize("AllAuthorized")]
+        public async Task<IActionResult> UpdatePrivacy(MongoUser user)
+        {
+            try
+            {
+                var guid = Guid.Parse(User.Claims.SingleOrDefault(t => t.Type == "guid").Value);
+                var target = await _unitOfWork.MongoUsers.GetByIdAsync(guid);
+                target.HideProfile = user.HideProfile;
+                if (!string.IsNullOrEmpty(user.Password))
+                {
+                    target.Password = _passwordHasher.HashPassword(target, user.Password);
+                }
                 var updatedUser = await _unitOfWork.MongoUsers.UpdateAsync(target);
                 if (updatedUser != null)
                 {

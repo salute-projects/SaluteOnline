@@ -13,12 +13,14 @@ var http_1 = require("@angular/http");
 var angular2_jwt_1 = require('angular2-jwt');
 var urls_1 = require("./urls");
 var material_1 = require("@angular/material");
+var global_state_1 = require("./global.state");
 var LoginService = (function () {
-    function LoginService(http, authHttp, _urlsService, snackBar) {
+    function LoginService(http, _authHttp, _urlsService, snackBar, _gloabalState) {
         this.http = http;
-        this.authHttp = authHttp;
+        this._authHttp = _authHttp;
         this._urlsService = _urlsService;
         this.snackBar = snackBar;
+        this._gloabalState = _gloabalState;
         this.emitter = new core_1.EventEmitter();
     }
     LoginService.prototype.emit = function (success) {
@@ -44,7 +46,7 @@ var LoginService = (function () {
             localStorage.setItem("token", data.access_token);
             localStorage.setItem("refresh_token", data.refresh_token);
             localStorage.setItem('username', username);
-            _this.emit(true);
+            _this.getUserProfile();
         }, function () {
             var snackBar = _this.snackBar.open("Не вдалось увійти", "Закрити", { duration: 10000 });
             snackBar.onAction().subscribe(function () {
@@ -59,9 +61,19 @@ var LoginService = (function () {
         localStorage.removeItem('username');
         this.emit(false);
     };
+    LoginService.prototype.getUserProfile = function () {
+        var _this = this;
+        this._authHttp.get(this._urlsService.getLoggedUser)
+            .map(function (res) { return res.json(); })
+            .subscribe(function (result) {
+            _this._gloabalState.setUser(result);
+        }, function () { }, function () {
+            _this.emit(true);
+        });
+    };
     LoginService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [http_1.Http, angular2_jwt_1.AuthHttp, urls_1.UrlsService, material_1.MdSnackBar])
+        __metadata('design:paramtypes', [http_1.Http, angular2_jwt_1.AuthHttp, urls_1.UrlsService, material_1.MdSnackBar, global_state_1.GlobalState])
     ], LoginService);
     return LoginService;
 }());

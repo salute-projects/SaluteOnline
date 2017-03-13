@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var Subject_1 = require("rxjs/Subject");
+var BehaviorSubject_1 = require("rxjs/BehaviorSubject");
 var angular2_jwt_1 = require('angular2-jwt');
 var GlobalState = (function () {
     function GlobalState() {
@@ -18,6 +19,7 @@ var GlobalState = (function () {
         this._dataStream = this._data.asObservable();
         this._subscriptions = new Map();
         this._dataStream.subscribe(function (data) { _this.onEvent(data); });
+        this._currentUser = new BehaviorSubject_1.BehaviorSubject(null);
     }
     GlobalState.prototype.loggedIn = function () {
         return angular2_jwt_1.tokenNotExpired('token');
@@ -42,6 +44,16 @@ var GlobalState = (function () {
         subscribers.forEach(function (callback) {
             callback.call(null, data['data']);
         });
+    };
+    Object.defineProperty(GlobalState.prototype, "getUser", {
+        get: function () {
+            return this._currentUser.asObservable();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    GlobalState.prototype.setUser = function (user) {
+        this._currentUser.next(user);
     };
     GlobalState = __decorate([
         core_1.Injectable(), 

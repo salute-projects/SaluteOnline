@@ -5,10 +5,15 @@ import { Http, Headers, RequestOptions, URLSearchParams } from "@angular/http";
 import { UrlsService } from "../../services/urls";
 import { EmailValidator } from "../../services/validators/email.validator";
 import { EmailUniqueValidator } from "../../services/validators/email.unique.validator";
+import { FormsHelpers } from "../../services/forms.helpers";
+import { HttpHelpers } from "../../services/http.helpers";
+import { pickerOptions } from "../../services/default.configs";
+import { EqualPasswordValidator } from "../../services/validators/equal-passwords.validator";
 import { GlobalState } from "../../services/global.state";
 import { AuthHttp, tokenNotExpired } from 'angular2-jwt';
 import { MdSnackBar } from "@angular/material";
 import { IUser } from "../../domain/IUser";
+import { StringsKeyValue, KeyValuePair } from "../../domain/DataStructures";
 const moment = require("moment");
 
 @Component({
@@ -31,8 +36,13 @@ export class SoUserSettings implements AfterViewInit {
     stateControl: AbstractControl;
     cityControl: AbstractControl;
     birthday: AbstractControl;
-
-    submitted = false;
+    
+    privacyForm: FormGroup;
+    hideProfile: AbstractControl;
+    changePassword: AbstractControl;
+    passwords:FormGroup;
+    newPassword: AbstractControl;
+    newPasswordConfirm: AbstractControl;
 
     countries : string[];
     country: string;
@@ -43,19 +53,7 @@ export class SoUserSettings implements AfterViewInit {
     filteredCities: any[];
     
     user: IUser;
-
-    pickerOptions = {
-        minDateValue: new Date('1950/01/01'),
-        maxDateValue: new Date('2010/12/31'),
-        locale: {
-            firstDayOfWeek: 0,
-            dayNames: ["Неділя", "Понеділок", "Вівторок", "Середа", "Четвер", "П'ятниця", "Субота"],
-            dayNamesShort: ["Нед", "Пон", "Вів", "Сер", "Чет", "Птн", "Суб"],
-            dayNamesMin: ["Н","П","В","С","Ч","Пт","Сб"],
-            monthNames: [ "Січень","Лютий","Березень","Квітень","Травень","Червень","Липень","Серпень","Вересень","Жовтень","Листопад","Грудень" ],
-            monthNamesShort: [ "Січ", "Лют", "Бер", "Кві", "Тра", "Чер","Лип", "Сер", "Вер", "Жов", "Лис", "Гру" ]
-        } 
-    }
+    pickerOptions: any;
 
     searchCountry(event: any) {
         const query = event.query;
@@ -69,7 +67,9 @@ export class SoUserSettings implements AfterViewInit {
         }
     }
 
-    constructor(private _geoService: GeoService, fb: FormBuilder, private _http: Http, private _urls: UrlsService, private _authHttp: AuthHttp, public snackBar: MdSnackBar, private _state: GlobalState) {
+    constructor(private _geoService: GeoService, fb: FormBuilder, private _http: Http, private _urls: UrlsService, private _authHttp: AuthHttp, private _snackBar: MdSnackBar, 
+                private _state: GlobalState, private _formsHelpers: FormsHelpers, private _httpHelpers: HttpHelpers) {
+        this.pickerOptions = pickerOptions;
         this.countries = _geoService.getCountries();
         this.form = fb.group({
             'email': ['', Validators.compose([Validators.required, EmailValidator.validate])],
@@ -81,34 +81,75 @@ export class SoUserSettings implements AfterViewInit {
             'city': [''],
             'birthday': ['']
         });
-        this.email = this.form.controls['email'];
-        this.name = this.form.controls['name'];
-        this.lastname = this.form.controls['lastname'];
-        this.phoneMain = this.form.controls['phoneMain'];
-        this.phoneSecond = this.form.controls['phoneSecond'];
+        this._formsHelpers.assignFormControlsByConvention(this, this.form, ['email', 'name', 'lastname', 'phoneMain', 'phoneSecond', 'birthday']);
         this.stateControl = this.form.controls['state'];
         this.cityControl = this.form.controls['city'];
-        this.birthday = this.form.controls['birthday'];
+
+        this.privacyForm = fb.group({
+            'hideProfile': [''],
+            'changePassword': [false],
+            'passwords': fb.group({
+                    'newPassword': ['', Validators.minLength(4)],
+                    'newPasswordConfirm': ['', Validators.minLength(4)]
+                },
+                { validator: EqualPasswordValidator.validate('newPassword', 'newPasswordConfirm') })
+        });
+        this._formsHelpers.assignFormControlsByConvention(this, this.privacyForm, ['changePassword', 'hideProfile']);
+        this.passwords = this.privacyForm.controls['passwords'] as FormGroup;
+        this.newPassword = this.passwords.controls['newPassword'];
+        this.newPasswordConfirm = this.passwords.controls["newPasswordConfirm"];
     }
-    
+
     onSubmit(values: Object) {
-        this.submitted = true;
-        const params = new URLSearchParams();
-        params.set('Email', this.email.value);
-        params.set('Name', this.name.value);
-        params.set('LastName', this.lastname.value);
-        params.set('PhoneMain', this.phoneMain.value);
-        params.set('PhoneSecond', this.phoneSecond.value);
-        params.set('State', this.stateControl.value);
-        params.set('City', this.cityControl.value);
-        params.set('Birthday', this.birthday.value.toISOString());
-        const headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
-        const options = new RequestOptions({ headers: headers });
-        this._authHttp.patch(this._urls.updateUser, params.toString(), options)
+        const pars = this._httpHelpers.createFormEncodedRequest([
+            new StringsKeyValue('Email', this.email.value),
+            new StringsKeyValue('Name', this.name.value),
+            new StringsKeyValue('LastName', this.lastname.value),
+            new StringsKeyValue('PhoneMain', this.phoneMain.value),
+            new StringsKeyValue('PhoneSecond', this.phoneSecond.value),
+            new StringsKeyValue('State', this.stateControl.value),
+            new StringsKeyValue('City', this.cityControl.value),
+            new StringsKeyValue('Birthday', this.birthday.value.toISOString())
+        ]);
+        this._authHttp.patch(this._urls.updateUser, pars.params, pars.options)
             .map(res => res.json())
             .subscribe((result: IUser) => {
                 this._state.setUser(result);
+                const snackBar = this._snackBar.open("Збережено!", "Закрити", { duration: 5000 });
+                snackBar.onAction().subscribe(() => {
+                    snackBar.dismiss();
+                });
+            },
+            () => {
+                const snackBar = this._snackBar.open("Не вдалось зберегти зміни", "Закрити", { duration: 10000 });
+                snackBar.onAction().subscribe(() => {
+                    snackBar.dismiss();
+                });
             });      
+    }
+    
+    onPrivacySubmit(values: Object) {
+        const params = this._httpHelpers.createFormEncodedRequest([
+            new StringsKeyValue('HideProfile', this.hideProfile.value)
+        ]);
+        if (this.changePassword.value) {
+            params.params.set('Password', this.newPassword.value);
+        }
+        this._authHttp.patch(this._urls.updateUserPrivacy, params.params, params.options)
+            .map(res => res.json())
+            .subscribe((result: IUser) => {
+                this._state.setUser(result);
+                const snackBar = this._snackBar.open("Збережено!", "Закрити", { duration: 5000 });
+                snackBar.onAction().subscribe(() => {
+                    snackBar.dismiss();
+                });
+            },
+            () => {
+                const snackBar = this._snackBar.open("Не вдалось зберегти зміни", "Закрити", { duration: 10000 });
+                snackBar.onAction().subscribe(() => {
+                    snackBar.dismiss();
+                });
+            }); 
     }
 
     private setUserValues(user: IUser): void {
@@ -121,6 +162,7 @@ export class SoUserSettings implements AfterViewInit {
         this.stateControl.setValue(user.state);
         this.cityControl.setValue(user.city);
         this.avatar = user.avatar;
+        this.hideProfile.setValue(user.hideProfile);
     }
 
     ngAfterViewInit(): void {
@@ -132,7 +174,7 @@ export class SoUserSettings implements AfterViewInit {
                     this.setUserValues(result);
                 },
                 () => {
-                    const snackBar = this.snackBar.open("Не вдалось отримати профіль", "Закрити", { duration: 10000 });
+                    const snackBar = this._snackBar.open("Не вдалось отримати профіль", "Закрити", { duration: 10000 });
                     snackBar.onAction()
                         .subscribe(() => {
                             snackBar.dismiss();

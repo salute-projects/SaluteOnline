@@ -27,6 +27,7 @@ namespace SaluteOnline.Domain.User
         public string Avatar { get; set; }
         public string State { get; set; }
         public string City { get; set; }
+        public bool HideProfile { get; set; }
     }
 }
 

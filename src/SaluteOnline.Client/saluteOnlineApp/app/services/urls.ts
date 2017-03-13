@@ -13,5 +13,6 @@ export class UrlsService {
     checkUsernameUniquity = this.identityServerUrl + 'api/account/UsernameUniquity';
 
     updateUser = this.apiUrl + 'User';
+    updateUserPrivacy = this.apiUrl + 'User/UpdatePrivacy';
     getLoggedUser = this.apiUrl + 'User/GetLogged';
 }

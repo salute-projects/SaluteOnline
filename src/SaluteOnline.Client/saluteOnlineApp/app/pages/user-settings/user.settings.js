@@ -14,29 +14,26 @@ var forms_1 = require("@angular/forms");
 var http_1 = require("@angular/http");
 var urls_1 = require("../../services/urls");
 var email_validator_1 = require("../../services/validators/email.validator");
+var forms_helpers_1 = require("../../services/forms.helpers");
+var http_helpers_1 = require("../../services/http.helpers");
+var default_configs_1 = require("../../services/default.configs");
+var equal_passwords_validator_1 = require("../../services/validators/equal-passwords.validator");
+var global_state_1 = require("../../services/global.state");
 var angular2_jwt_1 = require('angular2-jwt');
 var material_1 = require("@angular/material");
+var DataStructures_1 = require("../../domain/DataStructures");
 var moment = require("moment");
 var SoUserSettings = (function () {
-    function SoUserSettings(_geoService, fb, _http, _urls, _authHttp, snackBar) {
+    function SoUserSettings(_geoService, fb, _http, _urls, _authHttp, _snackBar, _state, _formsHelpers, _httpHelpers) {
         this._geoService = _geoService;
         this._http = _http;
         this._urls = _urls;
         this._authHttp = _authHttp;
-        this.snackBar = snackBar;
-        this.submitted = false;
-        this.pickerOptions = {
-            minDateValue: new Date('1950/01/01'),
-            maxDateValue: new Date('2010/12/31'),
-            locale: {
-                firstDayOfWeek: 0,
-                dayNames: ["Неділя", "Понеділок", "Вівторок", "Середа", "Четвер", "П'ятниця", "Субота"],
-                dayNamesShort: ["Нед", "Пон", "Вів", "Сер", "Чет", "Птн", "Суб"],
-                dayNamesMin: ["Н", "П", "В", "С", "Ч", "Пт", "Сб"],
-                monthNames: ["Січень", "Лютий", "Березень", "Квітень", "Травень", "Червень", "Липень", "Серпень", "Вересень", "Жовтень", "Листопад", "Грудень"],
-                monthNamesShort: ["Січ", "Лют", "Бер", "Кві", "Тра", "Чер", "Лип", "Сер", "Вер", "Жов", "Лис", "Гру"]
-            }
-        };
+        this._snackBar = _snackBar;
+        this._state = _state;
+        this._formsHelpers = _formsHelpers;
+        this._httpHelpers = _httpHelpers;
+        this.pickerOptions = default_configs_1.pickerOptions;
         this.countries = _geoService.getCountries();
         this.form = fb.group({
             'email': ['', forms_1.Validators.compose([forms_1.Validators.required, email_validator_1.EmailValidator.validate])],
@@ -48,14 +45,21 @@ var SoUserSettings = (function () {
             'city': [''],
             'birthday': ['']
         });
-        this.email = this.form.controls['email'];
-        this.name = this.form.controls['name'];
-        this.lastname = this.form.controls['lastname'];
-        this.phoneMain = this.form.controls['phoneMain'];
-        this.phoneSecond = this.form.controls['phoneSecond'];
+        this._formsHelpers.assignFormControlsByConvention(this, this.form, ['email', 'name', 'lastname', 'phoneMain', 'phoneSecond', 'birthday']);
         this.stateControl = this.form.controls['state'];
         this.cityControl = this.form.controls['city'];
-        this.birthday = this.form.controls['birthday'];
+        this.privacyForm = fb.group({
+            'hideProfile': [''],
+            'changePassword': [false],
+            'passwords': fb.group({
+                'newPassword': ['', forms_1.Validators.minLength(4)],
+                'newPasswordConfirm': ['', forms_1.Validators.minLength(4)]
+            }, { validator: equal_passwords_validator_1.EqualPasswordValidator.validate('newPassword', 'newPasswordConfirm') })
+        });
+        this._formsHelpers.assignFormControlsByConvention(this, this.privacyForm, ['changePassword', 'hideProfile']);
+        this.passwords = this.privacyForm.controls['passwords'];
+        this.newPassword = this.passwords.controls['newPassword'];
+        this.newPasswordConfirm = this.passwords.controls["newPasswordConfirm"];
     }
     SoUserSettings.prototype.searchCountry = function (event) {
         var query = event.query;
@@ -68,21 +72,54 @@ var SoUserSettings = (function () {
         }
     };
     SoUserSettings.prototype.onSubmit = function (values) {
-        this.submitted = true;
-        var params = new http_1.URLSearchParams();
-        params.set('Email', this.email.value);
-        params.set('Name', this.name.value);
-        params.set('LastName', this.lastname.value);
-        params.set('PhoneMain', this.phoneMain.value);
-        params.set('PhoneSecond', this.phoneSecond.value);
-        params.set('State', this.stateControl.value);
-        params.set('City', this.cityControl.value);
-        params.set('Birthday', this.birthday.value.toISOString());
-        var headers = new http_1.Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
-        var options = new http_1.RequestOptions({ headers: headers });
-        this._authHttp.patch(this._urls.updateUser, params.toString(), options)
+        var _this = this;
+        var pars = this._httpHelpers.createFormEncodedRequest([
+            new DataStructures_1.StringsKeyValue('Email', this.email.value),
+            new DataStructures_1.StringsKeyValue('Name', this.name.value),
+            new DataStructures_1.StringsKeyValue('LastName', this.lastname.value),
+            new DataStructures_1.StringsKeyValue('PhoneMain', this.phoneMain.value),
+            new DataStructures_1.StringsKeyValue('PhoneSecond', this.phoneSecond.value),
+            new DataStructures_1.StringsKeyValue('State', this.stateControl.value),
+            new DataStructures_1.StringsKeyValue('City', this.cityControl.value),
+            new DataStructures_1.StringsKeyValue('Birthday', this.birthday.value.toISOString())
+        ]);
+        this._authHttp.patch(this._urls.updateUser, pars.params, pars.options)
             .map(function (res) { return res.json(); })
-            .subscribe();
+            .subscribe(function (result) {
+            _this._state.setUser(result);
+            var snackBar = _this._snackBar.open("Збережено!", "Закрити", { duration: 5000 });
+            snackBar.onAction().subscribe(function () {
+                snackBar.dismiss();
+            });
+        }, function () {
+            var snackBar = _this._snackBar.open("Не вдалось зберегти зміни", "Закрити", { duration: 10000 });
+            snackBar.onAction().subscribe(function () {
+                snackBar.dismiss();
+            });
+        });
+    };
+    SoUserSettings.prototype.onPrivacySubmit = function (values) {
+        var _this = this;
+        var params = this._httpHelpers.createFormEncodedRequest([
+            new DataStructures_1.StringsKeyValue('HideProfile', this.hideProfile.value)
+        ]);
+        if (this.changePassword.value) {
+            params.params.set('NewPassword', this.newPassword.value);
+        }
+        this._authHttp.patch(this._urls.updateUserPrivacy, params.params, params.options)
+            .map(function (res) { return res.json(); })
+            .subscribe(function (result) {
+            _this._state.setUser(result);
+            var snackBar = _this._snackBar.open("Збережено!", "Закрити", { duration: 5000 });
+            snackBar.onAction().subscribe(function () {
+                snackBar.dismiss();
+            });
+        }, function () {
+            var snackBar = _this._snackBar.open("Не вдалось зберегти зміни", "Закрити", { duration: 10000 });
+            snackBar.onAction().subscribe(function () {
+                snackBar.dismiss();
+            });
+        });
     };
     SoUserSettings.prototype.setUserValues = function (user) {
         this.email.setValue(user.email);
@@ -103,7 +140,7 @@ var SoUserSettings = (function () {
             _this.user = result;
             _this.setUserValues(result);
         }, function () {
-            var snackBar = _this.snackBar.open("Не вдалось отримати профіль", "Закрити", { duration: 10000 });
+            var snackBar = _this._snackBar.open("Не вдалось отримати профіль", "Закрити", { duration: 10000 });
             snackBar.onAction()
                 .subscribe(function () {
                 snackBar.dismiss();
@@ -125,7 +162,7 @@ var SoUserSettings = (function () {
             styles: [require('./user.settings.scss').toString()],
             template: require('./user.settings.html')
         }), 
-        __metadata('design:paramtypes', [geo_service_1.GeoService, forms_1.FormBuilder, http_1.Http, urls_1.UrlsService, angular2_jwt_1.AuthHttp, material_1.MdSnackBar])
+        __metadata('design:paramtypes', [geo_service_1.GeoService, forms_1.FormBuilder, http_1.Http, urls_1.UrlsService, angular2_jwt_1.AuthHttp, material_1.MdSnackBar, global_state_1.GlobalState, forms_helpers_1.FormsHelpers, http_helpers_1.HttpHelpers])
     ], SoUserSettings);
     return SoUserSettings;
 }());

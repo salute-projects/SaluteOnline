@@ -9,23 +9,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var UrlsService = (function () {
-    function UrlsService() {
-        this.identityServerUrl = 'http://localhost:9657/';
-        this.apiUrl = 'http://localhost:43713/api/';
-        this.loginEndpoint = this.identityServerUrl + 'connect/token';
-        this.revokeEndpoint = this.identityServerUrl + 'connect/revocation';
-        this.checkEmailUniquity = this.identityServerUrl + 'api/account/EmailUniquity';
-        this.checkUsernameUniquity = this.identityServerUrl + 'api/account/UsernameUniquity';
-        this.updateUser = this.apiUrl + 'User';
-        this.updateUserPrivacy = this.apiUrl + 'User/UpdatePrivacy';
-        this.getLoggedUser = this.apiUrl + 'User/GetLogged';
+var http_1 = require("@angular/http");
+var HttpHelpers = (function () {
+    function HttpHelpers() {
     }
-    UrlsService = __decorate([
+    HttpHelpers.prototype.createFormEncodedRequest = function (params) {
+        var requestParams = new http_1.URLSearchParams();
+        params.forEach(function (item) {
+            requestParams.set(item.key, item.value);
+        });
+        var headers = new http_1.Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
+        var options = new http_1.RequestOptions({ headers: headers });
+        return { params: requestParams, options: options };
+    };
+    HttpHelpers = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [])
-    ], UrlsService);
-    return UrlsService;
+    ], HttpHelpers);
+    return HttpHelpers;
 }());
-exports.UrlsService = UrlsService;
-//# sourceMappingURL=urls.js.map
+exports.HttpHelpers = HttpHelpers;
+//# sourceMappingURL=http.helpers.js.map
