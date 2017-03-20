@@ -1,0 +1,118 @@
+﻿<main>
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2">
+            <md-card class="dark-card">
+                <md-card-header>
+                    <md-card-title>Salute - Lviv Mafia Club</md-card-title>
+                </md-card-header>
+                <md-card-content>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <header>
+                                Контакти:
+                            </header>
+                            <div class="row default-padding-top">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <i class="fa fa-envelope" aria-hidden="true" style="font-size: 16px"></i>
+                                        <a href="mailto:salute.mafia@gmail.com" class="default-padding-left">salute.mafia@gmail.com</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <i class="fa fa-phone" aria-hidden="true" style="font-size: 16px"></i>
+                                        <a href="tel:+380938188646" class="default-padding-left">+38 093 818 86 46</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <i class="fa fa-phone" aria-hidden="true" style="font-size: 16px"></i>
+                                        <a href="tel:+380966366078" class="default-padding-left">+38 096 636 60 78</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <i class="fa fa-phone" aria-hidden="true" style="font-size: 16px"></i>
+                                        <a href="tel:+380937484190" class="default-padding-left">+38 093 748 41 90</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <header>
+                                Соцмережі:
+                            </header>
+                            <div class="so-share-auth default-padding-top">
+                                <ul class="so-share clearfix">
+                                    <li><i class="socicon socicon-facebook" title="Share on Facebook"></i></li>
+                                    <li><i class="socicon socicon-twitter" title="Share on Twitter"></i></li>
+                                    <li><i class="socicon socicon-google" title="Share on Google Plus"></i></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <header>
+                                Зворотній зв'язок:
+                            </header>
+                            <form [formGroup]="feedbackForm" class="default-padding-top" (ngSubmit)="onSubmit(feedbackForm.value)">
+                                <div class="so-form profile-form">
+                                    <div class="form-group row">
+                                        <div class="col-sm-8">
+                                            <md-input-container class="red" style="width: 100%"
+                                                                [ngClass]="{'has-error': (!feedbackForm.get('senderName').valid && feedbackForm.get('senderName').touched),
+                                                                'has-success': (feedbackForm.get('senderName').valid && feedbackForm.get('senderName').touched)}">
+                                                <input mdInput placeholder="Ім'я" formControlName="senderName">
+                                                <md-hint *ngIf="feedbackForm.get('senderName').hasError('required') && feedbackForm.get('senderName').touched" align="end">
+                                                    Обов'язкове поле
+                                                </md-hint>
+                                            </md-input-container>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-sm-8">
+                                            <md-input-container class="red" style="width: 100%" 
+                                                                [ngClass]="{'has-error': (!feedbackForm.get('senderEmail').valid && feedbackForm.get('senderEmail').touched),
+                                                                'has-success': (feedbackForm.get('senderEmail').valid && feedbackForm.get('senderEmail').touched)}">
+                                                <input mdInput placeholder="Email" formControlName="senderEmail">
+                                                <md-hint *ngIf="feedbackForm.get('senderEmail').value && feedbackForm.get('senderEmail').hasError('validateEmail') && feedbackForm.get('senderEmail').touched"
+                                                         align="end">Невірний формат email</md-hint>
+                                                <md-hint *ngIf="feedbackForm.get('senderEmail').hasError('required') && feedbackForm.get('senderEmail').touched" align="end">Обов'язкове поле</md-hint>
+                                            </md-input-container>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-sm-11">
+                                            <md-input-container class="red" style="width: 100%" 
+                                                                [ngClass]="{'has-error': (!feedbackForm.get('message').valid && feedbackForm.get('message').touched),
+                                                                'has-success': (feedbackForm.get('message').valid && feedbackForm.get('message').touched)}">
+                                                <textarea autosize mdInput placeholder="Повідомлення" formControlName="message"></textarea>
+                                                <md-hint *ngIf="feedbackForm.get('message').hasError('message') && feedbackForm.get('message').touched" align="end">Обов'язкове поле</md-hint>
+                                            </md-input-container>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="text-center so-spinner-container">
+                                            <md-progress-circle class="so-inpage-spinner" *ngIf="spinnerVisibility"
+                                                                color="primary"
+                                                                mode="indeterminate">
+                                            </md-progress-circle>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-sm-8 col-sm-push-2 text-center">
+                                            <button md-button [disabled]="!feedbackForm.valid" type="submit" class="btn-auth">Відправити</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </md-card-content>
+            </md-card>
+        </div>
+    </div>
+</main>

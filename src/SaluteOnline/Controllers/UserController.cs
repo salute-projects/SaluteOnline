@@ -6,7 +6,6 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SaluteOnline.DAL;
-using SaluteOnline.Domain.User;
 using MongoUser = SaluteOnline.Domain.User.MongoUser;
 
 namespace SaluteOnline.Controllers
@@ -21,51 +20,6 @@ namespace SaluteOnline.Controllers
         {
             _unitOfWork = unitOfWork;
             _passwordHasher = passwordHasher;
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> Get()
-        {
-            try
-            {
-                var users = await _unitOfWork.Users.GetAsync();
-                if (users.Any())
-                {
-                    return Ok(users);
-                }
-                return NotFound();
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
-        [HttpGet("{id}")]
-        public async Task<IActionResult> Get(int id)
-        {
-            try
-            {
-                var users = await _unitOfWork.Users.GetByIdAsync(id: id);
-                return Ok(users);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
-        [HttpGet("GetPage")]
-        public async Task<IActionResult> GetPage([FromQuery] int page, int items)
-        {
-            try
-            {
-                return Ok(await _unitOfWork.Users.GetPageAsync(page, items));
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
         }
 
         [HttpGet("GetLogged")]
@@ -177,35 +131,6 @@ namespace SaluteOnline.Controllers
                     }
                     return BadRequest("User info wasn't updated");
                 }
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
-        [HttpDelete("{id:int}")]
-        public async Task<IActionResult> Delete(int id)
-        {
-            try
-            {
-                await Task.Run(() => _unitOfWork.Users.DeleteAsync(id: id));
-                return Ok();
-
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
-        [HttpDelete("DeleteUser")]
-        public async Task<IActionResult> Delete(User user)
-        {
-            try
-            {
-                await Task.Run(() => _unitOfWork.Users.DeleteAsync(user));
-                return Ok();
             }
             catch (Exception ex)
             {

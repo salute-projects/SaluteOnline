@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using SaluteOnline.Domain.MongoModels;
+using SaluteOnline.Domain.System;
 using SaluteOnline.Domain.User;
 
 namespace SaluteOnline.DAL
@@ -15,8 +17,8 @@ namespace SaluteOnline.DAL
             _configuration = configuration;
         }
 
-        private GenericRepository<User> _users;
-        public GenericRepository<User> Users => _users ?? (_users = new GenericRepository<User>(_context, _configuration));
+        private GenericRepository<SoFeedback> _feedbacks;
+        public GenericRepository<SoFeedback> Feedbacks => _feedbacks ?? (_feedbacks = new GenericRepository<SoFeedback>(_context, _configuration));
 
         private GenericRepository<MongoProtocol> _protocols;
         public GenericRepository<MongoProtocol> Protocols => _protocols ?? (_protocols = new GenericRepository<MongoProtocol>(_context, _configuration));
@@ -29,9 +31,10 @@ namespace SaluteOnline.DAL
             _context.SaveChanges();
         }
 
-        public async void SaveAsync()
+        public async Task<bool> SaveAsync()
         {
             await _context.SaveChangesAsync();
+            return true;
         }
 
         #region Dispose

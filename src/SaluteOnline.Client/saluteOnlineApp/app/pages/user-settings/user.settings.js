@@ -33,6 +33,7 @@ var SoUserSettings = (function () {
         this._state = _state;
         this._formsHelpers = _formsHelpers;
         this._httpHelpers = _httpHelpers;
+        this.username = localStorage.getItem("username");
         this.pickerOptions = default_configs_1.pickerOptions;
         this.countries = _geoService.getCountries();
         this.form = fb.group({
@@ -104,7 +105,7 @@ var SoUserSettings = (function () {
             new DataStructures_1.StringsKeyValue('HideProfile', this.hideProfile.value)
         ]);
         if (this.changePassword.value) {
-            params.params.set('NewPassword', this.newPassword.value);
+            params.params.set('Password', this.newPassword.value);
         }
         this._authHttp.patch(this._urls.updateUserPrivacy, params.params, params.options)
             .map(function (res) { return res.json(); })
@@ -131,6 +132,7 @@ var SoUserSettings = (function () {
         this.stateControl.setValue(user.state);
         this.cityControl.setValue(user.city);
         this.avatar = user.avatar;
+        this.hideProfile.setValue(user.hideProfile);
     };
     SoUserSettings.prototype.ngAfterViewInit = function () {
         var _this = this;

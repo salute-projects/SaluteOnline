@@ -26,6 +26,7 @@ const moment = require("moment");
 
 export class SoUserSettings implements AfterViewInit {
     avatar: string;
+    username: string;
 
     form: FormGroup;
     email: AbstractControl;
@@ -69,6 +70,8 @@ export class SoUserSettings implements AfterViewInit {
 
     constructor(private _geoService: GeoService, fb: FormBuilder, private _http: Http, private _urls: UrlsService, private _authHttp: AuthHttp, private _snackBar: MdSnackBar, 
                 private _state: GlobalState, private _formsHelpers: FormsHelpers, private _httpHelpers: HttpHelpers) {
+
+        this.username = localStorage.getItem("username");
         this.pickerOptions = pickerOptions;
         this.countries = _geoService.getCountries();
         this.form = fb.group({

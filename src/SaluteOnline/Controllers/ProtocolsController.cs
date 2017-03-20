@@ -17,6 +17,10 @@ namespace SaluteOnline.Controllers
 
         public ProtocolsController(IUnitOfWork unitOfWork, ILogger<ProtocolsController> logger)
         {
+            if (unitOfWork == null)
+                throw new ArgumentException(nameof(unitOfWork));
+            if (logger == null)
+                throw new ArgumentNullException(nameof(logger));
             _unitOfWork = unitOfWork;
             _logger = logger;
         }
@@ -31,7 +35,8 @@ namespace SaluteOnline.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                _logger.LogError(ex.Message);
+                return BadRequest();
             }
         }
 
@@ -44,7 +49,8 @@ namespace SaluteOnline.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                _logger.LogError(ex.Message);
+                return BadRequest();
             }
         }
 
@@ -57,7 +63,8 @@ namespace SaluteOnline.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                _logger.LogError(ex.Message);
+                return BadRequest();
             }
         }
 
@@ -72,7 +79,8 @@ namespace SaluteOnline.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                _logger.LogError(ex.Message);
+                return BadRequest();
             }
         }
 
@@ -95,7 +103,8 @@ namespace SaluteOnline.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                _logger.LogError(ex.Message);
+                return BadRequest();
             }
         }
 
@@ -110,7 +119,8 @@ namespace SaluteOnline.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                _logger.LogError(ex.Message);
+                return BadRequest();
             }
         }
 
@@ -125,7 +135,8 @@ namespace SaluteOnline.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                _logger.LogError(ex.Message);
+                return BadRequest();
             }
         }
     }

@@ -134,7 +134,7 @@ namespace SaluteOnline.DAL
         {
             if (entity == null) throw new InvalidOperationException("Unable to add a null entity to the repository.");
             if (!typeof(IMongoEntity).IsAssignableFrom(typeof(TEntity))) _dbSet.Add(entity);
-            _mongoDb.GetCollection<TEntity>(typeof(TEntity).ToMongoCollectionName()).InsertOne(entity);
+            else _mongoDb.GetCollection<TEntity>(typeof(TEntity).ToMongoCollectionName()).InsertOne(entity);
         }
 
         public async Task<TEntity> InsertAsync(TEntity entity)

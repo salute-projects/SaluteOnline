@@ -20,6 +20,7 @@ var UrlsService = (function () {
         this.updateUser = this.apiUrl + 'User';
         this.updateUserPrivacy = this.apiUrl + 'User/UpdatePrivacy';
         this.getLoggedUser = this.apiUrl + 'User/GetLogged';
+        this.sendFeedback = this.apiUrl + 'System/SendFeedback';
     }
     UrlsService = __decorate([
         core_1.Injectable(), 

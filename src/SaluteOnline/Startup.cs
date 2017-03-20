@@ -5,6 +5,8 @@ using IdentityServer4.Services.InMemory;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Cors.Internal;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -53,6 +55,10 @@ namespace SaluteOnline
                     options.AddPolicy("AdminAndUser", policyUser => policyUser.RequireClaim("role", Role.User.ToString(), Role.Admin.ToString()));
                     options.AddPolicy("AllAuthorized", policyUser => policyUser.RequireClaim("role", Role.User.ToString(), Role.Admin.ToString(), Role.SilentDon.ToString()));
                 });
+            services.AddCors(
+                options =>
+                    options.AddPolicy("AllowAll",
+                        builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()));
             services.AddMvc();
             services.AddIdentityServer()
                 .AddInMemoryStores()
@@ -80,10 +86,7 @@ namespace SaluteOnline
                 AutomaticChallenge = true,
                 RequireHttpsMetadata = false
             });
-            app.UseCors(builder => builder
-                .AllowAnyOrigin()
-                .AllowAnyHeader()
-                .AllowAnyMethod());
+            app.UseCors("AllowAll");
             app.UseMvc();
         }
     }

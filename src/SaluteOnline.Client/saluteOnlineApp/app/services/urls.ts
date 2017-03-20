@@ -15,4 +15,6 @@ export class UrlsService {
     updateUser = this.apiUrl + 'User';
     updateUserPrivacy = this.apiUrl + 'User/UpdatePrivacy';
     getLoggedUser = this.apiUrl + 'User/GetLogged';
+
+    sendFeedback = this.apiUrl + 'System/SendFeedback';
 }

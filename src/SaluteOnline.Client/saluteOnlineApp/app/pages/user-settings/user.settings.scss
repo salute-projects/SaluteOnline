@@ -2,10 +2,6 @@
 @import "../../styles/mixins";
 
 .user-profile {
-    border-radius: 0;
-    background: $background-color;
-    color: $main-white;
-
     .mat-card-header {
         height: 100px;
 

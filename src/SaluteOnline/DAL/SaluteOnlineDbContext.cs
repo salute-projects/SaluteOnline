@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SaluteOnline.Domain.System;
 using SaluteOnline.Domain.User;
 
 namespace SaluteOnline.DAL
@@ -13,11 +14,11 @@ namespace SaluteOnline.DAL
         {
         }
 
-        public DbSet<User> Users { get; set; }
+        public DbSet<SoFeedback> Feedbacks { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<User>().ToTable("User");
+            modelBuilder.Entity<SoFeedback>().ToTable("Feedbacks");
         }
     }
 }

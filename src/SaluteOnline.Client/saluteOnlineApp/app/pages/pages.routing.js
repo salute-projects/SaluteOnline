@@ -14,7 +14,8 @@ var routes = [
         children: [
             { path: '', redirectTo: 'main-page', pathMatch: 'full' },
             { path: 'main-page', loadChildren: './main-page/main-page.module#MainPageModule' },
-            { path: 'usersettings', loadChildren: './user-settings/user.settings.module#SoUserSettingsModule', canActivate: [auth_guard_service_1.AuthGuard] }
+            { path: 'usersettings', loadChildren: './user-settings/user.settings.module#SoUserSettingsModule', canActivate: [auth_guard_service_1.AuthGuard] },
+            { path: 'contacts', loadChildren: './contacts/contacts.module#ContactsModule' }
         ]
     }];
 exports.routing = router_1.RouterModule.forChild(routes);

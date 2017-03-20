@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -28,7 +23,10 @@ namespace SaluteOnline.Client
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCors();
+            services.AddCors(
+                 options =>
+                     options.AddPolicy("AllowAll",
+                         builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()));
             services.AddMvc().AddMvcOptions(options =>
             {
                 options.CacheProfiles.Add("NoCache", new CacheProfile
@@ -53,10 +51,7 @@ namespace SaluteOnline.Client
                 app.UseExceptionHandler("/Home/Error");
             }
 
-            app.UseCors(config =>
-                config.AllowAnyHeader()
-                    .AllowAnyMethod()
-                    .AllowAnyOrigin());
+            app.UseCors("AllowAll");
             app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseMvc();

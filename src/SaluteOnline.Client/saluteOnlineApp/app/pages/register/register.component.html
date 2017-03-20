@@ -7,7 +7,7 @@
             <div class="form-group row">
                 <div class="col-sm-8 col-sm-push-2">
                     <md-input-container class="so-input white" [ngClass]="{'has-error': (!name.valid && name.touched), 'has-success': (name.valid && name.touched)}">
-                        <input mdInput [formControl]="name" value="test">
+                        <input mdInput [formControl]="name">
                         <md-placeholder floatPlaceholder="always">Нік</md-placeholder>
                         <md-hint *ngIf="name.hasError('minlength') && name.touched" align="end">Мінімум 4 літери</md-hint>
                         <md-hint *ngIf="name.value.length && name.hasError('usernameUnique') && name.touched" align="end">Нік уже зареєстровано</md-hint>
@@ -58,7 +58,7 @@
 
         <div class="auth-sep"><span><span>Увійти з допомогою соцмереж</span></span></div>
 
-        <div class="so-share-auth">
+        <div class="so-share-auth text-center">
             <ul class="so-share clearfix">
                 <li><i class="socicon socicon-facebook" title="Share on Facebook"></i></li>
                 <li><i class="socicon socicon-twitter" title="Share on Twitter"></i></li>

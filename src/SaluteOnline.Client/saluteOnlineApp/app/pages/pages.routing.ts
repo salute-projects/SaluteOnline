@@ -14,7 +14,8 @@ const routes: Routes = [
         children: [
             { path: '', redirectTo: 'main-page', pathMatch: 'full' },
             { path: 'main-page', loadChildren: './main-page/main-page.module#MainPageModule' },
-            { path: 'usersettings', loadChildren: './user-settings/user.settings.module#SoUserSettingsModule', canActivate: [AuthGuard] }
+            { path: 'usersettings', loadChildren: './user-settings/user.settings.module#SoUserSettingsModule', canActivate: [AuthGuard] },
+            { path: 'contacts', loadChildren: './contacts/contacts.module#ContactsModule' }
         ]        
     }];
 

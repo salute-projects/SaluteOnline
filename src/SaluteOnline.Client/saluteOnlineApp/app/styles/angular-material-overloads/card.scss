@@ -1,0 +1,11 @@
+﻿@import "../vars";
+
+.mat-card{
+    border-radius: 0;
+
+    &.dark-card {
+        background: $background-color;
+        color: $main-white;
+    }
+
+}

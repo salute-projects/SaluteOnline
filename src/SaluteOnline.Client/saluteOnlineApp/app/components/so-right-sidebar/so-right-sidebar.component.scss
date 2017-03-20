@@ -13,3 +13,9 @@
     height: 100%;
     position: fixed;
 }
+
+@media screen and (max-width: 1280px) {
+    .so-right-sidebar {
+        display: none;
+    }
+}

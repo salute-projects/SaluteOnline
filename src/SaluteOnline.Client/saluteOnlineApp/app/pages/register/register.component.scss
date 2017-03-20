@@ -110,29 +110,3 @@ a.forgot-pass {
 .so-input {
     width: 100%;
 }
-
-.so-share-auth {
-    text-align: center;
-    
-    .so-share {
-        float: none;
-        margin: 0;
-        padding: 0;
-        display: inline-block;
-        
-        li {
-            float: left;
-            list-style: none;
-            margin-left: 24px;
-            
-            &:first-child {
-                margin-left: 0;
-            }
-            
-            i {
-                font-size: 24px;
-                padding: 8px;
-            }
-        }
-    }
-}
