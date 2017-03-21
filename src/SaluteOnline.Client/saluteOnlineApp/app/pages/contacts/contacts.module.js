@@ -21,7 +21,7 @@ var ContactsModule = (function () {
     }
     ContactsModule = __decorate([
         core_1.NgModule({
-            imports: [common_1.CommonModule, contacts_routing_1.routing, material_1.MdCardModule, material_1.MdInputModule, material_1.MdButtonModule, forms_1.FormsModule, forms_1.ReactiveFormsModule],
+            imports: [common_1.CommonModule, contacts_routing_1.routing, material_1.MdCardModule, material_1.MdInputModule, material_1.MdButtonModule, material_1.MdProgressSpinnerModule, forms_1.FormsModule, forms_1.ReactiveFormsModule],
             declarations: [contacts_component_1.SoContacts, autosize_directive_1.Autosize],
             providers: [http_helpers_1.HttpHelpers]
         }), 

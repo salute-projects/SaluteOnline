@@ -15,7 +15,13 @@ const routes: Routes = [
             { path: '', redirectTo: 'main-page', pathMatch: 'full' },
             { path: 'main-page', loadChildren: './main-page/main-page.module#MainPageModule' },
             { path: 'usersettings', loadChildren: './user-settings/user.settings.module#SoUserSettingsModule', canActivate: [AuthGuard] },
-            { path: 'contacts', loadChildren: './contacts/contacts.module#ContactsModule' }
+            { path: 'contacts', loadChildren: './contacts/contacts.module#ContactsModule' },
+            { path: 'materials',
+                children: [
+                    { path: '', redirectTo: 'codex', pathMatch: 'full' },
+                    { path: 'codex', loadChildren: './codex/codex.module#CodexModule' }
+                ]
+            }
         ]        
     }];
 

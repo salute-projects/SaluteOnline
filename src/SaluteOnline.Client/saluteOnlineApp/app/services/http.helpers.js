@@ -22,6 +22,10 @@ var HttpHelpers = (function () {
         var options = new http_1.RequestOptions({ headers: headers });
         return { params: requestParams, options: options };
     };
+    HttpHelpers.prototype.createJsonRequest = function () {
+        var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+        return new http_1.RequestOptions({ headers: headers });
+    };
     HttpHelpers = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [])

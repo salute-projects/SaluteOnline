@@ -14,13 +14,15 @@ var http_1 = require("@angular/http");
 var urls_1 = require("../../services/urls");
 var email_validator_1 = require("../../services/validators/email.validator");
 var http_helpers_1 = require("../../services/http.helpers");
-var DataStructures_1 = require("../../domain/DataStructures");
+var material_1 = require("@angular/material");
 var SoContacts = (function () {
-    function SoContacts(_fb, _urls, _http, _httpHelpers) {
+    function SoContacts(_fb, _urls, _http, _httpHelpers, _snackBar) {
         this._fb = _fb;
         this._urls = _urls;
         this._http = _http;
         this._httpHelpers = _httpHelpers;
+        this._snackBar = _snackBar;
+        this.spinnerVisibility = false;
         this.feedbackForm = _fb.group({
             'senderName': ['', forms_1.Validators.required],
             'senderEmail': ['', forms_1.Validators.compose([forms_1.Validators.required, email_validator_1.EmailValidator.validate])],
@@ -28,17 +30,28 @@ var SoContacts = (function () {
         });
     }
     SoContacts.prototype.onSubmit = function (values) {
-        var pars = this._httpHelpers.createFormEncodedRequest([
-            new DataStructures_1.StringsKeyValue('SenderEmail', this.feedbackForm.get('senderName').value),
-            new DataStructures_1.StringsKeyValue('SenderName', this.feedbackForm.get('senderEmail').value),
-            new DataStructures_1.StringsKeyValue('Message', this.feedbackForm.get('message').value)
-        ]);
-        var headers = new http_1.Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
-        var options = new http_1.RequestOptions({ headers: headers, withCredentials: true });
-        this._http.post(this._urls.sendFeedback, pars.params, pars.options)
+        var _this = this;
+        this.spinnerVisibility = true;
+        var feedback = {
+            'SenderEmail': this.feedbackForm.get('senderName').value,
+            'SenderName': this.feedbackForm.get('senderEmail').value,
+            'Message': this.feedbackForm.get('message').value
+        };
+        var options = this._httpHelpers.createJsonRequest();
+        this._http.post(this._urls.sendFeedback, JSON.stringify(feedback), options)
             .map(function (res) { return res.json(); })
             .subscribe(function () {
-        }, function () { });
+            _this.feedbackForm.reset();
+            var snackBar = _this._snackBar.open("Успішно відправлено!", "Закрити", { duration: 5000 });
+            snackBar.onAction().subscribe(function () {
+                snackBar.dismiss();
+            });
+        }, function () {
+            var snackBar = _this._snackBar.open("Не вдалось відпавити. Спробуйте ще раз", "Закрити", { duration: 5000 });
+            snackBar.onAction().subscribe(function () {
+                snackBar.dismiss();
+            });
+        }, function () { _this.spinnerVisibility = false; });
     };
     SoContacts = __decorate([
         core_1.Component({
@@ -48,7 +61,7 @@ var SoContacts = (function () {
             styles: [require('./contacts.component.scss').toString()],
             template: require('./contacts.component.html')
         }), 
-        __metadata('design:paramtypes', [forms_1.FormBuilder, urls_1.UrlsService, http_1.Http, http_helpers_1.HttpHelpers])
+        __metadata('design:paramtypes', [forms_1.FormBuilder, urls_1.UrlsService, http_1.Http, http_helpers_1.HttpHelpers, material_1.MdSnackBar])
     ], SoContacts);
     return SoContacts;
 }());
