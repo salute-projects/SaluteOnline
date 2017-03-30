@@ -53,17 +53,17 @@ var SoContacts = (function () {
             });
         }, function () { _this.spinnerVisibility = false; });
     };
-    SoContacts = __decorate([
-        core_1.Component({
-            selector: 'so-contacts',
-            providers: [urls_1.UrlsService],
-            encapsulation: core_1.ViewEncapsulation.None,
-            styles: [require('./contacts.component.scss').toString()],
-            template: require('./contacts.component.html')
-        }), 
-        __metadata('design:paramtypes', [forms_1.FormBuilder, urls_1.UrlsService, http_1.Http, http_helpers_1.HttpHelpers, material_1.MdSnackBar])
-    ], SoContacts);
     return SoContacts;
 }());
+SoContacts = __decorate([
+    core_1.Component({
+        selector: 'so-contacts',
+        providers: [urls_1.UrlsService],
+        encapsulation: core_1.ViewEncapsulation.None,
+        styles: [require('./contacts.component.scss').toString()],
+        template: require('./contacts.component.html')
+    }),
+    __metadata("design:paramtypes", [forms_1.FormBuilder, urls_1.UrlsService, http_1.Http, http_helpers_1.HttpHelpers, material_1.MdSnackBar])
+], SoContacts);
 exports.SoContacts = SoContacts;
 //# sourceMappingURL=contacts.component.js.map

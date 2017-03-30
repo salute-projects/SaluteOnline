@@ -19,6 +19,6 @@ require("bootstrap/dist/js/bootstrap");
 require("bootstrap/dist/css/bootstrap.min.css");
 require("angular2-toaster/lib/toaster.css");
 require("angular2-toaster/angular2-toaster");
-require('primeng/primeng');
+require("primeng/primeng");
 require("moment");
 //# sourceMappingURL=vendor.js.map

@@ -8,9 +8,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var global_state_1 = require('./services/global.state');
-var so_loading_service_1 = require('./services/so-loading.service');
+var core_1 = require("@angular/core");
+var global_state_1 = require("./services/global.state");
+var so_loading_service_1 = require("./services/so-loading.service");
 var AppComponent = (function () {
     function AppComponent(state, loader) {
         var _this = this;
@@ -25,17 +25,17 @@ var AppComponent = (function () {
     AppComponent.prototype.ngAfterViewInit = function () {
         this.loader.hide(500);
     };
-    AppComponent = __decorate([
-        core_1.Component(({
-            selector: 'so-app',
-            encapsulation: core_1.ViewEncapsulation.None,
-            providers: [global_state_1.GlobalState, so_loading_service_1.SoLoader],
-            template: require('./app.template.html'),
-            styles: [require('./app.component.scss').toString()]
-        })), 
-        __metadata('design:paramtypes', [global_state_1.GlobalState, so_loading_service_1.SoLoader])
-    ], AppComponent);
     return AppComponent;
 }());
+AppComponent = __decorate([
+    core_1.Component(({
+        selector: 'so-app',
+        encapsulation: core_1.ViewEncapsulation.None,
+        providers: [global_state_1.GlobalState, so_loading_service_1.SoLoader],
+        template: require('./app.template.html'),
+        styles: [require('./app.component.scss').toString()]
+    })),
+    __metadata("design:paramtypes", [global_state_1.GlobalState, so_loading_service_1.SoLoader])
+], AppComponent);
 exports.AppComponent = AppComponent;
 //# sourceMappingURL=app.component.js.map

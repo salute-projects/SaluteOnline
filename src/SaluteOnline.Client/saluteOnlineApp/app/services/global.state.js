@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var Subject_1 = require("rxjs/Subject");
 var BehaviorSubject_1 = require("rxjs/BehaviorSubject");
-var angular2_jwt_1 = require('angular2-jwt');
+var angular2_jwt_1 = require("angular2-jwt");
 var GlobalState = (function () {
     function GlobalState() {
         var _this = this;
@@ -55,11 +55,11 @@ var GlobalState = (function () {
     GlobalState.prototype.setUser = function (user) {
         this._currentUser.next(user);
     };
-    GlobalState = __decorate([
-        core_1.Injectable(), 
-        __metadata('design:paramtypes', [])
-    ], GlobalState);
     return GlobalState;
 }());
+GlobalState = __decorate([
+    core_1.Injectable(),
+    __metadata("design:paramtypes", [])
+], GlobalState);
 exports.GlobalState = GlobalState;
 //# sourceMappingURL=global.state.js.map

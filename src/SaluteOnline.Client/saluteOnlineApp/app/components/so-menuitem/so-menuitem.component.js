@@ -23,32 +23,31 @@ var SoMenuItem = (function () {
         this.toggleSubMenu.emit($event);
         return false;
     };
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Object)
-    ], SoMenuItem.prototype, "menuItem", void 0);
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Object)
-    ], SoMenuItem.prototype, "child", void 0);
-    __decorate([
-        core_1.Output(), 
-        __metadata('design:type', Object)
-    ], SoMenuItem.prototype, "itemHover", void 0);
-    __decorate([
-        core_1.Output(), 
-        __metadata('design:type', Object)
-    ], SoMenuItem.prototype, "toggleSubMenu", void 0);
-    SoMenuItem = __decorate([
-        core_1.Component({
-            selector: 'so-menu-item',
-            encapsulation: core_1.ViewEncapsulation.None,
-            styles: [require('./so-menuitem.component.scss').toString()],
-            template: require('./so-menuitem.component.html')
-        }), 
-        __metadata('design:paramtypes', [])
-    ], SoMenuItem);
     return SoMenuItem;
 }());
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Object)
+], SoMenuItem.prototype, "menuItem", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Object)
+], SoMenuItem.prototype, "child", void 0);
+__decorate([
+    core_1.Output(),
+    __metadata("design:type", Object)
+], SoMenuItem.prototype, "itemHover", void 0);
+__decorate([
+    core_1.Output(),
+    __metadata("design:type", Object)
+], SoMenuItem.prototype, "toggleSubMenu", void 0);
+SoMenuItem = __decorate([
+    core_1.Component({
+        selector: 'so-menu-item',
+        encapsulation: core_1.ViewEncapsulation.None,
+        styles: [require('./so-menuitem.component.scss').toString()],
+        template: require('./so-menuitem.component.html')
+    })
+], SoMenuItem);
 exports.SoMenuItem = SoMenuItem;
 //# sourceMappingURL=so-menuitem.component.js.map

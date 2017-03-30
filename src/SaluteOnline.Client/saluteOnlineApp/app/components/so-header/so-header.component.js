@@ -37,16 +37,16 @@ var SoHeader = (function () {
         var _this = this;
         this.state.getUser.subscribe(function (o) { return _this.user = o; });
     };
-    SoHeader = __decorate([
-        core_1.Component({
-            selector: 'so-header',
-            styles: [require('./so-header.component.scss').toString()],
-            template: require('./so-header.component.html'),
-            encapsulation: core_1.ViewEncapsulation.None
-        }), 
-        __metadata('design:paramtypes', [global_state_1.GlobalState, login_service_1.LoginService])
-    ], SoHeader);
     return SoHeader;
 }());
+SoHeader = __decorate([
+    core_1.Component({
+        selector: 'so-header',
+        styles: [require('./so-header.component.scss').toString()],
+        template: require('./so-header.component.html'),
+        encapsulation: core_1.ViewEncapsulation.None
+    }),
+    __metadata("design:paramtypes", [global_state_1.GlobalState, login_service_1.LoginService])
+], SoHeader);
 exports.SoHeader = SoHeader;
 //# sourceMappingURL=so-header.component.js.map

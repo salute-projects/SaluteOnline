@@ -64,33 +64,33 @@ var SoMenu = (function () {
         }
         return false;
     };
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Array)
-    ], SoMenu.prototype, "menuRoutes", void 0);
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Object)
-    ], SoMenu.prototype, "sidebarCollapsed", void 0);
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Number)
-    ], SoMenu.prototype, "menuHeight", void 0);
-    __decorate([
-        core_1.Output(), 
-        __metadata('design:type', Object)
-    ], SoMenu.prototype, "expandMenu", void 0);
-    SoMenu = __decorate([
-        core_1.Component({
-            selector: 'so-menu',
-            encapsulation: core_1.ViewEncapsulation.None,
-            styles: [require('./so-menu.component.scss').toString()],
-            template: require('./so-menu.component.html'),
-            providers: [so_menu_service_1.SoMenuService]
-        }), 
-        __metadata('design:paramtypes', [router_1.Router, so_menu_service_1.SoMenuService, global_state_1.GlobalState])
-    ], SoMenu);
     return SoMenu;
 }());
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Array)
+], SoMenu.prototype, "menuRoutes", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Object)
+], SoMenu.prototype, "sidebarCollapsed", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Number)
+], SoMenu.prototype, "menuHeight", void 0);
+__decorate([
+    core_1.Output(),
+    __metadata("design:type", Object)
+], SoMenu.prototype, "expandMenu", void 0);
+SoMenu = __decorate([
+    core_1.Component({
+        selector: 'so-menu',
+        encapsulation: core_1.ViewEncapsulation.None,
+        styles: [require('./so-menu.component.scss').toString()],
+        template: require('./so-menu.component.html'),
+        providers: [so_menu_service_1.SoMenuService]
+    }),
+    __metadata("design:paramtypes", [router_1.Router, so_menu_service_1.SoMenuService, global_state_1.GlobalState])
+], SoMenu);
 exports.SoMenu = SoMenu;
 //# sourceMappingURL=so-menu.component.js.map

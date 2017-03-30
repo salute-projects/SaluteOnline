@@ -8,7 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
+var core_1 = require("@angular/core");
 var SoSpinner = (function () {
     function SoSpinner() {
         this.selector = 'spinner';
@@ -24,11 +24,11 @@ var SoSpinner = (function () {
             _this.element.style['display'] = 'none';
         }, delay);
     };
-    SoSpinner = __decorate([
-        core_1.Injectable(), 
-        __metadata('design:paramtypes', [])
-    ], SoSpinner);
     return SoSpinner;
 }());
+SoSpinner = __decorate([
+    core_1.Injectable(),
+    __metadata("design:paramtypes", [])
+], SoSpinner);
 exports.SoSpinner = SoSpinner;
 //# sourceMappingURL=so-spinner.service.js.map

@@ -27,11 +27,11 @@ var AuthGuard = (function () {
     AuthGuard.prototype.logged = function () {
         return angular2_jwt_1.tokenNotExpired('token');
     };
-    AuthGuard = __decorate([
-        core_1.Injectable(), 
-        __metadata('design:paramtypes', [router_1.Router])
-    ], AuthGuard);
     return AuthGuard;
 }());
+AuthGuard = __decorate([
+    core_1.Injectable(),
+    __metadata("design:paramtypes", [router_1.Router])
+], AuthGuard);
 exports.AuthGuard = AuthGuard;
 //# sourceMappingURL=auth-guard.service.js.map

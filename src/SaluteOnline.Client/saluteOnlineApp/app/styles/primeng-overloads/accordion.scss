@@ -1,0 +1,27 @@
+﻿@import "../vars";
+
+.ui-accordion {
+    .ui-accordion-header {
+        background: $background-color !important;
+        border: none !important;
+        border-radius: 0 !important;
+        font-family: $font-family !important;
+        font-size: 1.6rem;
+
+        &:hover {
+            background: $main-dark-grey !important;
+        }
+        
+        a[role=tab] {
+            color: $main-white !important;
+
+            &:hover, &:focus {
+                text-decoration: none !important;
+            }
+        }
+
+        .fa {
+            color: $main-white !important;
+        }
+    }
+}

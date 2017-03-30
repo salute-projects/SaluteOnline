@@ -19,7 +19,7 @@ var http_helpers_1 = require("../../services/http.helpers");
 var default_configs_1 = require("../../services/default.configs");
 var equal_passwords_validator_1 = require("../../services/validators/equal-passwords.validator");
 var global_state_1 = require("../../services/global.state");
-var angular2_jwt_1 = require('angular2-jwt');
+var angular2_jwt_1 = require("angular2-jwt");
 var material_1 = require("@angular/material");
 var DataStructures_1 = require("../../domain/DataStructures");
 var moment = require("moment");
@@ -156,17 +156,18 @@ var SoUserSettings = (function () {
     SoUserSettings.prototype.onUpload = function (event) {
         this.avatar = event.xhr.response;
     };
-    SoUserSettings = __decorate([
-        core_1.Component({
-            selector: 'so-user-settings',
-            providers: [urls_1.UrlsService],
-            encapsulation: core_1.ViewEncapsulation.None,
-            styles: [require('./user.settings.scss').toString()],
-            template: require('./user.settings.html')
-        }), 
-        __metadata('design:paramtypes', [geo_service_1.GeoService, forms_1.FormBuilder, http_1.Http, urls_1.UrlsService, angular2_jwt_1.AuthHttp, material_1.MdSnackBar, global_state_1.GlobalState, forms_helpers_1.FormsHelpers, http_helpers_1.HttpHelpers])
-    ], SoUserSettings);
     return SoUserSettings;
 }());
+SoUserSettings = __decorate([
+    core_1.Component({
+        selector: 'so-user-settings',
+        providers: [urls_1.UrlsService],
+        encapsulation: core_1.ViewEncapsulation.None,
+        styles: [require('./user.settings.scss').toString()],
+        template: require('./user.settings.html')
+    }),
+    __metadata("design:paramtypes", [geo_service_1.GeoService, forms_1.FormBuilder, http_1.Http, urls_1.UrlsService, angular2_jwt_1.AuthHttp, material_1.MdSnackBar,
+        global_state_1.GlobalState, forms_helpers_1.FormsHelpers, http_helpers_1.HttpHelpers])
+], SoUserSettings);
 exports.SoUserSettings = SoUserSettings;
 //# sourceMappingURL=user.settings.js.map

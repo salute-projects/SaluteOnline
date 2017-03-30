@@ -25,11 +25,11 @@ var SoLoader = (function () {
             _this.element.classList.remove('active');
         }, delay);
     };
-    SoLoader = __decorate([
-        core_1.Injectable(), 
-        __metadata('design:paramtypes', [])
-    ], SoLoader);
     return SoLoader;
 }());
+SoLoader = __decorate([
+    core_1.Injectable(),
+    __metadata("design:paramtypes", [])
+], SoLoader);
 exports.SoLoader = SoLoader;
 //# sourceMappingURL=so-loading.service.js.map

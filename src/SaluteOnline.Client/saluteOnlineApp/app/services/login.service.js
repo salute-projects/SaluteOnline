@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
-var angular2_jwt_1 = require('angular2-jwt');
+var angular2_jwt_1 = require("angular2-jwt");
 var urls_1 = require("./urls");
 var material_1 = require("@angular/material");
 var global_state_1 = require("./global.state");
@@ -71,11 +71,11 @@ var LoginService = (function () {
             _this.emit(true);
         });
     };
-    LoginService = __decorate([
-        core_1.Injectable(), 
-        __metadata('design:paramtypes', [http_1.Http, angular2_jwt_1.AuthHttp, urls_1.UrlsService, material_1.MdSnackBar, global_state_1.GlobalState])
-    ], LoginService);
     return LoginService;
 }());
+LoginService = __decorate([
+    core_1.Injectable(),
+    __metadata("design:paramtypes", [http_1.Http, angular2_jwt_1.AuthHttp, urls_1.UrlsService, material_1.MdSnackBar, global_state_1.GlobalState])
+], LoginService);
 exports.LoginService = LoginService;
 //# sourceMappingURL=login.service.js.map

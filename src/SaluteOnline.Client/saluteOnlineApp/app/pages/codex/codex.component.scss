@@ -1,1 +1,60 @@
-﻿
+﻿@import "../../styles/vars";
+@import "../../styles/mixins";
+
+.codex-version {
+    color: $main-white;
+    margin-bottom: 6px;
+    font-size: 1.2rem;
+
+    article {
+        ul {
+            li {
+                padding-bottom: 8px;
+            }
+        }
+    }
+}
+
+.codex-accordion {
+    ul {
+        list-style-type: disc;
+    }
+
+    .ui-accordion-content {
+        article {
+            ul.main-codex-article {
+                list-style-type: none;
+
+                > li {
+                    padding-top: 8px;
+                    text-align: justify;
+                }
+            }
+        }
+    }
+}
+
+.padded-ul {
+    li {
+        padding-top: 8px;
+    }
+}
+
+.codex-table {
+    @include v-margin(8px);
+}
+
+.bordered-table {
+    border: 1px solid $main-dark-grey;
+
+    th, td {
+        border: 1px solid $main-dark-grey;
+        @include h-padding(12px);
+        @include v-padding(4px);
+    }
+}
+
+.codex-help {
+    color: $main-blue;
+    cursor: help;
+}

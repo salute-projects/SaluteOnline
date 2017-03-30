@@ -1,6 +1,6 @@
 "use strict";
 var router_1 = require("@angular/router");
-var main_page_component_1 = require('./main-page.component');
+var main_page_component_1 = require("./main-page.component");
 var routes = [
     {
         path: '',

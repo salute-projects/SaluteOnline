@@ -76,17 +76,17 @@ var SoRegister = (function () {
     SoRegister.prototype.ngOnDestroy = function () {
         this.subscription.unsubscribe();
     };
-    SoRegister = __decorate([
-        core_1.Component({
-            selector: 'so-register',
-            providers: [login_service_1.LoginService, urls_1.UrlsService],
-            encapsulation: core_1.ViewEncapsulation.None,
-            styles: [require('./register.component.scss').toString()],
-            template: require('./register.component.html')
-        }), 
-        __metadata('design:paramtypes', [forms_1.FormBuilder, http_1.Http, login_service_1.LoginService, material_1.MdSnackBar, router_1.Router, urls_1.UrlsService])
-    ], SoRegister);
     return SoRegister;
 }());
+SoRegister = __decorate([
+    core_1.Component({
+        selector: 'so-register',
+        providers: [login_service_1.LoginService, urls_1.UrlsService],
+        encapsulation: core_1.ViewEncapsulation.None,
+        styles: [require('./register.component.scss').toString()],
+        template: require('./register.component.html')
+    }),
+    __metadata("design:paramtypes", [forms_1.FormBuilder, http_1.Http, login_service_1.LoginService, material_1.MdSnackBar, router_1.Router, urls_1.UrlsService])
+], SoRegister);
 exports.SoRegister = SoRegister;
 //# sourceMappingURL=register.component.js.map

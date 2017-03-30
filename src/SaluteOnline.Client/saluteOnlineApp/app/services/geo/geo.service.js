@@ -278,11 +278,11 @@ var GeoService = (function () {
             return [];
         return this.cities.filter(function (item) { return item.toLowerCase().indexOf(query.toLowerCase()) > -1; });
     };
-    GeoService = __decorate([
-        core_1.Injectable(), 
-        __metadata('design:paramtypes', [http_1.Http, urls_1.UrlsService])
-    ], GeoService);
     return GeoService;
 }());
+GeoService = __decorate([
+    core_1.Injectable(),
+    __metadata("design:paramtypes", [http_1.Http, urls_1.UrlsService])
+], GeoService);
 exports.GeoService = GeoService;
 //# sourceMappingURL=geo.service.js.map

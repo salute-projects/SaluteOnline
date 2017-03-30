@@ -15,8 +15,15 @@ var routes = [
             { path: '', redirectTo: 'main-page', pathMatch: 'full' },
             { path: 'main-page', loadChildren: './main-page/main-page.module#MainPageModule' },
             { path: 'usersettings', loadChildren: './user-settings/user.settings.module#SoUserSettingsModule', canActivate: [auth_guard_service_1.AuthGuard] },
-            { path: 'contacts', loadChildren: './contacts/contacts.module#ContactsModule' }
+            { path: 'contacts', loadChildren: './contacts/contacts.module#ContactsModule' },
+            { path: 'materials',
+                children: [
+                    { path: '', redirectTo: 'codex', pathMatch: 'full' },
+                    { path: 'codex', loadChildren: './codex/codex.module#CodexModule' }
+                ]
+            }
         ]
-    }];
+    }
+];
 exports.routing = router_1.RouterModule.forChild(routes);
 //# sourceMappingURL=pages.routing.js.map

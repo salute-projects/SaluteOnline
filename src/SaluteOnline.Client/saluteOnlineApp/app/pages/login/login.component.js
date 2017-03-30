@@ -41,17 +41,17 @@ var SoLogin = (function () {
     SoLogin.prototype.ngOnDestroy = function () {
         this.subsctiption.unsubscribe();
     };
-    SoLogin = __decorate([
-        core_1.Component({
-            selector: 'so-login',
-            providers: [login_service_1.LoginService, urls_1.UrlsService],
-            encapsulation: core_1.ViewEncapsulation.None,
-            styles: [require('./login.component.scss').toString()],
-            template: require('./login.component.html')
-        }), 
-        __metadata('design:paramtypes', [forms_1.FormBuilder, login_service_1.LoginService, router_1.Router])
-    ], SoLogin);
     return SoLogin;
 }());
+SoLogin = __decorate([
+    core_1.Component({
+        selector: 'so-login',
+        providers: [login_service_1.LoginService, urls_1.UrlsService],
+        encapsulation: core_1.ViewEncapsulation.None,
+        styles: [require('./login.component.scss').toString()],
+        template: require('./login.component.html')
+    }),
+    __metadata("design:paramtypes", [forms_1.FormBuilder, login_service_1.LoginService, router_1.Router])
+], SoLogin);
 exports.SoLogin = SoLogin;
 //# sourceMappingURL=login.component.js.map

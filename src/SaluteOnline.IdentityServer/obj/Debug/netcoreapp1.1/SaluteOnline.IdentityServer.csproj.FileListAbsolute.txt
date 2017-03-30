@@ -1,0 +1,13 @@
+D:\Projects\SaluteOnline\src\SaluteOnline.IdentityServer\bin\Debug\netcoreapp1.1\SaluteOnline.IdentityServer.deps.json
+D:\Projects\SaluteOnline\src\SaluteOnline.IdentityServer\bin\Debug\netcoreapp1.1\SaluteOnline.IdentityServer.runtimeconfig.json
+D:\Projects\SaluteOnline\src\SaluteOnline.IdentityServer\bin\Debug\netcoreapp1.1\SaluteOnline.IdentityServer.runtimeconfig.dev.json
+D:\Projects\SaluteOnline\src\SaluteOnline.IdentityServer\bin\Debug\netcoreapp1.1\SaluteOnline.IdentityServer.dll
+D:\Projects\SaluteOnline\src\SaluteOnline.IdentityServer\bin\Debug\netcoreapp1.1\SaluteOnline.IdentityServer.pdb
+D:\Projects\SaluteOnline\src\SaluteOnline.IdentityServer\bin\Debug\netcoreapp1.1\SaluteOnline.Domain.dll
+D:\Projects\SaluteOnline\src\SaluteOnline.IdentityServer\bin\Debug\netcoreapp1.1\SaluteOnline.Domain.pdb
+D:\Projects\SaluteOnline\src\SaluteOnline.IdentityServer\obj\Debug\netcoreapp1.1\SaluteOnline.IdentityServer.csprojResolveAssemblyReference.cache
+D:\Projects\SaluteOnline\src\SaluteOnline.IdentityServer\obj\Debug\netcoreapp1.1\SaluteOnline.IdentityServer.AssemblyInfo.cs
+D:\Projects\SaluteOnline\src\SaluteOnline.IdentityServer\obj\Debug\netcoreapp1.1\SaluteOnline.IdentityServer.dll
+D:\Projects\SaluteOnline\src\SaluteOnline.IdentityServer\obj\Debug\netcoreapp1.1\SaluteOnline.IdentityServer.pdb
+D:\Projects\SaluteOnline\src\SaluteOnline.IdentityServer\bin\Debug\netcoreapp1.1\Microsoft.DiaSymReader.Native.x86.dll
+D:\Projects\SaluteOnline\src\SaluteOnline.IdentityServer\bin\Debug\netcoreapp1.1\Microsoft.DiaSymReader.Native.amd64.dll

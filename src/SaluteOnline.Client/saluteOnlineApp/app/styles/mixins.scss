@@ -43,3 +43,13 @@
     margin-top: $value;
     margin-bottom: $value;
 }
+
+@mixin h-padding($value) {
+    padding-left: $value;
+    padding-right: $value;
+}
+
+@mixin v-padding($value) {
+    padding-top: $value;
+    padding-bottom: $value;
+}

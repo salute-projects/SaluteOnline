@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
 using SaluteOnline.Domain.Enums;
-using SaluteOnline.Domain.User;
-using MongoUser = SaluteOnline.Domain.User.MongoUser;
 
 namespace SaluteOnline.IdentityServer.Controllers
 {

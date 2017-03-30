@@ -57,22 +57,22 @@ var SoSidebar = (function () {
     SoSidebar.prototype.shouldSidebarCollapse = function () {
         return window.innerWidth <= constants_1.layoutSizes.resolutionCollapseSidebar;
     };
-    __decorate([
-        core_1.HostListener('window:resize'), 
-        __metadata('design:type', Function), 
-        __metadata('design:paramtypes', []), 
-        __metadata('design:returntype', void 0)
-    ], SoSidebar.prototype, "onWindowResize", null);
-    SoSidebar = __decorate([
-        core_1.Component({
-            selector: 'so-sidebar',
-            styles: [require('./so-sidebar.component.scss').toString()],
-            template: require('./so-sidebar.component.html'),
-            encapsulation: core_1.ViewEncapsulation.None
-        }), 
-        __metadata('design:paramtypes', [core_1.ElementRef, global_state_1.GlobalState])
-    ], SoSidebar);
     return SoSidebar;
 }());
+__decorate([
+    core_1.HostListener('window:resize'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], SoSidebar.prototype, "onWindowResize", null);
+SoSidebar = __decorate([
+    core_1.Component({
+        selector: 'so-sidebar',
+        styles: [require('./so-sidebar.component.scss').toString()],
+        template: require('./so-sidebar.component.html'),
+        encapsulation: core_1.ViewEncapsulation.None
+    }),
+    __metadata("design:paramtypes", [core_1.ElementRef, global_state_1.GlobalState])
+], SoSidebar);
 exports.SoSidebar = SoSidebar;
 //# sourceMappingURL=so-sidebar.component.js.map

@@ -24,19 +24,19 @@ var Autosize = (function () {
         this.element.nativeElement.style.height = 'auto';
         this.element.nativeElement.style.height = this.element.nativeElement.scrollHeight + 'px';
     };
-    __decorate([
-        core_1.HostListener('input', ['$event.target']), 
-        __metadata('design:type', Function), 
-        __metadata('design:paramtypes', [HTMLTextAreaElement]), 
-        __metadata('design:returntype', void 0)
-    ], Autosize.prototype, "onInput", null);
-    Autosize = __decorate([
-        core_1.Directive({
-            selector: 'textarea[autosize]'
-        }), 
-        __metadata('design:paramtypes', [core_1.ElementRef])
-    ], Autosize);
     return Autosize;
 }());
+__decorate([
+    core_1.HostListener('input', ['$event.target']),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [HTMLTextAreaElement]),
+    __metadata("design:returntype", void 0)
+], Autosize.prototype, "onInput", null);
+Autosize = __decorate([
+    core_1.Directive({
+        selector: 'textarea[autosize]'
+    }),
+    __metadata("design:paramtypes", [core_1.ElementRef])
+], Autosize);
 exports.Autosize = Autosize;
 //# sourceMappingURL=autosize.directive.js.map

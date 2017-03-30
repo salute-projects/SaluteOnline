@@ -103,11 +103,11 @@ var SoMenuService = (function () {
         object.selected = this.router.isActive(this.router.createUrlTree(object.route.paths), object.pathMatch === 'full');
         return object;
     };
-    SoMenuService = __decorate([
-        core_1.Injectable(), 
-        __metadata('design:paramtypes', [router_1.Router])
-    ], SoMenuService);
     return SoMenuService;
 }());
+SoMenuService = __decorate([
+    core_1.Injectable(),
+    __metadata("design:paramtypes", [router_1.Router])
+], SoMenuService);
 exports.SoMenuService = SoMenuService;
 //# sourceMappingURL=so-menu.service.js.map
