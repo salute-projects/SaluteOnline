@@ -1,0 +1,76 @@
+﻿@import "../../styles/vars";
+@import "../../styles/mixins";
+
+.protocols-container {
+    font-family: 'Roboto';
+
+    .protocol-header {
+        background: $main-blue;
+        color: white;
+
+        .logo-text {
+            line-height: 53px;
+            font-family: $font-family-logo;
+            font-size: 1.8rem;
+            padding-left: 8px;
+        }
+    }
+
+    .protocol-logo-zone {
+        background: $main-white;
+
+        img {
+            @include v-margin(12px);
+        }
+
+        .left-panel {
+            padding-left: 12px;
+            
+            .so-buttons-row {
+                margin-left: 24px;
+            }
+        }
+    }
+
+    .protocol-players-zone {
+        background: $main-white;
+        @include h-padding(12px);
+
+        .table {
+            thead {
+                th {
+                    font-family: $font-family;
+                    font-size: 1.2rem;
+                    text-align: center;
+                }
+            }
+
+            tbody {
+                td {
+                    vertical-align: middle;
+                }
+            }
+        }
+    }
+}
+
+.protocol-aside  {
+    background-color: $main-white;
+    margin-top: 53px;
+}
+
+.so-buttons-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.center-vertical {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.font-family-alt {
+    font-family: $font-family;
+}

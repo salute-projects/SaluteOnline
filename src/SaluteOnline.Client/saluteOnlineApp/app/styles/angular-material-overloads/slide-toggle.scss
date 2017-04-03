@@ -1,0 +1,17 @@
+﻿@import "../vars";
+
+.so-toggle {
+    &.mat-checked {
+        .mat-slide-toggle-bar {
+            background-color: $main-red-hover !important;
+        }
+
+        .mat-slide-toggle-thumb {
+            background-color: $main-red !important;
+        }
+    }
+
+    .mat-slide-toggle-content {
+        font-family: $font-family;
+    }
+}

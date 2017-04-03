@@ -136,6 +136,18 @@ exports.menuList = [
                         order: 650,
                     }
                 }
+            },
+            {
+                path: 'protocol',
+                data: {
+                    menu: {
+                        title: 'Протокол онлайн',
+                        icon: 'ion-ios-list-outline',
+                        selected: false,
+                        expanded: false,
+                        order: 650,
+                    }
+                }
             }
         ]
     }

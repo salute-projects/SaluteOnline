@@ -1,0 +1,112 @@
+﻿<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-3 protocol-aside">
+            <div class="protocol-aside-block row">
+                <div class="col-lg-3 font-family-alt">Вбивства:</div>
+            </div>
+        </div>
+        <div class="col-lg-6 protocols-container">
+            <div class="protocol-header row">
+                <div class="col-lg-4">
+                    <span class="logo-text">SALUTE ONLINE PROTOCOL</span>
+                </div>
+                <div class="col-lg-8">
+                    <md-input-container class="pull-right so-input white" style="max-width: 100px;">
+                        <input mdInput type="number" placeholder="гра" min="0"/>
+                    </md-input-container>
+                    <md-input-container class="pull-right so-input white" style="margin-right: 12px; max-width: 100px;">
+                        <input mdInput type="number" placeholder="стіл" min="0"/>
+                    </md-input-container>
+                </div>
+            </div>
+            <div class="protocol-logo-zone row">
+                <div class="col-lg-3">
+                    <div class="left-panel">
+                        <md-slide-toggle class="so-toggle">
+                            Ніч
+                        </md-slide-toggle>
+                        <div class="so-buttons-row">
+                            <button md-raised-button class="so-primary-button">
+                                Шериф
+                            </button>
+                            <button md-raised-button class="so-primary-button" style="margin-left: 4px">
+                                Дон
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 text-center">
+                    <img src="/content/Logojust.png" alt="Logo" width="90" height="100"/>
+                </div>
+                <div class="col-lg-3 center-vertical" style="height: 124px;">
+                    <div class="right-panel text-right">
+                        <button md-raised-button class="so-primary-button" style="margin-bottom: 4px;">
+                            Таймер
+                        </button>
+                        <button md-raised-button class="so-primary-button">
+                            Плеєр
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="protocol-players-zone row">
+                <table class="table table-hover table-responsive bordered-table">
+                    <thead>
+                    <tr>
+                        <th style="width: 3%"></th>
+                        <th style="width: 2%">#</th>
+                        <th style="width: 40%">НІК</th>
+                        <th style="width: 10%">РОЛЬ</th>
+                        <th>ФОЛИ</th>
+                        <th style="width: 10%">КРАЩИЙ</th>
+                        <th>БАЛИ</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let player of players; let i = index">
+                        <td class="text-center">
+                            <button md-button class="so-primary-button transparent-button x-button">
+                                <i class="material-icons">clear</i>
+                            </button>
+                        </td>
+                        <td class="text-center font-family-alt">{{i + 1}}</td>
+                        <td>Nick {{i}}</td>
+                        <td>
+                            <md-select [(ngModel)]="player.role">
+                                <md-option *ngFor="let role of player.rolesAvailable" [value]="role">{{role}}</md-option>
+                            </md-select>
+                        </td>
+                        <td class="text-center font-family-alt">{{player.foul}}</td>
+                        <td>
+                            <md-select [(ngModel)]="player.bestPlayer">
+                                <md-option *ngFor="let best of player.bestPlayersAvailable" [value]="best">{{best}}</md-option>
+                            </md-select>
+                        </td>
+                        <td class="text-center font-family-alt">{{player.result}}</td>
+                    </tr>
+                    <tr class="players-list-footer">
+                        <td colspan="2" class="text-right">
+                            <button md-button class="so-primary-button transparent-button x-button">
+                                <i class="material-icons">clear</i>
+                            </button>
+                        </td>
+                        <td class="text-right">
+                            <button md-button class="so-primary-button transparent-button x-button">
+                                <i class="material-icons">refresh</i>
+                            </button>
+                        </td>
+                        <td class="text-right">
+                            <button md-button class="so-primary-button transparent-button x-button">
+                                <i class="material-icons">check</i>
+                            </button>
+                            <button md-button class="so-primary-button transparent-button x-button">
+                                <i class="material-icons">clear</i>
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -21,7 +21,8 @@ var routes = [
                     { path: '', redirectTo: 'codex', pathMatch: 'full' },
                     { path: 'codex', loadChildren: './codex/codex.module#CodexModule' }
                 ]
-            }
+            },
+            { path: 'protocol', loadChildren: './protocol/protocol.module#ProtocolModule' }
         ]
     }
 ];

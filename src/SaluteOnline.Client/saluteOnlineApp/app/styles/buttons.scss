@@ -10,9 +10,31 @@
     background: $main-red;
     color: $main-white !important;
 
-    &:hover, &:focus {
+    &:hover {
         background: $main-red-hover;
         color: $main-white;
+
+        i {
+            color: $main-white;
+        }
     }
+}
+
+.transparent-button {
+    background: $main-white;
+    color: $main-red !important;
+}
+
+.x-button {
+    padding: 0 6px !important;
+    min-width: 24px !important;
     
+    .mat-button-wrapper {
+        line-height: 24px !important;
+
+        .material-icons {
+            font-size: 1.4rem;
+            padding: 4px 0;
+        }
+    }
 }
