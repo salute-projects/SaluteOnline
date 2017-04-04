@@ -13,8 +13,10 @@ var PlayerEntry_1 = require("../../domain/PlayerEntry");
 var SoProtocol = (function () {
     function SoProtocol() {
         this.players = new Array();
+        this.onvote = [];
         for (var i = 0; i < 10; i++) {
             this.players.push(new PlayerEntry_1.PlayerEntry());
+            this.onvote.push(i);
         }
     }
     return SoProtocol;

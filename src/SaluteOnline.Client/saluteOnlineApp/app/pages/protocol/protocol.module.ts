@@ -3,10 +3,10 @@ import { CommonModule } from "@angular/common";
 import { routing } from "./protocol.routing";
 import { SoProtocol } from "./protocol.component";
 import { FormsModule } from '@angular/forms';
-import { MdInputModule, MdSlideToggleModule, MdButtonModule, MdSelectModule } from "@angular/material";
+import { MdInputModule, MdSlideToggleModule, MdButtonModule, MdSelectModule, MdCheckboxModule, MdRadioModule } from "@angular/material";
 
 @NgModule({
-    imports: [CommonModule, MdInputModule, MdSlideToggleModule, MdButtonModule, MdSelectModule, FormsModule, routing],
+    imports: [CommonModule, MdInputModule, MdSlideToggleModule, MdButtonModule, MdSelectModule, MdCheckboxModule, MdRadioModule, FormsModule, routing],
     declarations: [SoProtocol],
     providers: []
 })

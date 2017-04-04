@@ -3,6 +3,7 @@
 
 .protocols-container {
     font-family: 'Roboto';
+    box-shadow: -1px 0px 4px -1px rgba(0,0,0,0.75);
 
     .protocol-header {
         background: $main-blue;
@@ -25,7 +26,7 @@
 
         .left-panel {
             padding-left: 12px;
-            
+
             .so-buttons-row {
                 margin-left: 24px;
             }
@@ -52,11 +53,52 @@
             }
         }
     }
+
+    .protocol-footer {
+        background: $main-white;
+        padding-bottom: 8px;
+
+        #onvote, #notonvote {
+            min-height: 36px;
+            line-height: 36px;
+        }
+    }
 }
 
-.protocol-aside  {
-    background-color: $main-white;
+.protocol-aside, .protocol-right-aside {
     margin-top: 53px;
+    background-color: $main-white;
+}
+
+.protocol-aside {
+    border-right: 1px solid $grey;
+
+    .protocol-aside-block {
+        border-bottom: 1px solid $grey;
+        min-height: 54px;
+
+        .input-container {
+            display: inline-flex;
+            align-items: center;
+            justify-content: flex-end;
+
+            .mat-input-container {
+                margin-right: 4px;
+            }
+        }
+    }
+}
+
+.protocol-right-aside {
+    border-left: 1px solid $grey;
+    @include v-padding(8px);
+    
+    .timer-table {
+        font-size: 8rem;
+        font-family: $font-family;
+        font-weight: bold;
+        padding-bottom: 24px;
+    }
 }
 
 .so-buttons-row {

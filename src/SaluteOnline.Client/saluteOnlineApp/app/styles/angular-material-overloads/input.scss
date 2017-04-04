@@ -1,71 +1,80 @@
 ﻿@import "../vars";
 
 .mat-input-container {
-    .mat-input-wrapper {
-        .mat-input-table {
-            .mat-input-infix {
-                .mat-input-element {
-                    font-size: 1.6rem;
-                }
 
-                .mat-input-placeholder-wrapper {
-                    top: -1em !important;
-                    height: 40px;
-                    
-                    .mat-input-placeholder {
-                        font-family: $font-family;
-                        font-weight: normal;
-                        font-size: 1.6rem !important;
+    &.sml-height-input {
+        .mat-input-wrapper {
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+    }
+
+
+    &.custom-input-container {
+        .mat-input-wrapper {
+            .mat-input-table {
+                .mat-input-infix {
+                    .mat-input-element {
+                        font-size: 1.6rem;
+                    }
+
+                    .mat-input-placeholder-wrapper {
+                        top: -1em !important;
+                        height: 40px;
+
+                        .mat-input-placeholder {
+                            font-family: $font-family;
+                            font-weight: normal;
+                            font-size: 1.6rem !important;
+                        }
                     }
                 }
             }
-        }
 
-        .mat-input-underline {
-            background-color: $main-grey;
-        
-            .mat-input-ripple {
-                background-color: $main-red-hover;
+            .mat-input-underline {
+                background-color: $main-grey;
+
+                .mat-input-ripple {
+                    background-color: $main-red-hover;
+                }
             }
         }
     }
-
-    // red background input with white font color 
+    // red background input with white font color
     &.white {
         .mat-input-placeholder {
-            color: $main-white;
-            
+            color: $main-white !important;
+
             &.mat-focused {
-                color: $main-white;
+                color: $main-white !important;
             }
         }
-    
+
         .mat-input-underline {
-            background-color: $main-white;
+            background-color: $main-white !important;
         }
     }
-    
     // white background input with red font color
     &.red {
         .mat-input-placeholder {
-            color: $main-red;
-            
+            color: $main-red !important;
+
             &.mat-focused {
-                color: $main-red-hover;
+                color: $main-red-hover !important;
             }
         }
     }
 
     &.has-error {
         .mat-input-underline {
-            background-color: $main-red;
+            background-color: $main-red !important;
             height: 2px;
         }
     }
 
     &.has-success {
         .mat-input-underline {
-            background-color: $main-green;
+            background-color: $main-green !important;
         }
     }
 }

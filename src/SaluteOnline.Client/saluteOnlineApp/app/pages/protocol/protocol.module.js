@@ -18,7 +18,7 @@ var ProtocolModule = (function () {
 }());
 ProtocolModule = __decorate([
     core_1.NgModule({
-        imports: [common_1.CommonModule, material_1.MdInputModule, material_1.MdSlideToggleModule, material_1.MdButtonModule, material_1.MdSelectModule, forms_1.FormsModule, protocol_routing_1.routing],
+        imports: [common_1.CommonModule, material_1.MdInputModule, material_1.MdSlideToggleModule, material_1.MdButtonModule, material_1.MdSelectModule, material_1.MdCheckboxModule, material_1.MdRadioModule, forms_1.FormsModule, protocol_routing_1.routing],
         declarations: [protocol_component_1.SoProtocol],
         providers: []
     })

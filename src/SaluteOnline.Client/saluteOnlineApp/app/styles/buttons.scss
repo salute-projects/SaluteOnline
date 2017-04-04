@@ -6,6 +6,9 @@
 }
 
 .so-primary-button {
+    font-family: $font-family;
+    text-transform: uppercase;
+    font-size: 1.2rem !important;
     border-radius: 0 !important;
     background: $main-red;
     color: $main-white !important;
@@ -25,6 +28,20 @@
     color: $main-red !important;
 }
 
+.blue-button {
+    background: $main-blue;
+    color: $main-white !important;
+
+    &:hover {
+        background: $main-blue-darker;
+        color: $main-white;
+
+        i {
+            color: $main-white;
+        }
+    }
+}
+
 .x-button {
     padding: 0 6px !important;
     min-width: 24px !important;
@@ -37,4 +54,21 @@
             padding: 4px 0;
         }
     }
+}
+
+.medium-button {
+    padding: 0 6px !important;
+    min-width: 44px !important;
+
+    .mat-button-wrapper {
+        line-height: 36px !important;
+    }
+}
+
+.giant-button {
+    min-width: 150px !important;
+    line-height: 50px !important;
+    font-size: 1.6rem !important;
+    text-transform: uppercase !important;
+    font-family: $font-family !important;
 }

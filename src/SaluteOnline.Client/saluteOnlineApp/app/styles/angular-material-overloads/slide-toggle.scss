@@ -14,4 +14,10 @@
     .mat-slide-toggle-content {
         font-family: $font-family;
     }
+
+    &.toggle-centered {
+        .mat-slide-toggle-label {
+            justify-content: center;
+        }
+    }
 }
