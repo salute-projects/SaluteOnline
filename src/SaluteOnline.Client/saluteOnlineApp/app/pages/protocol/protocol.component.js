@@ -9,16 +9,151 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var PlayerEntry_1 = require("../../domain/PlayerEntry");
+var ProtocolEnums_1 = require("../../domain/ProtocolEnums");
 var SoProtocol = (function () {
     function SoProtocol() {
+        this.setInitialState();
         this.players = new Array();
-        this.onvote = [];
         for (var i = 0; i < 10; i++) {
-            this.players.push(new PlayerEntry_1.PlayerEntry());
-            this.onvote.push(i);
+            this.players.push(new ProtocolEnums_1.PlayerEntry());
         }
+        this.defaultRolesAvailable = [new ProtocolEnums_1.Role(ProtocolEnums_1.Roles.Шериф, ProtocolEnums_1.Roles[1]), new ProtocolEnums_1.Role(ProtocolEnums_1.Roles.Дон, ProtocolEnums_1.Roles[2]), new ProtocolEnums_1.Role(ProtocolEnums_1.Roles.Мафія, ProtocolEnums_1.Roles[3]), new ProtocolEnums_1.Role(ProtocolEnums_1.Roles.Мирний, ProtocolEnums_1.Roles[4])
+        ];
     }
+    SoProtocol.prototype.searchNick = function (event) {
+    };
+    SoProtocol.prototype.setInitialState = function () {
+        this.serviceProps = {
+            night: false,
+            notOnVote: Array.apply(null, { length: 10 }).map(function (value, index) { return index + 1; }),
+            onVote: [],
+            killQueue: 1,
+            miskills: 0,
+            canFillRedRoles: false
+        };
+        this.protocol = {
+            winner: ProtocolEnums_1.Teams.None,
+            game: null,
+            table: null,
+            killedAtDay: [],
+            killedAtNight: []
+        };
+    };
+    SoProtocol.prototype.addToVote = function (player) {
+        this.serviceProps.onVote.push(player);
+        this.serviceProps.notOnVote = this.serviceProps.notOnVote.filter(function (t) { return t !== player; }).sort(function (n1, n2) { return n1 - n2; });
+    };
+    SoProtocol.prototype.removeFromVote = function (player) {
+        this.serviceProps.onVote = this.serviceProps.onVote.filter(function (t) { return t !== player; });
+        this.serviceProps.notOnVote.push(player);
+        this.serviceProps.notOnVote.sort(function (n1, n2) { return n1 - n2; });
+    };
+    SoProtocol.prototype.clearVoting = function () {
+        this.serviceProps.notOnVote = Array.apply(null, { length: 10 }).map(function (value, index) { return index + 1; });
+        this.serviceProps.onVote = [];
+    };
+    SoProtocol.prototype.foulsChange = function (player) {
+        if (player.foul === 0) {
+            player.foul = null;
+        }
+    };
+    SoProtocol.prototype.zeroToNull = function (object, property) {
+        if (typeof object[property] === "undefined")
+            return;
+        if (object[property] === 0)
+            object[property] = null;
+    };
+    SoProtocol.prototype.kill = function (player, index) {
+        if (this.serviceProps.night) {
+            this.protocol.killedAtNight.push(index);
+            player.killedAtNight = true;
+        }
+        else {
+            this.protocol.killedAtDay.push(index);
+            player.killedAtDay = true;
+        }
+        player.positionInKillQueue = this.serviceProps.killQueue;
+        this.serviceProps.killQueue++;
+        this.evaluate();
+    };
+    SoProtocol.prototype.miskill = function () {
+        this.serviceProps.miskills++;
+        this.evaluate();
+    };
+    SoProtocol.prototype.evaluate = function () {
+        if (this.serviceProps.miskills === 3) {
+            this.protocol.winner = ProtocolEnums_1.Teams.Red;
+        }
+        else {
+            var aliveRed = this.players.filter(function (t) { return !t.killedAtDay && !t.killedAtNight && (t.role.role === ProtocolEnums_1.Roles.Мирний || t.role.role === ProtocolEnums_1.Roles.Шериф); });
+            var aliveBlack = this.players.filter(function (t) { return !t.killedAtDay && !t.killedAtNight && (t.role.role === ProtocolEnums_1.Roles.Мафія || t.role.role === ProtocolEnums_1.Roles.Дон); });
+            if (aliveRed.length === aliveBlack.length) {
+                this.protocol.winner = ProtocolEnums_1.Teams.Black;
+                return;
+            }
+            if (aliveBlack.length === 0) {
+                this.protocol.winner = ProtocolEnums_1.Teams.Red;
+                return;
+            }
+        }
+    };
+    SoProtocol.prototype.roleSelected = function () {
+        this.processRole(ProtocolEnums_1.Roles.Шериф, ProtocolEnums_1.Roles[1], 1);
+        this.processRole(ProtocolEnums_1.Roles.Дон, ProtocolEnums_1.Roles[2], 1);
+        this.processRole(ProtocolEnums_1.Roles.Мафія, ProtocolEnums_1.Roles[3], 2);
+        this.processRole(ProtocolEnums_1.Roles.Мирний, ProtocolEnums_1.Roles[4], 6);
+        var notReds = this.players.filter(function (t) { return t.role !== null && (t.role.role === ProtocolEnums_1.Roles.Мафія || t.role.role === ProtocolEnums_1.Roles.Дон || t.role.role === ProtocolEnums_1.Roles.Шериф); });
+        if (notReds.length >= 4) {
+            this.serviceProps.canFillRedRoles = true;
+        }
+    };
+    SoProtocol.prototype.processRole = function (role, label, allowedCount) {
+        if (this.players.filter(function (t) { return t.role !== null && t.role.role === role; }).length === allowedCount) {
+            this.players.forEach(function (player) {
+                if (player.role === null || player.role.role !== role)
+                    player.rolesAvailable = player.rolesAvailable.filter(function (t) { return t.role !== role; });
+            });
+        }
+        else {
+            this.players.forEach(function (player) {
+                if (!player.rolesAvailable.some(function (t) { return t
+                    .role === role; }))
+                    player.rolesAvailable.push(new ProtocolEnums_1.Role(role, label));
+                player.rolesAvailable.sort(function (role1, role2) { return role1.role - role2.role; });
+            });
+        }
+    };
+    SoProtocol.prototype.fillRedRoles = function () {
+        this.players.forEach(function (player) { if (player.role === null)
+            player.role = player.rolesAvailable.find(function (t) { return t.role === ProtocolEnums_1.Roles.Мирний; }); });
+    };
+    SoProtocol.prototype.clearRoles = function () {
+        var _this = this;
+        this.players.forEach(function (player) {
+            player.role = null;
+            player.rolesAvailable = _this.defaultRolesAvailable.map(function (x) { return Object.assign({}, x); });
+        });
+        this.serviceProps.canFillRedRoles = false;
+    };
+    SoProtocol.prototype.getBackgroundColor = function (role) {
+        if (role == null)
+            return "transparent";
+        switch (role.role) {
+            case ProtocolEnums_1.Roles.Дон:
+                return "#292929";
+            case ProtocolEnums_1.Roles.Шериф:
+                return "#D32F2F";
+            case ProtocolEnums_1.Roles.Мафія:
+                return "#535353";
+            case ProtocolEnums_1.Roles.Мирний:
+                return "#d74444";
+            default:
+                return "transparent";
+        }
+    };
+    SoProtocol.prototype.getSelectColor = function (role) {
+        return role != null;
+    };
     return SoProtocol;
 }());
 SoProtocol = __decorate([

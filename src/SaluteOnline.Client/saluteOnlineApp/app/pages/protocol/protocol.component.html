@@ -4,41 +4,41 @@
             <div class="protocol-aside-block row center-vertical">
                 <div class="col-lg-4 font-family-alt">Вбивства:</div>
                 <div class="col-lg-8 input-container">
-                    <md-input-container class="pull-right so-input white small-numeric" style="width: 70px;">
-                        <input mdInput type="number" min="0" max="10"/>
+                    <md-input-container class="pull-right so-input white small-numeric">
+                        <input mdInput type="number" min="0" max="10" [(ngModel)]="protocol.killedAtNight[0]"/>
                     </md-input-container>
-                    <md-input-container class="pull-right so-input white small-numeric" style="width: 70px;">
-                        <input mdInput type="number" min="0" max="10" />
+                    <md-input-container class="pull-right so-input white small-numeric">
+                        <input mdInput type="number" min="0" max="10" [(ngModel)]="protocol.killedAtNight[1]"/>
                     </md-input-container>
-                    <md-input-container class="pull-right so-input white small-numeric" style="width: 70px;">
-                        <input mdInput type="number" min="0" max="10" />
+                    <md-input-container class="pull-right so-input white small-numeric">
+                        <input mdInput type="number" min="0" max="10" [(ngModel)]="protocol.killedAtNight[2]"/>
                     </md-input-container>
                 </div>
             </div>
             <div class="protocol-aside-block row center-vertical">
                 <div class="col-lg-4 font-family-alt">Голосування вдень:</div>
                 <div class="col-lg-8 input-container">
-                    <md-input-container class="pull-right so-input white small-numeric" style="width: 70px;">
-                        <input mdInput type="number" min="0" max="10" />
+                    <md-input-container class="pull-right so-input white small-numeric">
+                        <input mdInput type="number" min="0" max="10" [(ngModel)]="protocol.killedAtDay[0]"/>
                     </md-input-container>
-                    <md-input-container class="pull-right so-input white small-numeric" style="width: 70px;">
-                        <input mdInput type="number" min="0" max="10" />
+                    <md-input-container class="pull-right so-input white small-numeric">
+                        <input mdInput type="number" min="0" max="10" [(ngModel)]="protocol.killedAtDay[1]"/>
                     </md-input-container>
-                    <md-input-container class="pull-right so-input white small-numeric" style="width: 70px;">
-                        <input mdInput type="number" min="0" max="10" />
+                    <md-input-container class="pull-right so-input white small-numeric">
+                        <input mdInput type="number" min="0" max="10" [(ngModel)]="protocol.killedAtDay[2]"/>
                     </md-input-container>
                 </div>
             </div>
             <div class="protocol-aside-block row center-vertical">
                 <div class="col-lg-4 font-family-alt">Кращий хід:</div>
                 <div class="col-lg-8 input-container">
-                    <md-input-container class="pull-right so-input white small-numeric" style="width: 70px;">
+                    <md-input-container class="pull-right so-input white small-numeric">
                         <input mdInput type="number" min="0" max="10" />
                     </md-input-container>
-                    <md-input-container class="pull-right so-input white small-numeric" style="width: 70px;">
+                    <md-input-container class="pull-right so-input white small-numeric">
                         <input mdInput type="number" min="0" max="10" />
                     </md-input-container>
-                    <md-input-container class="pull-right so-input white small-numeric" style="width: 70px;">
+                    <md-input-container class="pull-right so-input white small-numeric">
                         <input mdInput type="number" min="0" max="10" />
                     </md-input-container>
                 </div>
@@ -47,13 +47,13 @@
                 <div class="col-lg-4 font-family-alt">Відгадайка:</div>
                 <div class="col-lg-8 input-container">
                     <md-checkbox class="white"></md-checkbox>
-                    <md-input-container class="pull-right so-input white small-numeric" style="width: 70px;">
+                    <md-input-container class="pull-right so-input white small-numeric">
                         <input mdInput type="number" min="0" max="10" />
                     </md-input-container>
-                    <md-input-container class="pull-right so-input white small-numeric" style="width: 70px;">
+                    <md-input-container class="pull-right so-input white small-numeric">
                         <input mdInput type="number" min="0" max="10" />
                     </md-input-container>
-                    <md-input-container class="pull-right so-input white small-numeric" style="width: 70px;">
+                    <md-input-container class="pull-right so-input white small-numeric">
                         <input mdInput type="number" min="0" max="10" />
                     </md-input-container>
                 </div>
@@ -61,13 +61,13 @@
             <div class="protocol-aside-block row center-vertical">
                 <div class="col-lg-4 font-family-alt">Звірки дона:</div>
                 <div class="col-lg-8 input-container">
-                    <md-input-container class="pull-right so-input white small-numeric" style="width: 70px;">
+                    <md-input-container class="pull-right so-input white small-numeric">
                         <input mdInput type="number" min="0" max="10" />
                     </md-input-container>
-                    <md-input-container class="pull-right so-input white small-numeric" style="width: 70px;">
+                    <md-input-container class="pull-right so-input white small-numeric">
                         <input mdInput type="number" min="0" max="10" />
                     </md-input-container>
-                    <md-input-container class="pull-right so-input white small-numeric" style="width: 70px;">
+                    <md-input-container class="pull-right so-input white small-numeric">
                         <input mdInput type="number" min="0" max="10" />
                     </md-input-container>
                 </div>
@@ -75,13 +75,13 @@
             <div class="protocol-aside-block row center-vertical">
                 <div class="col-lg-4 font-family-alt">Звірки шерифа:</div>
                 <div class="col-lg-8 input-container">
-                    <md-input-container class="pull-right so-input white small-numeric" style="width: 70px;">
+                    <md-input-container class="pull-right so-input white small-numeric">
                         <input mdInput type="number" min="0" max="10" />
                     </md-input-container>
-                    <md-input-container class="pull-right so-input white small-numeric" style="width: 70px;">
+                    <md-input-container class="pull-right so-input white small-numeric">
                         <input mdInput type="number" min="0" max="10" />
                     </md-input-container>
-                    <md-input-container class="pull-right so-input white small-numeric" style="width: 70px;">
+                    <md-input-container class="pull-right so-input white small-numeric">
                         <input mdInput type="number" min="0" max="10" />
                     </md-input-container>
                 </div>
@@ -113,7 +113,7 @@
             <div class="protocol-aside-block row center-vertical">
                 <div class="col-lg-8 font-family-alt">Лжешериф:</div>
                 <div class="col-lg-4 input-container">
-                    <md-input-container class="pull-right so-input white small-numeric" style="width: 70px;">
+                    <md-input-container class="pull-right so-input white small-numeric">
                         <input mdInput type="number" min="0" max="10" />
                     </md-input-container>
                 </div>
@@ -121,9 +121,9 @@
             <div class="protocol-aside-block row center-vertical">
                 <div class="col-lg-4 font-family-alt">Перемога:</div>
                 <div class="col-lg-8 input-container">
-                    <md-radio-group>
-                        <md-radio-button>Мирні</md-radio-button>
-                        <md-radio-button style="margin-left: 12px;">Мафія</md-radio-button>
+                    <md-radio-group [(ngModel)]="protocol.winner">
+                        <md-radio-button value="1">Мирні</md-radio-button>
+                        <md-radio-button value="2" style="margin-left: 12px;">Мафія</md-radio-button>
                     </md-radio-group>
                 </div>
             </div>
@@ -142,18 +142,18 @@
                 </div>
                 <div class="col-lg-8">
                     <md-input-container class="pull-right so-input custom-input-container white" style="max-width: 100px;">
-                        <input mdInput type="number" placeholder="гра" min="0"/>
+                        <input mdInput type="number" placeholder="гра" [(ngModel)]="protocol.game" (change)="zeroToNull(protocol, 'game')" min="0"/>
                     </md-input-container>
                     <md-input-container class="pull-right so-input custom-input-container white" style="margin-right: 12px; max-width: 100px;">
-                        <input mdInput type="number" placeholder="стіл" min="0"/>
+                        <input mdInput type="number" placeholder="стіл" [(ngModel)]="protocol.table" (change)="zeroToNull(protocol, 'table')" min="0"/>
                     </md-input-container>
                 </div>
             </div>
             <div class="protocol-logo-zone row">
                 <div class="col-lg-3">
                     <div class="left-panel">
-                        <md-slide-toggle class="so-toggle">
-                            Ніч
+                        <md-slide-toggle class="so-toggle" [(ngModel)]="serviceProps.night">
+                            {{serviceProps.night ? 'Ніч' : 'День'}}
                         </md-slide-toggle>
                         <div class="so-buttons-row">
                             <button md-raised-button class="so-primary-button">
@@ -180,7 +180,7 @@
                 </div>
             </div>
             <div class="protocol-players-zone row">
-                <table class="table table-hover table-responsive">
+                <table class="table table-responsive">
                     <thead>
                     <tr>
                         <th style="width: 3%"></th>
@@ -189,34 +189,44 @@
                         <th style="width: 10%">РОЛЬ</th>
                         <th style="width: 10%">ФОЛИ</th>
                         <th style="width: 10%">КРАЩИЙ</th>
-                        <th>БАЛИ</th>
+                        <th style="width: 10%">БАЛИ</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr *ngFor="let player of players; let i = index">
+                    <tr *ngFor="let player of players; let i = index" [ngClass]="{'disabled-row': player.killedAtDay || player.killedAtNight || player.foul === 4}">
                         <td class="text-center">
-                            <button md-button class="so-primary-button transparent-button x-button">
+                            <button md-button class="so-primary-button transparent-button x-button" (click)="kill(player, i + 1)"
+                                    *ngIf="!player.killedAtDay && !player.killedAtNight && player.foul < 4">
                                 <i class="material-icons">clear</i>
                             </button>
                         </td>
                         <td class="text-center font-family-alt">{{i + 1}}</td>
-                        <td>Nick {{i}}</td>
                         <td>
-                            <md-select [(ngModel)]="player.role">
-                                <md-option *ngFor="let role of player.rolesAvailable" [value]="role">{{role}}</md-option>
+                            <p-autoComplete minLength="3" [suggestions]="allNicks" appendTo="body" tabindex="{{i + 1}}"
+                                (completeMethod)="searchNick($event)" inputStyleClass="so-autocomplete-input transparent-theme full-width"
+                                styleClass="so-autocomplete-popup full-width"></p-autoComplete>
+                        </td>
+                        <td style="min-width: 128px;" [style.background-color]="getBackgroundColor(player.role)">
+                            <md-select [(ngModel)]="player.role" *ngIf="serviceProps.night" (change)="roleSelected()" class="so-custom-select no-underline"
+                                       [ngClass]="{'white-label-select': getSelectColor(player.role)}">
+                                <md-option *ngFor="let role of player.rolesAvailable" [value]="role">{{role.label}}</md-option>
+                            </md-select>
+                        </td>
+                        <td class="text-center font-family-alt">
+                            <md-input-container class="so-input white sml-height-input centered-text" style="max-width: 70px;">
+                                <input mdInput type="number" min="0" max="4" [(ngModel)]="player.foul" (change)="foulsChange(player)" [disabled]="player.foul === 4"/>
+                            </md-input-container>
+                        </td>
+                        <td>
+                            <md-select [(ngModel)]="player.bestPlayer" class="so-custom-select no-underline">
+                                <md-option *ngFor="let best of player.bestPlayersAvailable" [value]="best">{{best.label}}</md-option>
                             </md-select>
                         </td>
                         <td class="text-center font-family-alt">
                             <md-input-container class="so-input white sml-height-input" style="max-width: 70px;">
-                                <input mdInput type="number" min="0" max="4" [value]="player.foul" />
+                                <input mdInput type="number" min="0" [(ngModel)]="player.result" (change)="zeroToNull(player, 'result')" />
                             </md-input-container>
                         </td>
-                        <td>
-                            <md-select [(ngModel)]="player.bestPlayer">
-                                <md-option *ngFor="let best of player.bestPlayersAvailable" [value]="best">{{best}}</md-option>
-                            </md-select>
-                        </td>
-                        <td class="text-center font-family-alt">{{player.result}}</td>
                     </tr>
                     <tr class="players-list-footer">
                         <td colspan="2" class="text-right">
@@ -230,10 +240,12 @@
                             </button>
                         </td>
                         <td class="text-right">
-                            <button md-button class="so-primary-button transparent-button x-button">
+                            <button md-button class="so-primary-button transparent-button x-button" (click)="fillRedRoles()" *ngIf="serviceProps.canFillRedRoles"
+                                    mdTooltip="Заповнити ролі" mdTooltipPosition="above">
                                 <i class="material-icons">check</i>
                             </button>
-                            <button md-button class="so-primary-button transparent-button x-button">
+                            <button md-button class="so-primary-button transparent-button x-button" (click)="clearRoles()"
+                                    mdTooltip="Очистити ролі" mdTooltipPosition="above">
                                 <i class="material-icons">clear</i>
                             </button>
                         </td>
@@ -242,18 +254,27 @@
                 </table>
             </div>
             <div class="protocol-footer row">
-                <div id="onvote"></div>
-                <div id="notonvote" class="center-vertical">
-                    <div class="col-lg-2">
+                <div id="onvote" class="margin-bottom-min">
+                    <div class="col-lg-2 font-family-alt">
                         Виставлення:
                     </div>
+                    <div class="col-lg-9" *ngIf="serviceProps.onVote.length">
+                        <button md-raised-button class="so-primary-button medium-button margin-right-min" *ngFor="let player of serviceProps.onVote"
+                                (click)="removeFromVote(player)">
+                            {{player}}
+                        </button>
+                    </div>
+                </div>
+                <div id="notonvote" class="center-vertical">
+                    <div class="col-lg-2"></div>
                     <div class="col-lg-9">
-                        <button md-raised-button class="so-primary-button medium-button" *ngFor="let player of onvote" style="margin-right: 2px;">
-                            {{player + 1}}
+                        <button md-raised-button class="so-primary-button medium-button margin-right-min" *ngFor="let player of serviceProps.notOnVote"
+                                (click)="addToVote(player)">
+                            {{player}}
                         </button>
                     </div>
                     <div class="col-lg-1">
-                        <button md-button class="so-primary-button transparent-button x-button">
+                        <button md-button class="so-primary-button transparent-button x-button" (click)="clearVoting()" mdTooltip="Очистити" mdTooltipPosition="above">
                             <i class="material-icons">clear</i>
                         </button>
                     </div>

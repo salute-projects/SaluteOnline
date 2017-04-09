@@ -1,0 +1,17 @@
+﻿@import "../vars";
+
+.so-custom-select {
+    .mat-select-value-text {
+        font-family: $font-family;
+    }
+}
+
+
+.no-underline {
+    .mat-select-underline {
+        visibility: hidden;
+    }
+}
+.mat-option {
+    font-family: $font-family;
+}

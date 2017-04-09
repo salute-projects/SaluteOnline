@@ -1,0 +1,19 @@
+﻿@import "../vars";
+
+.so-autocomplete-popup {
+    border-radius: 0 !important;
+    font-family: $font-family !important;
+    font-size: 1.4rem !important;
+}
+
+.so-autocomplete-input {
+    border-radius: 0 !important;
+    border: none !important;
+    border-bottom: 1px solid $grey !important;
+    outline: none !important;
+
+    &:focus {
+        box-shadow: none !important;
+        border-bottom: 2px solid $main-red !important;
+    }
+}

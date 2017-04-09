@@ -77,6 +77,14 @@
         border-bottom: 1px solid $grey;
         min-height: 54px;
 
+        .small-numeric {
+            width: 40px;
+
+            input {
+                text-align: center;
+            }
+        }
+
         .input-container {
             display: inline-flex;
             align-items: center;
@@ -113,6 +121,18 @@
     justify-content: center;
 }
 
-.font-family-alt {
-    font-family: $font-family;
+table {
+    .disabled-row {
+        background-color: $grey;
+    }
+}
+
+.white-label-select {
+    .mat-select-value-text {
+        color: $main-white !important;
+    }
+
+    .mat-select-arrow {
+        color: $main-white !important;
+    }
 }

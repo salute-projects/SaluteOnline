@@ -9,6 +9,11 @@
         }
     }
 
+    &.centered-text {
+        input {
+            text-align: center;
+        }
+    }
 
     &.custom-input-container {
         .mat-input-wrapper {

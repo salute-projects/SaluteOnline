@@ -53,6 +53,10 @@
             color: $main-white;
         }
     }
+
+    .so-autocomplete-input {
+        border-bottom: 1px solid $main-grey;
+    }
 }
 
 .mat-ink-bar {
@@ -87,20 +91,6 @@
     border-radius: 0 !important;
     font-family: $font-family !important;
     font-size: 1.4rem !important;
-}
-
-.so-autocomplete-input {
-    border-radius: 0 !important;
-    background-color: transparent !important;
-    border: none !important;
-    border-bottom: 1px solid $main-grey !important;
-    color: $main-white !important;
-    outline: none !important;
-
-    &:focus {
-        box-shadow: none !important;
-        border-bottom: 2px solid $main-red !important;
-    }
 }
 
 .ui-autocomplete-panel {

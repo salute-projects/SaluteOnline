@@ -45,13 +45,13 @@
                                 <div class="so-autocomplete-wrapper" style="margin-top: 10px">
                                     <label class="so-float-label" style="transform: translateY(-18px) translateX(12px)">Країна</label>
                                     <p-autoComplete formControlName="state" minLength="3" [suggestions]="filteredContries" appendTo="body"
-                                                    (completeMethod)="searchCountry($event)" inputStyleClass="so-autocomplete-input" styleClass="so-autocomplete-popup">
+                                                    (completeMethod)="searchCountry($event)" inputStyleClass="so-autocomplete-input transparent-white" styleClass="so-autocomplete-popup">
                                     </p-autoComplete>
                                 </div>
                                 <div class="so-autocomplete-wrapper" style="margin-top: 10px">
                                     <label class="so-float-label" style="transform: translateY(-18px) translateX(12px)">Місто</label>
                                     <p-autoComplete formControlName="city" minLength="3" [suggestions]="filteredCities" appendTo="body"
-                                                    (completeMethod)="searchCity($event)" inputStyleClass="so-autocomplete-input" styleClass="so-autocomplete-popup"></p-autoComplete>
+                                                    (completeMethod)="searchCity($event)" inputStyleClass="so-autocomplete-input transparent-white" styleClass="so-autocomplete-popup"></p-autoComplete>
                                 </div>
                             </div>
                         </div>

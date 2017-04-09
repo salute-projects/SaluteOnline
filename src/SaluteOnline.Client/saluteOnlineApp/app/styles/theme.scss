@@ -1,0 +1,40 @@
+﻿@import "vars";
+
+.font-family-alt {
+    font-family: $font-family;
+}
+
+.transparent-white {
+    background-color: transparent !important;
+    color: $main-white !important;
+}
+
+.ordinary-theme {
+    background-color: $main-white !important;
+    color: #333;
+}
+
+.transparent-theme {
+    background-color: transparent !important;
+    color: #333;
+}
+
+.full-width {
+    width: 100% !important;
+}
+
+.margin-bottom-min {
+    margin-bottom: 2px !important;
+}
+
+.margin-left-min {
+    margin-left: 2px !important;
+}
+
+.margin-right-min {
+    margin-right: 2px !important;
+}
+
+.margin-top-min {
+    margin-top: 2px !important; 
+}
