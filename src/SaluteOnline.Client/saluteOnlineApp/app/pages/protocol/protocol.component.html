@@ -46,42 +46,28 @@
             <div class="protocol-aside-block row center-vertical">
                 <div class="col-lg-4 font-family-alt">Відгадайка:</div>
                 <div class="col-lg-8 input-container">
-                    <md-checkbox class="white"></md-checkbox>
+                    <md-checkbox class="white" [(ngModel)]="serviceProps.ugadaykaEnabled"></md-checkbox>
                     <md-input-container class="pull-right so-input white small-numeric">
-                        <input mdInput type="number" min="0" max="10" />
+                        <input mdInput type="number" min="0" max="10" [disabled]="!serviceProps.ugadaykaEnabled"/>
                     </md-input-container>
                     <md-input-container class="pull-right so-input white small-numeric">
-                        <input mdInput type="number" min="0" max="10" />
+                        <input mdInput type="number" min="0" max="10" [disabled]="!serviceProps.ugadaykaEnabled"/>
                     </md-input-container>
                     <md-input-container class="pull-right so-input white small-numeric">
-                        <input mdInput type="number" min="0" max="10" />
-                    </md-input-container>
-                </div>
-            </div>
-            <div class="protocol-aside-block row center-vertical">
-                <div class="col-lg-4 font-family-alt">Звірки дона:</div>
-                <div class="col-lg-8 input-container">
-                    <md-input-container class="pull-right so-input white small-numeric">
-                        <input mdInput type="number" min="0" max="10" />
-                    </md-input-container>
-                    <md-input-container class="pull-right so-input white small-numeric">
-                        <input mdInput type="number" min="0" max="10" />
-                    </md-input-container>
-                    <md-input-container class="pull-right so-input white small-numeric">
-                        <input mdInput type="number" min="0" max="10" />
+                        <input mdInput type="number" min="0" max="10" [disabled]="!serviceProps.ugadaykaEnabled"/>
                     </md-input-container>
                 </div>
             </div>
             <div class="protocol-aside-block row center-vertical">
-                <div class="col-lg-4 font-family-alt">Звірки шерифа:</div>
-                <div class="col-lg-8 input-container">
-                    <md-input-container class="pull-right so-input white small-numeric">
+                <div class="col-lg-2 font-family-alt">Звірка дона:</div>
+                <div class="col-lg-4 input-container">
+                    <md-input-container class="pull-right so-input white small-numeric" *ngIf="serviceProps.night">
                         <input mdInput type="number" min="0" max="10" />
                     </md-input-container>
-                    <md-input-container class="pull-right so-input white small-numeric">
-                        <input mdInput type="number" min="0" max="10" />
-                    </md-input-container>
-                    <md-input-container class="pull-right so-input white small-numeric">
+                </div>
+                <div class="col-lg-2 font-family-alt">Звірка шерифа:</div>
+                <div class="col-lg-4 input-container">
+                    <md-input-container class="pull-right so-input white small-numeric" *ngIf="serviceProps.night">
                         <input mdInput type="number" min="0" max="10" />
                     </md-input-container>
                 </div>
@@ -89,32 +75,32 @@
             <div class="protocol-aside-block row center-vertical">
                 <div class="col-lg-8 font-family-alt">Шериф не отримує -1:</div>
                 <div class="col-lg-4 input-container">
-                    <md-checkbox class="white"></md-checkbox>
+                    <md-checkbox class="white" *ngIf="serviceProps.night"></md-checkbox>
                 </div>
             </div>
             <div class="protocol-aside-block row center-vertical">
                 <div class="col-lg-8 font-family-alt">Чиста перемога мафії:</div>
                 <div class="col-lg-4 input-container">
-                    <md-checkbox class="white"></md-checkbox>
+                    <md-checkbox class="white" *ngIf="serviceProps.night"></md-checkbox>
                 </div>
             </div>
             <div class="protocol-aside-block row center-vertical">
                 <div class="col-lg-8 font-family-alt">Чиста перемога мирних:</div>
                 <div class="col-lg-4 input-container">
-                    <md-checkbox class="white"></md-checkbox>
+                    <md-checkbox class="white" *ngIf="serviceProps.night"></md-checkbox>
                 </div>
             </div>
             <div class="protocol-aside-block row center-vertical">
                 <div class="col-lg-8 font-family-alt">Три звірки:</div>
                 <div class="col-lg-4 input-container">
-                    <md-checkbox class="white"></md-checkbox>
+                    <md-checkbox class="white" *ngIf="serviceProps.night"></md-checkbox>
                 </div>
             </div>
             <div class="protocol-aside-block row center-vertical">
                 <div class="col-lg-8 font-family-alt">Лжешериф:</div>
                 <div class="col-lg-4 input-container">
-                    <md-input-container class="pull-right so-input white small-numeric">
-                        <input mdInput type="number" min="0" max="10" />
+                    <md-input-container class="pull-right so-input white small-numeric" *ngIf="serviceProps.night">
+                        <input mdInput type="number" min="0" max="10"/>
                     </md-input-container>
                 </div>
             </div>
@@ -129,7 +115,7 @@
             </div>
             <div class="protocol-aside-block row center-vertical">
                 <div class="col-lg-12 text-center">
-                    <button md-button class="so-primary-button giant-button blue-button">
+                    <button md-button class="so-primary-button giant-button blue-button" [disabled]="!serviceProps.nicksValid || protocol.winner === null">
                         Підрахувати
                     </button>
                 </div>
@@ -194,9 +180,9 @@
                     </thead>
                     <tbody>
                     <tr *ngFor="let player of players; let i = index" [ngClass]="{'disabled-row': player.killedAtDay || player.killedAtNight || player.foul === 4}">
-                        <td class="text-center">
+                        <td class="text-center" style="min-width: 42px;">
                             <button md-button class="so-primary-button transparent-button x-button" (click)="kill(player, i + 1)"
-                                    *ngIf="!player.killedAtDay && !player.killedAtNight && player.foul < 4">
+                                    *ngIf="serviceProps.rolesValid && !player.killedAtDay && !player.killedAtNight && player.foul < 4">
                                 <i class="material-icons">clear</i>
                             </button>
                         </td>
@@ -230,7 +216,8 @@
                     </tr>
                     <tr class="players-list-footer">
                         <td colspan="2" class="text-right">
-                            <button md-button class="so-primary-button transparent-button x-button">
+                            <button md-button class="so-primary-button transparent-button x-button" (click)="miskill()" *ngIf="serviceProps.rolesValid && serviceProps.night"
+                                    mdTooltip="Промах" mdTooltipPosition="above">
                                 <i class="material-icons">clear</i>
                             </button>
                         </td>
@@ -244,7 +231,7 @@
                                     mdTooltip="Заповнити ролі" mdTooltipPosition="above">
                                 <i class="material-icons">check</i>
                             </button>
-                            <button md-button class="so-primary-button transparent-button x-button" (click)="clearRoles()"
+                            <button md-button class="so-primary-button transparent-button x-button" (click)="clearRoles()" *ngIf="serviceProps.canClearRoles"
                                     mdTooltip="Очистити ролі" mdTooltipPosition="above">
                                 <i class="material-icons">clear</i>
                             </button>

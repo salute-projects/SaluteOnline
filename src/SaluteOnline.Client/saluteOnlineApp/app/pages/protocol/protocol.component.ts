@@ -26,6 +26,10 @@ export class SoProtocol {
         killQueue: number;
         miskills: number;
         canFillRedRoles: boolean;
+        canClearRoles: boolean;
+        ugadaykaEnabled: boolean;
+        rolesValid: boolean;
+        nicksValid: boolean;
     }
 
     protocol : {
@@ -53,8 +57,12 @@ export class SoProtocol {
             onVote: [],
             killQueue: 1,
             miskills: 0,
-            canFillRedRoles: false
-        }
+            canFillRedRoles: false,
+            canClearRoles: false,
+            ugadaykaEnabled: false,
+            rolesValid: false,
+            nicksValid: false
+    }
 
         this.protocol = {
             winner: Teams.None,
@@ -130,6 +138,8 @@ export class SoProtocol {
     }
 
     roleSelected(): void {
+        this.isRolesValid();
+        this.serviceProps.canClearRoles = this.players.filter(t => t.role !== null).length !== 10;
         this.processRole(Roles.Шериф, Roles[1], 1);
         this.processRole(Roles.Дон, Roles[2], 1);
         this.processRole(Roles.Мафія, Roles[3], 2);
@@ -138,6 +148,23 @@ export class SoProtocol {
         if (notReds.length >= 4) {
             this.serviceProps.canFillRedRoles = true;
         }
+    }
+
+    private isRolesValid(): void {
+        if (this.players.filter(t => t.role === null).length > 0) {
+            this.serviceProps.rolesValid = false;
+            return;
+        } else {
+            const reds = this.players.filter(t => t.role.role === Roles.Мирний).length;
+            const blacks = this.players.filter(t => t.role.role === Roles.Мафія).length;
+            const sheriffs = this.players.filter(t => t.role.role === Roles.Шериф).length;
+            const dons = this.players.filter(t => t.role.role === Roles.Дон).length;
+            this.serviceProps.rolesValid = reds === 6 && blacks === 2 && sheriffs === 1 && dons === 1;
+        }
+    }
+
+    private isNicksValid(): void {
+        this.serviceProps.nicksValid = this.players.filter(t => t.nick === '').length === 0;
     }
 
     private processRole(role: Roles, label: string, allowedCount: number): void {
@@ -157,6 +184,7 @@ export class SoProtocol {
 
     fillRedRoles(): void {
         this.players.forEach((player: PlayerEntry) => { if (player.role === null) player.role = player.rolesAvailable.find(t => t.role === Roles.Мирний) });
+        this.isRolesValid();
     }
 
     clearRoles(): void {
@@ -165,10 +193,11 @@ export class SoProtocol {
             player.rolesAvailable = this.defaultRolesAvailable.map(x => Object.assign({}, x));
         });
         this.serviceProps.canFillRedRoles = false;
+        this.serviceProps.canClearRoles = false;
     }
 
     getBackgroundColor(role: Role): string {
-        if (role == null)
+        if (!this.serviceProps.night || role == null)
             return "transparent";
         switch (role.role) {
         case Roles.Дон:
