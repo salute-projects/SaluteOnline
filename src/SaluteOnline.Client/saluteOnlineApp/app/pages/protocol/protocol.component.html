@@ -115,7 +115,7 @@
             </div>
             <div class="protocol-aside-block row center-vertical">
                 <div class="col-lg-12 text-center">
-                    <button md-button class="so-primary-button giant-button blue-button" [disabled]="!serviceProps.nicksValid || protocol.winner === null">
+                    <button md-button class="so-primary-button giant-button blue-button" [disabled]="!isNicksValid() || protocol.winner === 0" (click)="evaluate()">
                         Підрахувати
                     </button>
                 </div>
@@ -188,7 +188,7 @@
                         </td>
                         <td class="text-center font-family-alt">{{i + 1}}</td>
                         <td>
-                            <p-autoComplete minLength="3" [suggestions]="allNicks" appendTo="body" tabindex="{{i + 1}}"
+                            <p-autoComplete minLength="3" [suggestions]="allNicks" appendTo="body" tabindex="{{i + 1}}" [(ngModel)]="player.nick"
                                 (completeMethod)="searchNick($event)" inputStyleClass="so-autocomplete-input transparent-theme full-width"
                                 styleClass="so-autocomplete-popup full-width"></p-autoComplete>
                         </td>
@@ -209,7 +209,7 @@
                             </md-select>
                         </td>
                         <td class="text-center font-family-alt">
-                            <md-input-container class="so-input white sml-height-input" style="max-width: 70px;">
+                            <md-input-container class="so-input white sml-height-input centered-text" style="max-width: 70px;">
                                 <input mdInput type="number" min="0" [(ngModel)]="player.result" (change)="zeroToNull(player, 'result')" />
                             </md-input-container>
                         </td>
@@ -222,7 +222,7 @@
                             </button>
                         </td>
                         <td class="text-right">
-                            <button md-button class="so-primary-button transparent-button x-button">
+                            <button md-button class="so-primary-button transparent-button x-button" (click)="clearNicks()">
                                 <i class="material-icons">refresh</i>
                             </button>
                         </td>

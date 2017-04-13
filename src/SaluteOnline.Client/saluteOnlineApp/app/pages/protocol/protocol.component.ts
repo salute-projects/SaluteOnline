@@ -112,15 +112,15 @@ export class SoProtocol {
         }
         player.positionInKillQueue = this.serviceProps.killQueue;
         this.serviceProps.killQueue++;
-        this.evaluate();
+        this.checkGameEnd();
     }
 
     miskill(): void {
         this.serviceProps.miskills++;
-        this.evaluate();
+        this.checkGameEnd();
     }
 
-    evaluate(): void {
+    private checkGameEnd(): void {
         if (this.serviceProps.miskills === 3) {
             this.protocol.winner = Teams.Red;
         } else {
@@ -163,8 +163,8 @@ export class SoProtocol {
         }
     }
 
-    private isNicksValid(): void {
-        this.serviceProps.nicksValid = this.players.filter(t => t.nick === '').length === 0;
+    isNicksValid(): boolean {
+        return this.players.filter(t => t.nick === '').length === 0;
     }
 
     private processRole(role: Roles, label: string, allowedCount: number): void {
@@ -215,5 +215,34 @@ export class SoProtocol {
 
     getSelectColor(role: Role): boolean {
         return role != null;
+    }
+
+    clearNicks(): void {
+        this.players.forEach((player: PlayerEntry) => {
+            player.nick = "";
+        });
+    }
+
+    evaluate(): void {
+        if (parseInt(this.protocol.winner.toString()) === Teams.Red) {
+            this.players.forEach((player: PlayerEntry) => {
+                switch (player.role.role) {
+                case Roles.Дон:
+                        player.result = -1;
+                        break;
+                case Roles.Мафія:
+                    player.result = 0;
+                    break;
+                case Roles.Мирний:
+                    player.result = 4;
+                    break;
+                case Roles.Шериф:
+                    player.result = 5;
+                    break;
+                default:
+                    player.result = null;
+                }
+            });
+        }
     }
 }

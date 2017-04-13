@@ -78,13 +78,13 @@ var SoProtocol = (function () {
         }
         player.positionInKillQueue = this.serviceProps.killQueue;
         this.serviceProps.killQueue++;
-        this.evaluate();
+        this.checkGameEnd();
     };
     SoProtocol.prototype.miskill = function () {
         this.serviceProps.miskills++;
-        this.evaluate();
+        this.checkGameEnd();
     };
-    SoProtocol.prototype.evaluate = function () {
+    SoProtocol.prototype.checkGameEnd = function () {
         if (this.serviceProps.miskills === 3) {
             this.protocol.winner = ProtocolEnums_1.Teams.Red;
         }
@@ -127,7 +127,7 @@ var SoProtocol = (function () {
         }
     };
     SoProtocol.prototype.isNicksValid = function () {
-        this.serviceProps.nicksValid = this.players.filter(function (t) { return t.nick === ''; }).length === 0;
+        return this.players.filter(function (t) { return t.nick === ''; }).length === 0;
     };
     SoProtocol.prototype.processRole = function (role, label, allowedCount) {
         if (this.players.filter(function (t) { return t.role !== null && t.role.role === role; }).length === allowedCount) {
@@ -144,9 +144,6 @@ var SoProtocol = (function () {
                 player.rolesAvailable.sort(function (role1, role2) { return role1.role - role2.role; });
             });
         }
-    };
-    SoProtocol.prototype.nicksOnBlur = function () {
-        this.isNicksValid();
     };
     SoProtocol.prototype.fillRedRoles = function () {
         this.players.forEach(function (player) { if (player.role === null)
@@ -180,6 +177,33 @@ var SoProtocol = (function () {
     };
     SoProtocol.prototype.getSelectColor = function (role) {
         return role != null;
+    };
+    SoProtocol.prototype.clearNicks = function () {
+        this.players.forEach(function (player) {
+            player.nick = "";
+        });
+    };
+    SoProtocol.prototype.evaluate = function () {
+        if (parseInt(this.protocol.winner.toString()) === ProtocolEnums_1.Teams.Red) {
+            this.players.forEach(function (player) {
+                switch (player.role.role) {
+                    case ProtocolEnums_1.Roles.Дон:
+                        player.result = -1;
+                        break;
+                    case ProtocolEnums_1.Roles.Мафія:
+                        player.result = 0;
+                        break;
+                    case ProtocolEnums_1.Roles.Мирний:
+                        player.result = 4;
+                        break;
+                    case ProtocolEnums_1.Roles.Шериф:
+                        player.result = 5;
+                        break;
+                    default:
+                        player.result = null;
+                }
+            });
+        }
     };
     return SoProtocol;
 }());
