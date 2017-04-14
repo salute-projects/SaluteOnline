@@ -37,6 +37,7 @@ export class BestPlayer {
 }
 
 export interface IPlayerEntry {
+    index: number | null;
     nick: string;
     role?: Role | null;
     foul?: number;
@@ -48,10 +49,13 @@ export interface IPlayerEntry {
     checkedAtNight?: number;
     rolesAvailable: Role[];
     bestPlayersAvailable: BestPlayer[];
+    halfBestWay: boolean;
+    fullBestWay: boolean;
 }
 
 export class PlayerEntry implements IPlayerEntry {
     constructor(player: IPlayerEntry = {
+        index: null,
         nick: '',
         role: null,
         foul: null,
@@ -63,8 +67,11 @@ export class PlayerEntry implements IPlayerEntry {
         checkedAtNight: null,
         rolesAvailable: [new Role(Roles.Шериф, Roles[1]), new Role(Roles.Дон, Roles[2]), new Role(Roles.Мафія, Roles[3]), new Role(Roles.Мирний, Roles[4])],
         bestPlayersAvailable: [new BestPlayer(BestPlayers.None, ''), new BestPlayer(BestPlayers.Best1, 'Кращий 1'),
-            new BestPlayer(BestPlayers.Best2, 'Кращий 2'), new BestPlayer(BestPlayers.Best3, 'Кращий 3')]
+            new BestPlayer(BestPlayers.Best2, 'Кращий 2'), new BestPlayer(BestPlayers.Best3, 'Кращий 3')],
+        halfBestWay: false,
+        fullBestWay: false
     }) {
+        this.index = player.index;
         this.nick = player.nick;
         this.role = player.role;
         this.foul = player.foul;
@@ -76,8 +83,11 @@ export class PlayerEntry implements IPlayerEntry {
         this.checkedAtNight = player.checkedAtNight;
         this.rolesAvailable = player.rolesAvailable;
         this.bestPlayersAvailable = player.bestPlayersAvailable;
+        this.halfBestWay = player.halfBestWay;
+        this.fullBestWay = player.fullBestWay;
     }
 
+    index: number | null;
     nick: string;
     role: Role;
     foul: number | null;
@@ -89,4 +99,6 @@ export class PlayerEntry implements IPlayerEntry {
     checkedAtNight: number;
     rolesAvailable: Role[];
     bestPlayersAvailable: BestPlayer[];
+    halfBestWay: boolean;
+    fullBestWay: boolean;
 }
