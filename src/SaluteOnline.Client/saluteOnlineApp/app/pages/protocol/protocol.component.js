@@ -26,7 +26,7 @@ var SoProtocol = (function () {
     };
     SoProtocol.prototype.setInitialState = function () {
         this.serviceProps = {
-            night: false,
+            night: true,
             notOnVote: Array.apply(null, { length: 10 }).map(function (value, index) { return index + 1; }),
             onVote: [],
             killQueue: 1,
@@ -35,23 +35,11 @@ var SoProtocol = (function () {
             canClearRoles: false,
             ugadaykaEnabled: false,
             rolesValid: false,
-            nicksValid: false
+            nicksValid: false,
+            donCheckVisible: false,
+            sheriffCheckVisible: false
         };
-        this.protocol = {
-            winner: ProtocolEnums_1.Teams.None,
-            game: null,
-            table: null,
-            killedAtDay: [],
-            killedAtNight: [],
-            bestWay: [],
-            donCheck: null,
-            sheriffCheck: null,
-            threeCheck: null,
-            techRed: false,
-            techBlack: false,
-            ugadayka: [],
-            falseSheriff: null
-        };
+        this.protocol = new ProtocolEnums_1.Protocol;
     };
     SoProtocol.prototype.addToVote = function (player) {
         this.serviceProps.onVote.push(player);
@@ -77,6 +65,25 @@ var SoProtocol = (function () {
         if (object[property] === 0)
             object[property] = null;
     };
+    SoProtocol.prototype.uniqueNumbers = function (object, index) {
+        if (object[index] === 0) {
+            object[index] = null;
+            return;
+        }
+        var other = [];
+        object.forEach(function (value, ind) {
+            if (ind !== index)
+                other.push(value);
+        });
+        if (other.includes(object[index])) {
+            if (object[index] < 10) {
+                object[index]++;
+            }
+            else {
+                object[index] = null;
+            }
+        }
+    };
     SoProtocol.prototype.kill = function (player, index) {
         if (this.serviceProps.night) {
             this.protocol.killedAtNight.push(index);
@@ -88,11 +95,13 @@ var SoProtocol = (function () {
         }
         player.positionInKillQueue = this.serviceProps.killQueue;
         this.serviceProps.killQueue++;
-        this.checkGameEnd();
+        this.processUgadayka();
+        this.processFirstKill();
+        this.autoEvaluate();
     };
     SoProtocol.prototype.miskill = function () {
         this.serviceProps.miskills++;
-        this.checkGameEnd();
+        this.autoEvaluate();
     };
     SoProtocol.prototype.roleSelected = function () {
         this.isRolesValid();
@@ -104,6 +113,21 @@ var SoProtocol = (function () {
         var notReds = this.players.filter(function (t) { return t.role !== null && (t.role.role === ProtocolEnums_1.Roles.Мафія || t.role.role === ProtocolEnums_1.Roles.Дон || t.role.role === ProtocolEnums_1.Roles.Шериф); });
         if (notReds.length >= 4) {
             this.serviceProps.canFillRedRoles = true;
+        }
+    };
+    SoProtocol.prototype.processUgadayka = function () {
+        var alive = this.players.filter(function (t) { return !t.killedAtDay && !t.killedAtNight; });
+        if (alive.length === 3) {
+            this.protocol.ugadayka = alive.map(function (t) { return t.index; });
+            this.serviceProps.ugadaykaEnabled = true;
+        }
+    };
+    SoProtocol.prototype.processFirstKill = function () {
+        var _this = this;
+        if (!this.protocol.killedAtNight[0])
+            return;
+        if (this.players.find(function (t) { return t.index === _this.protocol.killedAtNight[0]; }).role.role === ProtocolEnums_1.Roles.Шериф) {
+            this.protocol.sheriffFirstKilled = true;
         }
     };
     SoProtocol.prototype.isRolesValid = function () {
@@ -172,33 +196,39 @@ var SoProtocol = (function () {
         return role != null;
     };
     SoProtocol.prototype.clearNicks = function () {
-        this.players.forEach(function (player) {
-            player.nick = "";
-        });
+        this.players.forEach(function (player) { player.nick = ""; });
     };
-    SoProtocol.prototype.evaluate = function () {
+    SoProtocol.prototype.autoEvaluate = function () {
         var ended = this.checkGameEnd();
         if (ended) {
-            this.setResult();
-            this.bestWayCount();
-            this.donCheck();
-            this.threeZvCheck();
-            this.technicalCheck();
-            this.checkUgadayka();
-            this.checkFirstKill();
-            this.checkBestPlayers();
-            this.checkFalseCom();
-            this.foulCheck();
+            this.countResults();
         }
     };
+    SoProtocol.prototype.evaluate = function () {
+        this.countResults();
+    };
+    SoProtocol.prototype.countResults = function () {
+        this.setResult();
+        this.bestWayCount();
+        this.donCheck();
+        this.threeZvCheck();
+        this.technicalCheck();
+        this.checkUgadayka();
+        this.checkFirstKill();
+        this.checkBestPlayers();
+        this.checkFalseCom();
+        this.foulCheck();
+        this.serviceProps.night = true;
+    };
     SoProtocol.prototype.checkGameEnd = function () {
+        var _this = this;
         if (this.serviceProps.miskills === 3) {
             this.protocol.winner = ProtocolEnums_1.Teams.Red;
             return true;
         }
         else {
-            var aliveRed = this.players.filter(function (t) { return !t.killedAtDay && !t.killedAtNight && (t.role.role === ProtocolEnums_1.Roles.Мирний || t.role.role === ProtocolEnums_1.Roles.Шериф); });
-            var aliveBlack = this.players.filter(function (t) { return !t.killedAtDay && !t.killedAtNight && (t.role.role === ProtocolEnums_1.Roles.Мафія || t.role.role === ProtocolEnums_1.Roles.Дон); });
+            var aliveRed = this.players.filter(function (t) { return !t.killedAtDay && !t.killedAtNight && _this.isRed(t); });
+            var aliveBlack = this.players.filter(function (t) { return !t.killedAtDay && !t.killedAtNight && _this.isBlack(t); });
             if (aliveRed.length === aliveBlack.length) {
                 this.protocol.winner = ProtocolEnums_1.Teams.Black;
                 if (aliveBlack.length === 3) {
@@ -208,7 +238,7 @@ var SoProtocol = (function () {
             }
             if (aliveBlack.length === 0) {
                 this.protocol.winner = ProtocolEnums_1.Teams.Red;
-                if (!this.players.some(function (t) { return (t.role.role === ProtocolEnums_1.Roles.Мирний || t.role.role === ProtocolEnums_1.Roles.Шериф) && t.killedAtDay; })) {
+                if (!this.players.some(function (t) { return _this.isRed(t) && t.killedAtDay; })) {
                     this.protocol.techRed = true;
                 }
                 return true;
@@ -217,7 +247,7 @@ var SoProtocol = (function () {
         return false;
     };
     SoProtocol.prototype.setResult = function () {
-        if (parseInt(this.protocol.winner.toString()) === ProtocolEnums_1.Teams.Red) {
+        if (this.redWins()) {
             this.players.forEach(function (player) {
                 switch (player.role.role) {
                     case ProtocolEnums_1.Roles.Дон:
@@ -238,7 +268,7 @@ var SoProtocol = (function () {
                 }
             });
         }
-        else if (parseInt(this.protocol.winner.toString()) === ProtocolEnums_1.Teams.Black) {
+        else if (this.blackWins()) {
             this.players.forEach(function (player) {
                 switch (player.role.role) {
                     case ProtocolEnums_1.Roles.Дон:
@@ -269,7 +299,7 @@ var SoProtocol = (function () {
             return;
         var chosenPlayers = [];
         this.players.forEach(function (value) {
-            if (_this.protocol.bestWay.includes(value.index) && (value.role.role === ProtocolEnums_1.Roles.Дон || value.role.role === ProtocolEnums_1.Roles.Мафія))
+            if (_this.protocol.bestWay.includes(value.index) && _this.isBlack(value))
                 chosenPlayers.push(value);
         });
         if (chosenPlayers.length === 2) {
@@ -301,17 +331,18 @@ var SoProtocol = (function () {
         sheriff.result++;
     };
     SoProtocol.prototype.technicalCheck = function () {
+        var _this = this;
         if (!this.protocol.techRed && !this.protocol.techBlack)
             return;
         if (this.protocol.techBlack) {
             this.players.forEach(function (player) {
-                if (player.role.role === ProtocolEnums_1.Roles.Дон || player.role.role === ProtocolEnums_1.Roles.Мафія)
+                if (_this.isBlack(player))
                     player.result++;
             });
         }
         else if (this.protocol.techRed) {
             this.players.forEach(function (player) {
-                if (player.role.role === ProtocolEnums_1.Roles.Мирний || player.role.role === ProtocolEnums_1.Roles.Шериф)
+                if (_this.isRed(player))
                     player.result++;
             });
         }
@@ -322,14 +353,14 @@ var SoProtocol = (function () {
             return;
         if (parseInt(this.protocol.winner.toString()) === ProtocolEnums_1.Teams.Black) {
             this.players.forEach(function (player) {
-                if (_this.protocol.ugadayka.includes(player.index) && (player.role.role === ProtocolEnums_1.Roles.Дон || player.role.role === ProtocolEnums_1.Roles.Мафія)) {
+                if (_this.protocol.ugadayka.includes(player.index) && _this.isBlack(player)) {
                     player.result++;
                 }
             });
         }
         else if (parseInt(this.protocol.winner.toString()) === ProtocolEnums_1.Teams.Red) {
             this.players.forEach(function (player) {
-                if (_this.protocol.ugadayka.includes(player.index) && (player.role.role === ProtocolEnums_1.Roles.Мирний || player.role.role === ProtocolEnums_1.Roles.Шериф)) {
+                if (_this.protocol.ugadayka.includes(player.index) && _this.isRed(player)) {
                     player.result++;
                 }
             });
@@ -346,7 +377,7 @@ var SoProtocol = (function () {
             this.protocol.killedAtNight[0] === sheriff.index) {
             don.result++;
         }
-        else if (parseInt(this.protocol.winner.toString()) === ProtocolEnums_1.Teams.Red && this.protocol.killedAtNight[0] === sheriff.index) {
+        if (this.protocol.sheriffFirstKilled && this.blackWins()) {
             sheriff.result++;
         }
     };
@@ -366,7 +397,7 @@ var SoProtocol = (function () {
     };
     SoProtocol.prototype.checkFalseCom = function () {
         var _this = this;
-        if (!this.protocol.falseSheriff || parseInt(this.protocol.winner.toString()) !== ProtocolEnums_1.Teams.Black)
+        if (!this.protocol.falseSheriff || this.blackWins())
             return;
         var falseCom = this.players.find(function (t) { return t.index === _this.protocol.falseSheriff; });
         if (!falseCom)
@@ -376,8 +407,87 @@ var SoProtocol = (function () {
     SoProtocol.prototype.foulCheck = function () {
         this.players.forEach(function (player) {
             if (player.foul === 4)
-                player.result -= 1;
+                player.result = -1;
         });
+    };
+    SoProtocol.prototype.winnerChanged = function () {
+        this.protocol.techRed = false;
+        this.protocol.techBlack = false;
+        this.players.forEach(function (t) { return t.result = null; });
+        this.checkEnabledBestPlayers();
+    };
+    SoProtocol.prototype.checkEnabledBestPlayers = function () {
+        var _this = this;
+        if (this.blackWins()) {
+            this.players.forEach(function (t) {
+                if (_this.isBlack(t)) {
+                    t.bestPlayersAvailable.forEach(function (z) {
+                        if (z.value === ProtocolEnums_1.BestPlayers.Best3)
+                            z.enabled = false;
+                    });
+                }
+                if (_this.isRed(t)) {
+                    t.bestPlayersAvailable.forEach(function (z) {
+                        if (z.value === ProtocolEnums_1.BestPlayers.Best1 || z.value === ProtocolEnums_1.BestPlayers.Best2) {
+                            z.enabled = false;
+                        }
+                    });
+                }
+            });
+        }
+        else if (this.redWins()) {
+            this.players.forEach(function (t) {
+                if (_this.isBlack(t)) {
+                    t.bestPlayersAvailable.forEach(function (z) {
+                        if (z.value === ProtocolEnums_1.BestPlayers.Best1 || z.value === ProtocolEnums_1.BestPlayers.Best2)
+                            z.enabled = false;
+                    });
+                }
+                if (_this.isRed(t)) {
+                    t.bestPlayersAvailable.forEach(function (z) {
+                        if (z.value === ProtocolEnums_1.BestPlayers.Best3) {
+                            z.enabled = false;
+                        }
+                    });
+                }
+            });
+        }
+    };
+    SoProtocol.prototype.bestPlayerSelected = function (player) {
+        if (player.bestPlayer.value !== ProtocolEnums_1.BestPlayers.None) {
+            this.players.forEach(function (t) {
+                if (t.index !== player.index)
+                    t.bestPlayersAvailable.find(function (z) { return z.value === player.bestPlayer.value; }).enabled = false;
+            });
+        }
+        else {
+            var currentlySelected_1 = this.players.map(function (t) { return t.bestPlayer.value; });
+            this.players.forEach(function (t) {
+                t.bestPlayersAvailable.forEach(function (z) {
+                    if (!currentlySelected_1.includes(z.value)) {
+                        z.enabled = true;
+                    }
+                });
+            });
+        }
+    };
+    SoProtocol.prototype.isBlack = function (player) {
+        return player.role && (player.role.role === ProtocolEnums_1.Roles.Дон || player.role.role === ProtocolEnums_1.Roles.Мафія);
+    };
+    SoProtocol.prototype.isRed = function (player) {
+        return player.role && (player.role.role === ProtocolEnums_1.Roles.Мирний || player.role.role === ProtocolEnums_1.Roles.Шериф);
+    };
+    SoProtocol.prototype.redWins = function () {
+        return parseInt(this.protocol.winner.toString()) === ProtocolEnums_1.Teams.Red;
+    };
+    SoProtocol.prototype.blackWins = function () {
+        return parseInt(this.protocol.winner.toString()) === ProtocolEnums_1.Teams.Black;
+    };
+    SoProtocol.prototype.showDonCheck = function () {
+        this.serviceProps.donCheckVisible = true;
+    };
+    SoProtocol.prototype.showSheriffCheck = function () {
+        this.serviceProps.sheriffCheckVisible = true;
     };
     return SoProtocol;
 }());

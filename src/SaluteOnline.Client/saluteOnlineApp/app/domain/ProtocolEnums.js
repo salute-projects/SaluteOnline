@@ -28,9 +28,10 @@ var Role = (function () {
 }());
 exports.Role = Role;
 var BestPlayer = (function () {
-    function BestPlayer(value, label) {
+    function BestPlayer(value, label, enabled) {
         this.value = value;
         this.label = label;
+        this.enabled = enabled;
     }
     return BestPlayer;
 }());
@@ -42,15 +43,15 @@ var PlayerEntry = (function () {
             nick: '',
             role: null,
             foul: null,
-            bestPlayer: new BestPlayer(BestPlayers.None, ''),
+            bestPlayer: new BestPlayer(BestPlayers.None, '', true),
             result: null,
             positionInKillQueue: null,
             killedAtDay: null,
             killedAtNight: null,
             checkedAtNight: null,
             rolesAvailable: [new Role(Roles.Шериф, Roles[1]), new Role(Roles.Дон, Roles[2]), new Role(Roles.Мафія, Roles[3]), new Role(Roles.Мирний, Roles[4])],
-            bestPlayersAvailable: [new BestPlayer(BestPlayers.None, ''), new BestPlayer(BestPlayers.Best1, 'Кращий 1'),
-                new BestPlayer(BestPlayers.Best2, 'Кращий 2'), new BestPlayer(BestPlayers.Best3, 'Кращий 3')],
+            bestPlayersAvailable: [new BestPlayer(BestPlayers.None, '', true), new BestPlayer(BestPlayers.Best1, 'Кращий 1', true),
+                new BestPlayer(BestPlayers.Best2, 'Кращий 2', true), new BestPlayer(BestPlayers.Best3, 'Кращий 3', true)],
             halfBestWay: false,
             fullBestWay: false
         }; }
@@ -72,4 +73,42 @@ var PlayerEntry = (function () {
     return PlayerEntry;
 }());
 exports.PlayerEntry = PlayerEntry;
+var Protocol = (function () {
+    function Protocol(protocol) {
+        if (protocol === void 0) { protocol = {
+            winner: Teams.None,
+            game: null,
+            table: null,
+            killedAtDay: [],
+            killedAtNight: [],
+            bestWay: [],
+            donCheck: null,
+            sheriffCheck: null,
+            threeCheck: null,
+            techRed: false,
+            techBlack: false,
+            ugadayka: [],
+            falseSheriff: null,
+            sheriffFirstKilled: false,
+            players: null
+        }; }
+        this.winner = protocol.winner;
+        this.game = protocol.game;
+        this.table = protocol.table;
+        this.killedAtDay = protocol.killedAtDay;
+        this.killedAtNight = protocol.killedAtNight;
+        this.bestWay = protocol.bestWay;
+        this.donCheck = protocol.donCheck;
+        this.sheriffCheck = protocol.sheriffCheck;
+        this.threeCheck = protocol.threeCheck;
+        this.techRed = protocol.techRed;
+        this.techBlack = protocol.techBlack;
+        this.ugadayka = protocol.ugadayka;
+        this.falseSheriff = protocol.falseSheriff;
+        this.sheriffFirstKilled = protocol.sheriffFirstKilled;
+        this.players = protocol.players;
+    }
+    return Protocol;
+}());
+exports.Protocol = Protocol;
 //# sourceMappingURL=ProtocolEnums.js.map

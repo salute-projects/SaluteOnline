@@ -1,7 +1,7 @@
 ﻿@import "../vars";
 
 .mat-checkbox {
-    
+
     &.white {
         .mat-checkbox-inner-container {
             .mat-checkbox-frame {
@@ -23,6 +23,14 @@
                 &:hover {
                     background-color: $main-red-hover;
                 }
+            }
+        }
+    }
+
+    &.disabled-checkbox {
+        .mat-checkbox-inner-container {
+            .mat-checkbox-frame {
+                border-color: $grey;
             }
         }
     }

@@ -1,0 +1,15 @@
+﻿@import "../vars";
+
+.check-dialog {
+    border-radius: 0 !important;
+
+    .ui-widget-header {
+        background: $main-blue;
+        color: white;
+    }
+
+    p-footer {
+        display: block !important;
+        margin-bottom: 8px !important;
+    }
+}

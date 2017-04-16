@@ -136,3 +136,10 @@ table {
         color: $main-white !important;
     }
 }
+
+.player-index-container {
+    background: $main-red-hover;
+    color: $main-white;
+    @include h-padding(4px);
+    @include v-padding(4px);
+}
