@@ -72,3 +72,10 @@
     text-transform: uppercase !important;
     font-family: $font-family !important;
 }
+
+.table-position-button {
+    background: $main-red-hover;
+    color: $main-white;
+    width: 86px !important;
+    height: 86px !important;
+}

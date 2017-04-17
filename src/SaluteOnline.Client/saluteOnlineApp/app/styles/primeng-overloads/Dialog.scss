@@ -12,4 +12,14 @@
         display: block !important;
         margin-bottom: 8px !important;
     }
+
+    .ui-dialog-content {
+        overflow: hidden !important;
+    }
+
+    .ui-dialog-title {
+        p-header {
+            font-family: $font-family-logo !important;
+        }
+    }
 }
