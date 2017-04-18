@@ -19,7 +19,9 @@
 
     .ui-dialog-title {
         p-header {
-            font-family: $font-family-logo !important;
+            span {
+                font-family: $font-family !important;
+            }
         }
     }
 }

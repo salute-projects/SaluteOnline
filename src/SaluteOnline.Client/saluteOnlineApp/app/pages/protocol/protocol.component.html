@@ -167,10 +167,12 @@
                     {{serviceProps.night ? 'Ніч' : 'День'}}
                 </md-slide-toggle>
                 <div class="so-buttons-row">
-                    <button md-raised-button class="so-primary-button" mdTooltip="Відкрити вікно звірок Шерифа" mdTooltipPosition="above">
+                    <button md-raised-button class="so-primary-button" mdTooltip="Відкрити вікно звірок Шерифа" mdTooltipPosition="above" (click)="showCheck(false)"
+                            [disabled]="checkDisabled()">
                         Шериф
                     </button>
-                    <button md-raised-button class="so-primary-button" mdTooltip="Відкрити вікно звірок Дона" mdTooltipPosition="above" (click)="showDonCheck()" style="margin-left: 4px">
+                    <button md-raised-button class="so-primary-button" mdTooltip="Відкрити вікно звірок Дона" mdTooltipPosition="above" (click)="showCheck(true)" style="margin-left: 4px"
+                            [disabled]="checkDisabled()">
                         Дон
                     </button>
                 </div>
@@ -319,47 +321,32 @@
 </div>
 </div>
 
-<p-dialog [(visible)]="serviceProps.donCheckVisible" modal="modal" width="600" responsive="true" styleClass="check-dialog" closeOnEscape="false">
+<p-dialog [(visible)]="serviceProps.checkVisibility" modal="modal" width="600" responsive="true" styleClass="check-dialog" closeOnEscape="false">
     <p-header>
-        ЗВІРКА ДОНА
+        <span>ЗВІРКА {{serviceProps.checkTypeIsDon ? 'ДОНА' : 'ШЕРИФА'}}</span>
     </p-header>
     <div class="table-circle">
         <ul>
-            <li>
-                <button md-fab class="table-position-button">1</button>
-            </li>
-            <li>
-                <button md-fab class="table-position-button">2</button>
-            </li>
-            <li>
-                <button md-fab class="table-position-button">3</button>
-            </li>
-            <li>
-                <button md-fab class="table-position-button">4</button>
-            </li>
-            <li>
-                <button md-fab class="table-position-button">5</button>
-            </li>
-            <li>
-                <button md-fab class="table-position-button">6</button>
-            </li>
-            <li>
-                <button md-fab class="table-position-button">7</button>
-            </li>
-            <li>
-                <button md-fab class="table-position-button">8</button>
-            </li>
-            <li>
-                <button md-fab class="table-position-button">9</button>
-            </li>
-            <li>
-                <button md-fab class="table-position-button">10</button>
+            <li *ngFor="let in of [1,2,3,4,5,6,7,8,9,10]">
+                <button md-fab class="table-position-button" (click)="check(in)">{{in}}</button>
             </li>
         </ul>
-        <button>Result</button>
+        <div class="result-container">
+            <div class="result-wrapper">
+                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2" *ngIf="serviceProps.checkSuccess">
+                    <circle class="path circle" fill="none" stroke="#2FD381" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1" />
+                    <polyline class="path check" fill="none" stroke="#2FD381" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" points="100.2,40.2 51.5,88.8 29.8,67.5 " />
+                </svg>
+                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2" *ngIf="serviceProps.checkSuccess === false">
+                    <circle class="path circle" fill="none" stroke="#d74444" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1" />
+                    <line class="path line" fill="none" stroke="#d74444" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="34.4" y1="37.9" x2="95.8" y2="92.3" />
+                    <line class="path line" fill="none" stroke="#d74444" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="95.8" y1="38" x2="34.4" y2="92.2" />
+                </svg>
+            </div>
+        </div>
     </div>
     <p-footer class="text-center">
-        <button md-button class="so-primary-button" (click)="serviceProps.donCheckVisible = false">
+        <button md-button class="so-primary-button" (click)="closeCheck()">
             OK
         </button>
     </p-footer>

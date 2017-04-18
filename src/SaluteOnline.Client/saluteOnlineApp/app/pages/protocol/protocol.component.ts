@@ -30,8 +30,10 @@ export class SoProtocol {
         ugadaykaEnabled: boolean;
         rolesValid: boolean;
         nicksValid: boolean;
-        donCheckVisible: boolean;
-        sheriffCheckVisible: boolean;
+        checkVisibility: boolean;
+        checkSuccess: boolean | null;
+        checkTypeIsDon: boolean | null;
+        currentCheckIndex: number | null;
     }
 
     protocol : IProtocol;
@@ -60,8 +62,10 @@ export class SoProtocol {
             ugadaykaEnabled: false,
             rolesValid: false,
             nicksValid: false,
-            donCheckVisible: false,
-            sheriffCheckVisible: false
+            checkVisibility: false,
+            checkSuccess: null,
+            checkTypeIsDon: null,
+            currentCheckIndex: null
         }
         this.protocol = new Protocol;
     }
@@ -526,11 +530,32 @@ export class SoProtocol {
         return parseInt(this.protocol.winner.toString()) === Teams.Black;
     }
 
-    showDonCheck() {
-        this.serviceProps.donCheckVisible = true;
+    showCheck(donCheck: boolean) {
+        this.serviceProps.checkTypeIsDon = donCheck;
+        this.serviceProps.checkVisibility = true;
     }
 
-    showSheriffCheck() {
-        this.serviceProps.sheriffCheckVisible = true;
+    check(index: number) {
+        this.serviceProps.currentCheckIndex = index;
+        if (this.serviceProps.checkTypeIsDon) {
+            this.serviceProps.checkSuccess = this.players.find(t => t.index === index).role.role === Roles.Шериф;
+        } else {
+            this.serviceProps.checkSuccess = this.isBlack(this.players.find(t => t.index === index));
+        }
+    }
+
+    closeCheck() {
+        this.serviceProps.checkSuccess = null;
+        this.serviceProps.checkVisibility = false;
+        if (this.serviceProps.checkTypeIsDon && !this.protocol.donCheck) {
+            this.protocol.donCheck = this.serviceProps.currentCheckIndex;
+        } else if (!this.serviceProps.checkTypeIsDon && !this.protocol.sheriffCheck) {
+            this.protocol.sheriffCheck = this.serviceProps.currentCheckIndex;
+        }
+        this.serviceProps.currentCheckIndex = null;
+    }
+
+    checkDisabled(): boolean {
+        return this.players.some(t => t.role === null);
     }
 }

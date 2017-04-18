@@ -148,45 +148,73 @@ table {
     text-align: center;
     margin-top: 20px;
     max-height: 500px;
-    margin-left: -40px;
 
     ul {
         list-style: none;
+        margin-left: -40px;
 
         li:nth-child(2) {
-            transform: translateX(110px) translateY(-40px);
+            button {
+                transform: translateX(110px) translateY(-40px);
+            }
         }
 
         li:nth-child(3) {
-            transform: translateX(180px) translateY(-40px);
+            button {
+                transform: translateX(180px) translateY(-40px);
+            }
         }
 
         li:nth-child(4) {
-            transform: translateX(180px) translateY(-20px);
+            button {
+                transform: translateX(180px) translateY(-20px);
+            }
         }
 
         li:nth-child(5) {
-            transform: translateX(110px) translateY(-20px);
+            button {
+                transform: translateX(110px) translateY(-20px);
+            }
         }
 
         li:nth-child(6) {
-            transform: translateY(-60px);
+            button {
+                transform: translateY(-60px);
+            }
         }
 
         li:nth-child(7) {
-            transform: translatex(-110px) translateY(-192px);
+            button {
+                transform: translatex(-110px) translateY(-192px);
+            }
         }
 
         li:nth-child(8) {
-            transform: translateX(-180px) translateY(-364px);
+            button {
+                transform: translateX(-180px) translateY(-364px);
+            }
         }
 
         li:nth-child(9) {
-            transform: translateX(-180px) translateY(-556px);
+            button {
+                transform: translateX(-180px) translateY(-556px);
+            }
         }
 
         li:nth-child(10) {
-            transform: translateX(-110px) translateY(-728px);
+            button {
+                transform: translateX(-110px) translateY(-728px);
+            }
         }
+    }
+}
+
+.result-container {
+    width: 100%;
+    @include calc(margin-left, "50% - 75px");
+
+    .result-wrapper {
+        width: 150px;
+        transform: translateY(-710px);
     }
 }

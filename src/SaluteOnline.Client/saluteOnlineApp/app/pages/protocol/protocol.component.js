@@ -36,8 +36,10 @@ var SoProtocol = (function () {
             ugadaykaEnabled: false,
             rolesValid: false,
             nicksValid: false,
-            donCheckVisible: false,
-            sheriffCheckVisible: false
+            checkVisibility: false,
+            checkSuccess: null,
+            checkTypeIsDon: null,
+            currentCheckIndex: null
         };
         this.protocol = new ProtocolEnums_1.Protocol;
     };
@@ -483,11 +485,32 @@ var SoProtocol = (function () {
     SoProtocol.prototype.blackWins = function () {
         return parseInt(this.protocol.winner.toString()) === ProtocolEnums_1.Teams.Black;
     };
-    SoProtocol.prototype.showDonCheck = function () {
-        this.serviceProps.donCheckVisible = true;
+    SoProtocol.prototype.showCheck = function (donCheck) {
+        this.serviceProps.checkTypeIsDon = donCheck;
+        this.serviceProps.checkVisibility = true;
     };
-    SoProtocol.prototype.showSheriffCheck = function () {
-        this.serviceProps.sheriffCheckVisible = true;
+    SoProtocol.prototype.check = function (index) {
+        this.serviceProps.currentCheckIndex = index;
+        if (this.serviceProps.checkTypeIsDon) {
+            this.serviceProps.checkSuccess = this.players.find(function (t) { return t.index === index; }).role.role === ProtocolEnums_1.Roles.Шериф;
+        }
+        else {
+            this.serviceProps.checkSuccess = this.isBlack(this.players.find(function (t) { return t.index === index; }));
+        }
+    };
+    SoProtocol.prototype.closeCheck = function () {
+        this.serviceProps.checkSuccess = null;
+        this.serviceProps.checkVisibility = false;
+        if (this.serviceProps.checkTypeIsDon && !this.protocol.donCheck) {
+            this.protocol.donCheck = this.serviceProps.currentCheckIndex;
+        }
+        else if (!this.serviceProps.checkTypeIsDon && !this.protocol.sheriffCheck) {
+            this.protocol.sheriffCheck = this.serviceProps.currentCheckIndex;
+        }
+        this.serviceProps.currentCheckIndex = null;
+    };
+    SoProtocol.prototype.checkDisabled = function () {
+        return this.players.some(function (t) { return t.role === null; });
     };
     return SoProtocol;
 }());
