@@ -1,5 +1,7 @@
 ﻿import { Component, ViewEncapsulation } from "@angular/core";
 import { Router } from "@angular/router";
+import { Subscription } from "rxjs";
+import { TimerObservable } from "rxjs/observable/TimerObservable";
 import { IPlayerEntry, IProtocol, Protocol, PlayerEntry, Roles, Role, Teams, BestPlayers } from "../../domain/ProtocolEnums";
 
 @Component({
@@ -36,6 +38,17 @@ export class SoProtocol {
         currentCheckIndex: number | null;
     }
 
+    timerProps: {
+        timerVisible: boolean;
+        timerSpeaker: boolean;
+        halfTime: boolean;
+        tick: number;
+        timerSubscription: Subscription;
+        timerDisplay: string;
+        active: boolean;
+        startTick: number;
+    }
+
     protocol : IProtocol;
 
     constructor() {
@@ -67,6 +80,18 @@ export class SoProtocol {
             checkTypeIsDon: null,
             currentCheckIndex: null
         }
+
+        this.timerProps = {
+            timerVisible: false,
+            timerSpeaker: false,
+            halfTime: false,
+            tick: 0,
+            timerSubscription: null,
+            timerDisplay: '00',
+            active: false,
+            startTick: 0
+        }
+
         this.protocol = new Protocol;
     }
 
@@ -557,5 +582,38 @@ export class SoProtocol {
 
     checkDisabled(): boolean {
         return this.players.some(t => t.role === null);
+    }
+
+    startTimer() {
+        if (!this.timerProps.active) {
+            this.timerProps.active = true;
+            const timer = TimerObservable.create(0, 1000);
+            this.timerProps.timerSubscription = timer.takeWhile(() => this.timerProps.tick < (this.timerProps.halfTime ? 30 : 60))
+                .subscribe(t => {
+                    const currentWithGap = (t as number) + this.timerProps.startTick;
+                    this.timerProps.tick = currentWithGap;
+                    this.timerProps.timerDisplay = currentWithGap < 10 ? `0${currentWithGap}` : (currentWithGap).toString();
+                });
+        } else {
+            this.timerProps.timerSubscription.unsubscribe();
+            this.timerProps.timerSubscription = null;
+            this.timerProps.startTick = this.timerProps.tick;
+            this.timerProps.tick = 0;
+            this.timerProps.active = false;
+        }
+    }
+
+    clearTimer() {
+        this.timerProps.active = false;
+        this.timerProps.startTick = 0;
+        this.timerProps.tick = 0;
+        this.timerProps.timerDisplay = "00";
+        if (this.timerProps.timerSubscription) {
+            this.timerProps.timerSubscription.unsubscribe();   
+        }
+    }
+
+    getTimerColor() {
+        return (this.timerProps.halfTime ? 30 : 60) - this.timerProps.tick <= 10 ? '#009eeb' : '#292929';
     }
 }

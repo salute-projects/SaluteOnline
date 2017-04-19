@@ -183,7 +183,8 @@
         </div>
         <div class="col-lg-3 center-vertical" style="height: 124px;">
             <div class="right-panel text-right">
-                <button md-raised-button class="so-primary-button" style="margin-bottom: 4px;" mdTooltip="Відкрити Таймер" mdTooltipPosition="above">
+                <button md-raised-button class="so-primary-button" style="margin-bottom: 4px;" mdTooltip="Відкрити Таймер" mdTooltipPosition="above"
+                        (click)="timerProps.timerVisible = !timerProps.timerVisible">
                     Таймер
                 </button>
                 <button md-raised-button class="so-primary-button" mdTooltip="Відкрити плеєр" mdTooltipPosition="above">
@@ -295,23 +296,25 @@
         </div>
     </div>
 </div>
-<div class="col-lg-3 protocol-right-aside">
+<div class="col-lg-3 protocol-right-aside" *ngIf="timerProps.timerVisible">
     <div class="row so-timer text-center">
-        <button md-button class="so-primary-button transparent-button x-button">
-            <i class="material-icons">volume_mute</i>
+        <button md-button class="so-primary-button transparent-button x-button" (click)="timerProps.timerSpeaker = !timerProps.timerSpeaker"
+                mdTooltip="{{timerProps.timerSpeaker ? 'Звук увімкнено' : 'Звук вимкнено'}}" mdTooltipPosition="above">
+            <i class="material-icons" *ngIf="!timerProps.timerSpeaker">volume_off</i>
+            <i class="material-icons" *ngIf="timerProps.timerSpeaker">volume_up</i>
         </button>
-        <md-slide-toggle class="so-toggle toggle-centered">
-            1 хв
+        <md-slide-toggle class="so-toggle toggle-centered" (change)="timerProps.halfTime = !timerProps.halfTime">
+            {{timerProps.halfTime ? '30 сек' : '1 хв'}}
         </md-slide-toggle>
-        <div class="timer-table">
-            00:00
+        <div class="timer-table" [style.color]="getTimerColor()">
+            {{timerProps.timerDisplay}}:00
         </div>
         <div class="col-lg-8 col-lg-push-2">
             <div class="so-buttons-row">
-                <button md-raised-button class="so-primary-button">
+                <button md-raised-button class="so-primary-button" (click)="startTimer()">
                     Старт/Стоп
                 </button>
-                <button md-raised-button class="so-primary-button" style="margin-left: 4px">
+                <button md-raised-button class="so-primary-button" style="margin-left: 4px" (click)="clearTimer()">
                     Скинути
                 </button>
             </div>
