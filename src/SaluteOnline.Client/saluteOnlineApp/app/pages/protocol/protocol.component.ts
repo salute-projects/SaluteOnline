@@ -53,6 +53,9 @@ export class SoProtocol {
 
     constructor() {
         this.setInitialState();
+    }
+
+    setInitialState(): void {
         this.players = new Array<PlayerEntry>();
         for (let i = 0; i < 10; i++) {
             const player = new PlayerEntry();
@@ -61,9 +64,7 @@ export class SoProtocol {
         }
         this.defaultRolesAvailable = [new Role(Roles.Шериф, Roles[1]), new Role(Roles.Дон, Roles[2]), new Role(Roles.Мафія, Roles[3]), new Role(Roles.Мирний, Roles[4])
         ];
-    }
 
-    private setInitialState(): void {
         this.serviceProps = {
             night: true,
             notOnVote: Array.apply(null, { length: 10 }).map((value: any, index: number) => index + 1),

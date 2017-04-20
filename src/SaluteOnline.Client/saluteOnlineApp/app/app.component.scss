@@ -75,7 +75,7 @@ body {
 
     @media screen and (max-width: $resXS) {
         .so-content {
-          padding: 8px 20px;
+            padding: 8px 20px;
         }
     }
 }
@@ -212,5 +212,11 @@ input:-webkit-autofill:active {
 @media (max-width: 590px) {
     .so-main {
         padding-bottom: 76px;
+    }
+}
+
+@media screen and (max-width: $resXXXL) {
+    .so-main {
+        margin-right: 0;
     }
 }

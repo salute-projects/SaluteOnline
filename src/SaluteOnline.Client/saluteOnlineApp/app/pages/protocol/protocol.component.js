@@ -14,6 +14,10 @@ var ProtocolEnums_1 = require("../../domain/ProtocolEnums");
 var SoProtocol = (function () {
     function SoProtocol() {
         this.setInitialState();
+    }
+    SoProtocol.prototype.searchNick = function (event) {
+    };
+    SoProtocol.prototype.setInitialState = function () {
         this.players = new Array();
         for (var i = 0; i < 10; i++) {
             var player = new ProtocolEnums_1.PlayerEntry();
@@ -22,10 +26,6 @@ var SoProtocol = (function () {
         }
         this.defaultRolesAvailable = [new ProtocolEnums_1.Role(ProtocolEnums_1.Roles.Шериф, ProtocolEnums_1.Roles[1]), new ProtocolEnums_1.Role(ProtocolEnums_1.Roles.Дон, ProtocolEnums_1.Roles[2]), new ProtocolEnums_1.Role(ProtocolEnums_1.Roles.Мафія, ProtocolEnums_1.Roles[3]), new ProtocolEnums_1.Role(ProtocolEnums_1.Roles.Мирний, ProtocolEnums_1.Roles[4])
         ];
-    }
-    SoProtocol.prototype.searchNick = function (event) {
-    };
-    SoProtocol.prototype.setInitialState = function () {
         this.serviceProps = {
             night: true,
             notOnVote: Array.apply(null, { length: 10 }).map(function (value, index) { return index + 1; }),
