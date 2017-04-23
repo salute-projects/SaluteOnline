@@ -45,7 +45,7 @@
 .x-button {
     padding: 0 6px !important;
     min-width: 24px !important;
-    
+
     .mat-button-wrapper {
         line-height: 24px !important;
 
@@ -54,14 +54,14 @@
             padding: 4px 0;
         }
     }
-}
 
-.medium-button {
-    padding: 0 6px !important;
-    min-width: 44px !important;
+    &:hover {
+        background: $main-red-hover;
+        color: $main-white !important;
 
-    .mat-button-wrapper {
-        line-height: 36px !important;
+        i {
+            color: $main-white;
+        }
     }
 }
 

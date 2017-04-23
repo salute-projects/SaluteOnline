@@ -9,6 +9,7 @@ $ionicons-font-path: "~ionicons/fonts";
 @import "styles/angular-material-overloads/button";
 @import "styles/angular-material-overloads/checkbox";
 @import "styles/angular-material-overloads/card";
+@import "styles/angular-material-overloads/radio";
 @import "styles/custom-components/so-spinner";
 @import "styles/primeng-overloads/accordion";
 @import "styles/angular-material-overloads/slide-toggle";
@@ -125,32 +126,6 @@ input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
     transition: background-color 500000000s ease-in-out 0s;
     -webkit-text-fill-color: $main-white;
-}
-
-.default-padding-top {
-    padding-top: $default-padding;
-}
-
-.default-padding-bottom {
-    padding-bottom: $default-padding;
-}
-
-.default-padding-left {
-    padding-left: $default-padding;
-}
-
-.default-padding-right {
-    padding-right: $default-padding;
-}
-
-.default-padding-vertical {
-    padding-top: $default-padding;
-    padding-bottom: $default-padding;
-}
-
-.default-padding-horizontal {
-    padding-left: $default-padding;
-    padding-right: $default-padding;
 }
 
 .so-share-auth {

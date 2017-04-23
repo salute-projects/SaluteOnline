@@ -38,3 +38,62 @@
 .margin-top-min {
     margin-top: 2px !important; 
 }
+
+.margin-vertical-min {
+    margin-top: 2px !important;
+    margin-bottom: 2px !important;
+}
+
+.margin-horizontal-min {
+    margin-left: 2px !important;
+    margin-right: 2px !important;
+}
+
+.default-padding-top {
+    padding-top: $default-padding;
+}
+
+.default-padding-bottom {
+    padding-bottom: $default-padding;
+}
+
+.default-padding-left {
+    padding-left: $default-padding;
+}
+
+.default-padding-right {
+    padding-right: $default-padding;
+}
+
+.default-padding-vertical {
+    padding-top: $default-padding;
+    padding-bottom: $default-padding;
+}
+
+.default-padding-horizontal {
+    padding-left: $default-padding;
+    padding-right: $default-padding;
+}
+
+.noselect {
+    user-select: none;
+    cursor: default;
+}
+
+.font14 {
+    font-size: 1.4rem;
+}
+
+.font16 {
+    font-size: 1.6rem;
+}
+
+.font12 {
+    font-size: 1.2rem;
+}
+
+.center-vertical {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

@@ -1,6 +1,62 @@
 ﻿<div class="container-fluid">
 <div class="row">
-<div class="col-lg-3 protocol-aside">
+<div class="col-xs-12 protocol-right-aside visible-sm-block xs-timer" *ngIf="timerProps.timerVisible">
+    <div class="row so-timer text-center">
+        <div class="col-xs-3">
+            <button md-button class="so-primary-button transparent-button x-button" (click)="timerProps.timerSpeaker = !timerProps.timerSpeaker"
+                    mdTooltip="{{timerProps.timerSpeaker ? 'Звук увімкнено' : 'Звук вимкнено'}}" mdTooltipPosition="above">
+                <i class="material-icons" *ngIf="!timerProps.timerSpeaker">volume_off</i>
+                <i class="material-icons" *ngIf="timerProps.timerSpeaker">volume_up</i>
+            </button>
+            <md-slide-toggle class="so-toggle toggle-centered" (change)="timerProps.halfTime = !timerProps.halfTime">
+                {{timerProps.halfTime ? '30 сек' : '1 хв'}}
+            </md-slide-toggle>
+        </div>
+        <div class="col-xs-6">
+            <div class="timer-table" [style.color]="getTimerColor()">
+                {{timerProps.timerDisplay}}:00
+            </div>
+        </div>
+        <div class="col-xs-3">
+            <div class="right-panel text-right">
+                <button md-raised-button class="so-primary-button protocol-medium-button" style="margin-bottom: 4px;" (click)="startTimer()">
+                    Старт/Стоп
+                </button>
+                <button md-raised-button class="so-primary-button protocol-medium-button" style="margin-left: 4px" (click)="clearTimer()">
+                    Скинути
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-lg-3 col-xs-12 protocol-aside visible-lg-block visible-md-block col-md-4">
+    <div class="protocol-right-aside visible-md-block embedded-timer" *ngIf="timerProps.timerVisible">
+        <div class="row so-timer text-center">
+            <button md-button class="so-primary-button transparent-button x-button" (click)="timerProps.timerSpeaker = !timerProps.timerSpeaker"
+                    mdTooltip="{{timerProps.timerSpeaker ? 'Звук увімкнено' : 'Звук вимкнено'}}" mdTooltipPosition="above">
+                <i class="material-icons" *ngIf="!timerProps.timerSpeaker">volume_off</i>
+                <i class="material-icons" *ngIf="timerProps.timerSpeaker">volume_up</i>
+            </button>
+            <md-slide-toggle class="so-toggle toggle-centered" (change)="timerProps.halfTime = !timerProps.halfTime">
+                {{timerProps.halfTime ? '30 сек' : '1 хв'}}
+            </md-slide-toggle>
+            <div class="timer-table" [style.color]="getTimerColor()">
+                {{timerProps.timerDisplay}}:00
+            </div>
+            <div class="col-lg-8 col-lg-push-2">
+                <div class="so-buttons-row">
+                    <button md-raised-button class="so-primary-button protocol-medium-button" (click)="startTimer()">
+                        Старт/Стоп
+                    </button>
+                    <button md-raised-button class="so-primary-button protocol-medium-button" style="margin-left: 4px" (click)="clearTimer()">
+                        Скинути
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
     <div class="protocol-aside-block row center-vertical">
         <div class="col-lg-4 font-family-alt">Вбивства:</div>
         <div class="col-lg-8 input-container">
@@ -119,7 +175,7 @@
     <div class="protocol-aside-block row center-vertical">
         <div class="col-lg-4 font-family-alt">Перемога:</div>
         <div class="col-lg-8 input-container">
-            <md-radio-group [(ngModel)]="protocol.winner" (change)="winnerChanged()">
+            <md-radio-group [(ngModel)]="protocol.winner" (change)="winnerChanged()" class="so-radio-button">
                 <md-radio-button value="1">Мирні</md-radio-button>
                 <md-radio-button value="2" style="margin-left: 12px;">Мафія</md-radio-button>
             </md-radio-group>
@@ -127,13 +183,13 @@
     </div>
     <div class="protocol-aside-block row center-vertical">
         <div class="col-lg-12 text-center">
-            <button md-button class="so-primary-button" (click)="setInitialState()">
+            <button md-button class="so-primary-button protocol-medium-button margin-vertical-min" (click)="setInitialState()">
                 Clear
             </button>
-            <button md-button class="so-primary-button">
+            <button md-button class="so-primary-button protocol-medium-button margin-vertical-min">
                 Save
             </button>
-            <button md-button class="so-primary-button">
+            <button md-button class="so-primary-button protocol-medium-button margin-vertical-min">
                 Load
             </button>
         </div>
@@ -146,12 +202,12 @@
         </div>
     </div>
 </div>
-<div class="col-lg-6 protocols-container">
+<div class="col-lg-6 col-xs-12 col-md-8 protocols-container">
     <div class="protocol-header row">
-        <div class="col-lg-4">
+        <div class="col-lg-4 col-xs-4">
             <span class="logo-text">SALUTE ONLINE PROTOCOL</span>
         </div>
-        <div class="col-lg-8">
+        <div class="col-lg-8 col-xs-8">
             <md-input-container class="pull-right so-input custom-input-container white" style="max-width: 100px;">
                 <input mdInput type="number" placeholder="гра" [(ngModel)]="protocol.game" (change)="zeroToNull(protocol, 'game')" min="0"/>
             </md-input-container>
@@ -161,33 +217,33 @@
         </div>
     </div>
     <div class="protocol-logo-zone row">
-        <div class="col-lg-3">
+        <div class="col-lg-3 col-xs-3">
             <div class="left-panel">
                 <md-slide-toggle class="so-toggle" [(ngModel)]="serviceProps.night">
                     {{serviceProps.night ? 'Ніч' : 'День'}}
                 </md-slide-toggle>
                 <div class="so-buttons-row">
-                    <button md-raised-button class="so-primary-button" mdTooltip="Відкрити вікно звірок Шерифа" mdTooltipPosition="above" (click)="showCheck(false)"
+                    <button md-raised-button class="so-primary-button protocol-medium-button" mdTooltip="Відкрити вікно звірок Шерифа" mdTooltipPosition="above" (click)="showCheck(false)"
                             [disabled]="checkDisabled()">
                         Шериф
                     </button>
-                    <button md-raised-button class="so-primary-button" mdTooltip="Відкрити вікно звірок Дона" mdTooltipPosition="above" (click)="showCheck(true)" style="margin-left: 4px"
+                    <button md-raised-button class="so-primary-button protocol-medium-button" mdTooltip="Відкрити вікно звірок Дона" mdTooltipPosition="above" (click)="showCheck(true)" style="margin-left: 4px"
                             [disabled]="checkDisabled()">
                         Дон
                     </button>
                 </div>
             </div>
         </div>
-        <div class="col-lg-6 text-center">
+        <div class="col-lg-6 col-xs-6 text-center">
             <img src="/content/Logojust.png" alt="Logo" width="90" height="100"/>
         </div>
-        <div class="col-lg-3 center-vertical" style="height: 124px;">
+        <div class="col-lg-3 col-xs-3 center-vertical" style="height: 124px;">
             <div class="right-panel text-right">
-                <button md-raised-button class="so-primary-button" style="margin-bottom: 4px;" mdTooltip="Відкрити Таймер" mdTooltipPosition="above"
+                <button md-raised-button class="so-primary-button protocol-medium-button" style="margin-bottom: 4px;" mdTooltip="Відкрити Таймер" mdTooltipPosition="above"
                         (click)="timerProps.timerVisible = !timerProps.timerVisible">
                     Таймер
                 </button>
-                <button md-raised-button class="so-primary-button" mdTooltip="Відкрити плеєр" mdTooltipPosition="above">
+                <button md-raised-button class="so-primary-button protocol-medium-button" mdTooltip="Відкрити плеєр" mdTooltipPosition="above">
                     Плеєр
                 </button>
             </div>
@@ -197,46 +253,46 @@
         <table class="table table-responsive">
             <thead>
             <tr>
-                <th style="width: 3%"></th>
-                <th style="width: 2%">#</th>
-                <th style="width: 40%">НІК</th>
-                <th style="width: 10%">РОЛЬ</th>
-                <th style="width: 10%">ФОЛИ</th>
-                <th style="width: 10%">КРАЩИЙ</th>
-                <th style="width: 10%">БАЛИ</th>
+                <th class="kill-button-td"></th>
+                <th class="player-box-td">#</th>
+                <th>НІК</th>
+                <th>РОЛЬ</th>
+                <th>ФОЛИ</th>
+                <th>КРАЩИЙ</th>
+                <th>БАЛИ</th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let player of players; let i = index" [ngClass]="{'disabled-row': player.killedAtDay || player.killedAtNight || player.foul === 4}">
-                <td class="text-center" style="min-width: 42px;">
-                    <button md-button class="so-primary-button transparent-button x-button" (click)="kill(player, i + 1)"
+                <td class="text-center kill-button-td">
+                    <button md-button class="transparent-button x-button" (click)="kill(player, i + 1)"
                             *ngIf="serviceProps.rolesValid && !player.killedAtDay && !player.killedAtNight && player.foul < 4">
                         <i class="material-icons">clear</i>
                     </button>
                 </td>
-                <td class="text-center font-family-alt" style="font-size: 14px"><div class="player-index-container">{{player.index}}</div></td>
-                <td>
+                <td class="text-center font-family-alt player-box-td noselect font14"><div class="player-index-container">{{player.index}}</div></td>
+                <td class="col-md-4">
                     <p-autoComplete minLength="3" [suggestions]="allNicks" appendTo="body" tabindex="{{i + 1}}" [(ngModel)]="player.nick"
-                                    (completeMethod)="searchNick($event)" inputStyleClass="so-autocomplete-input transparent-theme full-width"
-                                    styleClass="so-autocomplete-popup full-width"></p-autoComplete>
+                                         (completeMethod)="searchNick($event)" inputStyleClass="so-autocomplete-input transparent-theme full-width"
+                                         styleClass="so-autocomplete-popup full-width"></p-autoComplete>
                 </td>
-                <td style="min-width: 128px;" [style.background-color]="getBackgroundColor(player.role)">
-                    <md-select [(ngModel)]="player.role" *ngIf="serviceProps.night" (change)="roleSelected()" class="so-custom-select no-underline"
+                <td [style.background-color]="getBackgroundColor(player.role)" class="role-td col-md-2">
+                    <md-select [(ngModel)]="player.role" *ngIf="serviceProps.night" (change)="roleSelected()" class="so-custom-select no-underline role-select"
                                [ngClass]="{'white-label-select': getSelectColor(player.role)}">
                         <md-option *ngFor="let role of player.rolesAvailable" [value]="role">{{role.label}}</md-option>
                     </md-select>
                 </td>
-                <td class="text-center font-family-alt">
+                <td class="text-center font-family-alt col-md-1">
                     <md-input-container class="so-input white sml-height-input centered-text" style="max-width: 70px;">
                         <input mdInput type="number" min="0" max="4" [(ngModel)]="player.foul" (change)="foulsChange(player)" [disabled]="player.foul === 4"/>
                     </md-input-container>
                 </td>
-                <td>
-                    <md-select [(ngModel)]="player.bestPlayer" class="so-custom-select no-underline" (change)="bestPlayerSelected(player)">
+                <td class="col-md-2">
+                    <md-select [(ngModel)]="player.bestPlayer" class="so-custom-select no-underline role-select" (change)="bestPlayerSelected(player)">
                         <md-option *ngFor="let best of player.bestPlayersAvailable" [value]="best" [disabled]="!best.enabled">{{best.label}}</md-option>
                     </md-select>
                 </td>
-                <td class="text-center font-family-alt">
+                <td class="text-center font-family-alt col-md-1">
                     <md-input-container class="so-input white sml-height-input centered-text" style="max-width: 70px;">
                         <input mdInput type="number" min="0" [(ngModel)]="player.result" (change)="zeroToNull(player, 'result')" />
                     </md-input-container>
@@ -244,22 +300,22 @@
             </tr>
             <tr class="players-list-footer">
                 <td colspan="2" class="text-right">
-                    <button md-button class="so-primary-button transparent-button x-button" (click)="miskill()" *ngIf="serviceProps.rolesValid && serviceProps.night"
+                    <button md-button class="transparent-button x-button" (click)="miskill()" *ngIf="serviceProps.rolesValid && serviceProps.night"
                             mdTooltip="Промах" mdTooltipPosition="above">
                         <i class="material-icons">clear</i>
                     </button>
                 </td>
                 <td class="text-right">
-                    <button md-button class="so-primary-button transparent-button x-button" (click)="clearNicks()" mdTooltip="Очистити ніки" mdTooltipPosition="above">
+                    <button md-button class="transparent-button x-button" (click)="clearNicks()" mdTooltip="Очистити ніки" mdTooltipPosition="above">
                         <i class="material-icons">refresh</i>
                     </button>
                 </td>
                 <td class="text-right">
-                    <button md-button class="so-primary-button transparent-button x-button" (click)="fillRedRoles()" *ngIf="serviceProps.canFillRedRoles"
+                    <button md-button class="transparent-button x-button" (click)="fillRedRoles()" *ngIf="serviceProps.canFillRedRoles"
                             mdTooltip="Заповнити ролі" mdTooltipPosition="above">
                         <i class="material-icons">check</i>
                     </button>
-                    <button md-button class="so-primary-button transparent-button x-button" (click)="clearRoles()" *ngIf="serviceProps.canClearRoles"
+                    <button md-button class="x-button transparent-button" (click)="clearRoles()" *ngIf="serviceProps.canClearRoles"
                             mdTooltip="Очистити ролі" mdTooltipPosition="above">
                         <i class="material-icons">clear</i>
                     </button>
@@ -270,33 +326,33 @@
     </div>
     <div class="protocol-footer row">
         <div id="onvote" class="margin-bottom-min">
-            <div class="col-lg-2 font-family-alt">
+            <div class="col-lg-2 col-xs-2 font-family-alt">
                 Виставлення:
             </div>
-            <div class="col-lg-9" *ngIf="serviceProps.onVote.length">
-                <button md-raised-button class="so-primary-button medium-button margin-right-min" *ngFor="let player of serviceProps.onVote"
+            <div class="col-lg-9 col-xs-9" *ngIf="serviceProps.onVote.length">
+                <button md-raised-button class="so-primary-button vote-button margin-right-min" *ngFor="let player of serviceProps.onVote"
                         (click)="removeFromVote(player)">
                     {{player}}
                 </button>
             </div>
         </div>
         <div id="notonvote" class="center-vertical">
-            <div class="col-lg-2"></div>
-            <div class="col-lg-9">
-                <button md-raised-button class="so-primary-button medium-button margin-right-min" *ngFor="let player of serviceProps.notOnVote"
+            <div class="col-lg-2 col-xs-2"></div>
+            <div class="col-lg-9 col-xs-9">
+                <button md-raised-button class="so-primary-button vote-button margin-right-min" *ngFor="let player of serviceProps.notOnVote"
                         (click)="addToVote(player)">
                     {{player}}
                 </button>
             </div>
             <div class="col-lg-1">
-                <button md-button class="so-primary-button transparent-button x-button" (click)="clearVoting()" mdTooltip="Очистити" mdTooltipPosition="above">
+                <button md-button class="so-primary-button transparent-button x-button margin-right-min" (click)="clearVoting()" mdTooltip="Очистити" mdTooltipPosition="above">
                     <i class="material-icons">clear</i>
                 </button>
             </div>
         </div>
     </div>
 </div>
-<div class="col-lg-3 protocol-right-aside" *ngIf="timerProps.timerVisible">
+<div class="col-lg-3 col-xs-12 protocol-right-aside visible-lg-block" *ngIf="timerProps.timerVisible">
     <div class="row so-timer text-center">
         <button md-button class="so-primary-button transparent-button x-button" (click)="timerProps.timerSpeaker = !timerProps.timerSpeaker"
                 mdTooltip="{{timerProps.timerSpeaker ? 'Звук увімкнено' : 'Звук вимкнено'}}" mdTooltipPosition="above">
@@ -311,16 +367,188 @@
         </div>
         <div class="col-lg-8 col-lg-push-2">
             <div class="so-buttons-row">
-                <button md-raised-button class="so-primary-button" (click)="startTimer()">
+                <button md-raised-button class="so-primary-button protocol-medium-button" (click)="startTimer()">
                     Старт/Стоп
                 </button>
-                <button md-raised-button class="so-primary-button" style="margin-left: 4px" (click)="clearTimer()">
+                <button md-raised-button class="so-primary-button protocol-medium-button" style="margin-left: 4px" (click)="clearTimer()">
                     Скинути
                 </button>
             </div>
         </div>
     </div>
 </div>
+    
+<div class="col-lg-3 col-xs-12 protocol-aside visible-sm-block xs-params-block">
+    <div class="protocol-aside-block row">
+        <div class="col-xs-6 row center-vertical">
+            <div class="col-lg-4 font-family-alt">Вбивства:</div>
+            <div class="col-lg-8 input-container">
+                <md-input-container class="pull-right so-input white small-numeric">
+                    <input mdInput type="number" min="0" max="10" [(ngModel)]="protocol.killedAtNight[0]" (change)="uniqueNumbers(protocol.killedAtNight, 0)"
+                           autocomplete="off" mdTooltip="Вбитий в першу ніч" mdTooltipPosition="above" />
+                </md-input-container>
+                <md-input-container class="pull-right so-input white small-numeric">
+                    <input mdInput type="number" min="0" max="10" [(ngModel)]="protocol.killedAtNight[1]" (change)="uniqueNumbers(protocol.killedAtNight, 1)"
+                           autocomplete="off" mdTooltip="Вбитий в другу ніч" mdTooltipPosition="above" />
+                </md-input-container>
+                <md-input-container class="pull-right so-input white small-numeric">
+                    <input mdInput type="number" min="0" max="10" [(ngModel)]="protocol.killedAtNight[2]" (change)="uniqueNumbers(protocol.killedAtNight, 2)"
+                           autocomplete="off" mdTooltip="Вбитий в третю ніч" mdTooltipPosition="above" />
+                </md-input-container>
+            </div>
+        </div>
+        <div class="col-xs-6 row center-vertical">
+            <div class="col-lg-4 font-family-alt">Голосування вдень:</div>
+            <div class="col-lg-8 input-container">
+                <md-input-container class="pull-right so-input white small-numeric">
+                    <input mdInput type="number" min="0" max="10" [(ngModel)]="protocol.killedAtDay[0]" (change)="uniqueNumbers(protocol.killedAtDay, 0)"
+                           autocomplete="off" />
+                </md-input-container>
+                <md-input-container class="pull-right so-input white small-numeric">
+                    <input mdInput type="number" min="0" max="10" [(ngModel)]="protocol.killedAtDay[1]" (change)="uniqueNumbers(protocol.killedAtDay, 1)"
+                           autocomplete="off" />
+                </md-input-container>
+                <md-input-container class="pull-right so-input white small-numeric">
+                    <input mdInput type="number" min="0" max="10" [(ngModel)]="protocol.killedAtDay[2]" (change)="uniqueNumbers(protocol.killedAtDay, 2)"
+                           autocomplete="off" />
+                </md-input-container>
+            </div>
+        </div>
+    </div>
+    <div class="protocol-aside-block row">
+        <div class="col-xs-6">
+            <div class="row center-vertical">
+                <div class="col-lg-4 font-family-alt">Кращий хід:</div>
+                <div class="col-lg-8 input-container">
+                    <md-input-container class="pull-right so-input white small-numeric">
+                        <input mdInput type="number" min="0" max="10" [(ngModel)]="protocol.bestWay[0]" (change)="uniqueNumbers(protocol.bestWay, 0)"
+                               autocomplete="off" />
+                    </md-input-container>
+                    <md-input-container class="pull-right so-input white small-numeric">
+                        <input mdInput type="number" min="0" max="10" [(ngModel)]="protocol.bestWay[1]" (change)="uniqueNumbers(protocol.bestWay, 1)"
+                               autocomplete="off" />
+                    </md-input-container>
+                    <md-input-container class="pull-right so-input white small-numeric">
+                        <input mdInput type="number" min="0" max="10" [(ngModel)]="protocol.bestWay[2]" (change)="uniqueNumbers(protocol.bestWay, 2)"
+                               autocomplete="off" />
+                    </md-input-container>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6">
+            <div class="row center-vertical">
+                <div class="col-lg-4 font-family-alt">Відгадайка:</div>
+                <div class="col-lg-8 input-container">
+                    <md-checkbox class="white" [(ngModel)]="serviceProps.ugadaykaEnabled" mdTooltip="Враховувати відгадайку" mdTooltipPosition="above"></md-checkbox>
+                    <md-input-container class="pull-right so-input white small-numeric">
+                        <input mdInput type="number" min="0" max="10" [disabled]="!serviceProps.ugadaykaEnabled" [(ngModel)]="protocol.ugadayka[0]"
+                               (change)="uniqueNumbers(protocol.ugadayka, 0)" autocomplete="off" />
+                    </md-input-container>
+                    <md-input-container class="pull-right so-input white small-numeric">
+                        <input mdInput type="number" min="0" max="10" [disabled]="!serviceProps.ugadaykaEnabled" [(ngModel)]="protocol.ugadayka[1]"
+                               (change)="uniqueNumbers(protocol.ugadayka, 1)" autocomplete="off" />
+                    </md-input-container>
+                    <md-input-container class="pull-right so-input white small-numeric">
+                        <input mdInput type="number" min="0" max="10" [disabled]="!serviceProps.ugadaykaEnabled" [(ngModel)]="protocol.ugadayka[2]"
+                               (change)="uniqueNumbers(protocol.ugadayka, 2)" autocomplete="off" />
+                    </md-input-container>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="protocol-aside-block row">
+        <div class="col-xs-6">
+            <div class="row center-vertical">
+                <div class="col-lg-2 font-family-alt">Звірка дона:</div>
+                <div class="col-lg-4 input-container">
+                    <md-input-container class="pull-right so-input white small-numeric" *ngIf="serviceProps.night" mdTooltip="Перша звірка Дона" mdTooltipPosition="above">
+                        <input mdInput type="number" min="0" max="10" [(ngModel)]="protocol.donCheck" />
+                    </md-input-container>
+                </div>
+                <div class="col-lg-2 font-family-alt">Звірка шерифа:</div>
+                <div class="col-lg-4 input-container">
+                    <md-input-container class="pull-right so-input white small-numeric" *ngIf="serviceProps.night" mdTooltip="Перша звірка Шерифа" mdTooltipPosition="above">
+                        <input mdInput type="number" min="0" max="10" [(ngModel)]="protocol.sheriffCheck" />
+                    </md-input-container>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6 full-height-col">
+            <div class="row center-vertical">
+                <div class="col-lg-8 font-family-alt">Шериф не отримує -1:</div>
+                <div class="col-lg-4 input-container">
+                    <md-checkbox class="white" *ngIf="protocol.winner !== 0" [(ngModel)]="protocol.sheriffFirstKilled"></md-checkbox>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="protocol-aside-block row">
+        <div class="col-xs-3">
+            <div class="row center-vertical">
+                <div class="col-lg-8 font-family-alt">Чиста перемога мафії:</div>
+                <div class="col-lg-4 input-container">
+                    <md-checkbox class="white" *ngIf="serviceProps.night" [(ngModel)]="protocol.techBlack" [disabled]="protocol.winner !== '2'" [class.disabled-checkbox]="protocol.winner !== '2'"></md-checkbox>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-3">
+            <div class="row center-vertical">
+                <div class="col-lg-8 font-family-alt">Чиста перемога мирних:</div>
+                <div class="col-lg-4 input-container">
+                    <md-checkbox class="white" *ngIf="serviceProps.night" [(ngModel)]="protocol.techRed" [disabled]="protocol.winner !== '1'" [class.disabled-checkbox]="protocol.winner !== '1'"></md-checkbox>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-3 full-height-col">
+            <div class="row center-vertical">
+                <div class="col-lg-8 font-family-alt">Три звірки:</div>
+                <div class="col-lg-4 input-container">
+                    <md-checkbox class="white" *ngIf="serviceProps.night" [(ngModel)]="protocol.threeCheck"></md-checkbox>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-3">
+            <div class="row center-vertical">
+                <div class="col-lg-8 font-family-alt">Лжешериф:</div>
+                <div class="col-lg-4 input-container">
+                    <md-input-container class="pull-right so-input white small-numeric" *ngIf="serviceProps.night">
+                        <input mdInput type="number" min="0" max="10" [(ngModel)]="protocol.falseSheriff" />
+                    </md-input-container>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="protocol-aside-block row center-vertical">
+        <div class="col-lg-4 font-family-alt">Перемога:</div>
+        <div class="col-lg-8 input-container">
+            <md-radio-group [(ngModel)]="protocol.winner" (change)="winnerChanged()" class="so-radio-button">
+                <md-radio-button value="1">Мирні</md-radio-button>
+                <md-radio-button value="2" style="margin-left: 12px;">Мафія</md-radio-button>
+            </md-radio-group>
+        </div>
+    </div>
+    <div class="protocol-aside-block row center-vertical">
+        <div class="col-lg-12 text-center">
+            <button md-button class="so-primary-button protocol-medium-button margin-vertical-min" (click)="setInitialState()">
+                Clear
+            </button>
+            <button md-button class="so-primary-button protocol-medium-button margin-vertical-min">
+                Save
+            </button>
+            <button md-button class="so-primary-button protocol-medium-button margin-vertical-min">
+                Load
+            </button>
+        </div>
+    </div>
+    <div class="protocol-aside-block row center-vertical">
+        <div class="col-lg-12 text-center">
+            <button md-button class="so-primary-button giant-button blue-button" [disabled]="!isNicksValid() || protocol.winner === 0" (click)="evaluate()">
+                Підрахувати
+            </button>
+        </div>
+    </div>
+</div>    
+
 </div>
 </div>
 

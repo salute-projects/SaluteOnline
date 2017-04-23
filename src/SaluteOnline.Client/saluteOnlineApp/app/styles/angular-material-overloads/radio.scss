@@ -1,0 +1,13 @@
+﻿@import "../vars";
+
+.so-radio-button {
+    .mat-radio-checked {
+        .mat-radio-outer-circle {
+            border-color: $main-red;
+        }
+    }
+
+    .mat-radio-inner-circle {
+        background-color: $main-red;
+    }
+}

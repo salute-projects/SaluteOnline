@@ -10,9 +10,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var TimerObservable_1 = require("rxjs/observable/TimerObservable");
+var material_1 = require("@angular/material");
 var ProtocolEnums_1 = require("../../domain/ProtocolEnums");
 var SoProtocol = (function () {
-    function SoProtocol() {
+    function SoProtocol(dialog) {
+        this.dialog = dialog;
         this.setInitialState();
     }
     SoProtocol.prototype.searchNick = function (event) {
@@ -71,6 +73,14 @@ var SoProtocol = (function () {
         if (player.foul === 0) {
             player.foul = null;
         }
+        //else if (player.foul === 4) {
+        //    const dialogRef = this.dialog.open(DialogResultExampleDialog);
+        //    dialogRef.afterClosed().subscribe((result: boolean) => {
+        //        if (!result) {
+        //            player.foul = 3;
+        //        }
+        //    });
+        //}
     };
     SoProtocol.prototype.zeroToNull = function (object, property) {
         if (typeof object[property] === "undefined")
@@ -565,7 +575,21 @@ SoProtocol = __decorate([
         styles: [require('./protocol.component.scss').toString()],
         template: require('./protocol.component.html')
     }),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [material_1.MdDialog])
 ], SoProtocol);
 exports.SoProtocol = SoProtocol;
+var DialogResultExampleDialog = (function () {
+    function DialogResultExampleDialog(dialogRef) {
+        this.dialogRef = dialogRef;
+    }
+    return DialogResultExampleDialog;
+}());
+DialogResultExampleDialog = __decorate([
+    core_1.Component({
+        selector: 'dialog-result-example-dialog',
+        template: "<h1 md-dialog-title>Dialog</h1>\n    <div md-dialog-content>\u0414\u0438\u0441\u043A\u0432\u0430\u043B\u0456\u0444\u0456\u043A\u0443\u0432\u0430\u0442\u0438 \u0433\u0440\u0430\u0432\u0446\u044F?</div>\n    <div md-dialog-actions>\n    <button md-button(click)=\"dialogRef.close(true)\">OK</button>\n    <button md-button(click)=\"dialogRef.close(false)\">CANCEL</button>\n    </div>"
+    }),
+    __metadata("design:paramtypes", [material_1.MdDialogRef])
+], DialogResultExampleDialog);
+exports.DialogResultExampleDialog = DialogResultExampleDialog;
 //# sourceMappingURL=protocol.component.js.map

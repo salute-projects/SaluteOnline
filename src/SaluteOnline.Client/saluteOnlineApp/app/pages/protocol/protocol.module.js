@@ -21,8 +21,9 @@ ProtocolModule = __decorate([
     core_1.NgModule({
         imports: [common_1.CommonModule, material_1.MdInputModule, material_1.MdSlideToggleModule, material_1.MdButtonModule, material_1.MdSelectModule, material_1.MdCheckboxModule, material_1.MdRadioModule, material_1.MdTooltipModule, forms_1.FormsModule,
             primeng_1.AutoCompleteModule, primeng_1.DialogModule, protocol_routing_1.routing],
-        declarations: [protocol_component_1.SoProtocol],
-        providers: []
+        declarations: [protocol_component_1.SoProtocol, protocol_component_1.DialogResultExampleDialog],
+        providers: [],
+        entryComponents: [protocol_component_1.DialogResultExampleDialog]
     })
 ], ProtocolModule);
 exports.ProtocolModule = ProtocolModule;

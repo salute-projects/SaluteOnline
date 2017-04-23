@@ -2,6 +2,7 @@
 import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { TimerObservable } from "rxjs/observable/TimerObservable";
+import { MdDialog, MdDialogRef } from '@angular/material';
 import { IPlayerEntry, IProtocol, Protocol, PlayerEntry, Roles, Role, Teams, BestPlayers } from "../../domain/ProtocolEnums";
 
 @Component({
@@ -51,7 +52,7 @@ export class SoProtocol {
 
     protocol : IProtocol;
 
-    constructor() {
+    constructor(public dialog: MdDialog) {
         this.setInitialState();
     }
 
@@ -116,6 +117,14 @@ export class SoProtocol {
         if (player.foul === 0) {
             player.foul = null;
         }
+        //else if (player.foul === 4) {
+        //    const dialogRef = this.dialog.open(DialogResultExampleDialog);
+        //    dialogRef.afterClosed().subscribe((result: boolean) => {
+        //        if (!result) {
+        //            player.foul = 3;
+        //        }
+        //    });
+        //}
     }
 
     zeroToNull(object: any, property: string) : void {
@@ -617,4 +626,17 @@ export class SoProtocol {
     getTimerColor() {
         return (this.timerProps.halfTime ? 30 : 60) - this.timerProps.tick <= 10 ? '#009eeb' : '#292929';
     }
+}
+
+@Component({
+    selector: 'dialog-result-example-dialog',
+    template: `<h1 md-dialog-title>Dialog</h1>
+    <div md-dialog-content>Дискваліфікувати гравця?</div>
+    <div md-dialog-actions>
+    <button md-button(click)="dialogRef.close(true)">OK</button>
+    <button md-button(click)="dialogRef.close(false)">CANCEL</button>
+    </div>`
+})
+export class DialogResultExampleDialog {
+    constructor(public dialogRef: MdDialogRef<DialogResultExampleDialog>) { }
 }
