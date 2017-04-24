@@ -18,6 +18,8 @@ var UrlsService = (function () {
         this.updateUserPrivacy = this.apiUrl + 'User/UpdatePrivacy';
         this.getLoggedUser = this.apiUrl + 'User/GetLogged';
         this.sendFeedback = this.apiUrl + 'System/SendFeedback';
+        // protocols
+        this.addProtocol = this.apiUrl + 'Protocols';
     }
     return UrlsService;
 }());

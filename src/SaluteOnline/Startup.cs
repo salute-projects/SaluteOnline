@@ -15,6 +15,8 @@ using NLog.Extensions.Logging;
 using NLog.Web;
 using SaluteOnline.DAL;
 using SaluteOnline.Domain.Enums;
+using SaluteOnline.Services;
+using SaluteOnline.Services.Declarations;
 
 namespace SaluteOnline
 {
@@ -45,6 +47,7 @@ namespace SaluteOnline
                 options => options.UseSqlServer(connectionString));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddSingleton<IConfiguration>(Configuration);
+            services.AddSingleton<IProtocolsService, ProtocolsService>();
             services.AddTransient<IPasswordHasher<Domain.User.MongoUser>, PasswordHasher<Domain.User.MongoUser>>();
             services.AddAuthorization(
                 options =>

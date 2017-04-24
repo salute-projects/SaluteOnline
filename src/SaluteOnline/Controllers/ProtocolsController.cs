@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using SaluteOnline.DAL;
 using SaluteOnline.Domain.Enums;
 using SaluteOnline.Domain.MongoModels;
+using SaluteOnline.Services.Declarations;
 
 namespace SaluteOnline.Controllers
 {
@@ -13,14 +14,12 @@ namespace SaluteOnline.Controllers
     public class ProtocolsController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
-        private ILogger<ProtocolsController> _logger;
+        private readonly ILogger<ProtocolsController> _logger;
+        private readonly IProtocolsService _protocolsService;
 
-        public ProtocolsController(IUnitOfWork unitOfWork, ILogger<ProtocolsController> logger)
+        public ProtocolsController(IUnitOfWork unitOfWork, ILogger<ProtocolsController> logger, IProtocolsService protocolsService)
         {
-            if (unitOfWork == null)
-                throw new ArgumentException(nameof(unitOfWork));
-            if (logger == null)
-                throw new ArgumentNullException(nameof(logger));
+            _protocolsService = protocolsService;
             _unitOfWork = unitOfWork;
             _logger = logger;
         }
@@ -69,18 +68,17 @@ namespace SaluteOnline.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(MongoProtocol protocol)
+        public async Task<IActionResult> Add([FromBody]MongoProtocol protocol)
         {
             try
             {
-                await Task.Factory.StartNew(() => _unitOfWork.Protocols.InsertAsync(protocol))
-                    .ContinueWith(prevTask => _unitOfWork.SaveAsync());
-                return Ok();
+                if (protocol == null)
+                    return BadRequest("Arguments omitted");
+                return Ok(await _protocolsService.AddProtocol(protocol));
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
-                return BadRequest();
+                return BadRequest(ex.Message);
             }
         }
 

@@ -17,4 +17,8 @@ export class UrlsService {
     getLoggedUser = this.apiUrl + 'User/GetLogged';
 
     sendFeedback = this.apiUrl + 'System/SendFeedback';
+
+    // protocols
+
+    addProtocol = this.apiUrl + 'Protocols';
 }

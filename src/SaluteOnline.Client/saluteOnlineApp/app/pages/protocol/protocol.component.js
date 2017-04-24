@@ -10,14 +10,52 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var TimerObservable_1 = require("rxjs/observable/TimerObservable");
-var material_1 = require("@angular/material");
+var dialog_service_1 = require("../../services/dialog/dialog.service");
+var IDialogProperties_1 = require("../../services/dialog/IDialogProperties");
+var angular2_jwt_1 = require("angular2-jwt");
+var urls_1 = require("../../services/urls");
+var http_1 = require("@angular/http");
 var ProtocolEnums_1 = require("../../domain/ProtocolEnums");
 var SoProtocol = (function () {
-    function SoProtocol(dialog) {
-        this.dialog = dialog;
+    function SoProtocol(dialogService, authHttp, urlsService) {
+        this.dialogService = dialogService;
+        this.authHttp = authHttp;
+        this.urlsService = urlsService;
         this.setInitialState();
     }
-    SoProtocol.prototype.searchNick = function (event) {
+    SoProtocol.prototype.searchNick = function (event) { };
+    SoProtocol.prototype.save = function () {
+        var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+        var requestOptions = new http_1.RequestOptions({
+            method: http_1.RequestMethod.Post,
+            url: this.urlsService.addProtocol,
+            headers: headers,
+            body: JSON.stringify(this.protocol)
+        });
+        this.authHttp.request(new http_1.Request(requestOptions))
+            .map(function (res) { return res.json(); })
+            .subscribe(function (result) {
+            var x = result;
+        }, function () {
+            var x = 'fail';
+        });
+    };
+    SoProtocol.prototype.prepareData = function () {
+    };
+    SoProtocol.prototype.clear = function () {
+        var _this = this;
+        var config = new IDialogProperties_1.DialogProperties({
+            header: 'очистити',
+            okButton: 'OK',
+            cancelButton: 'CANCEL',
+            content: 'Очистити протокол?',
+            customClass: ''
+        });
+        this.dialogService.show(config, null, null, true).then(function (result) {
+            if (result) {
+                _this.setInitialState();
+            }
+        });
     };
     SoProtocol.prototype.setInitialState = function () {
         this.players = new Array();
@@ -73,14 +111,20 @@ var SoProtocol = (function () {
         if (player.foul === 0) {
             player.foul = null;
         }
-        //else if (player.foul === 4) {
-        //    const dialogRef = this.dialog.open(DialogResultExampleDialog);
-        //    dialogRef.afterClosed().subscribe((result: boolean) => {
-        //        if (!result) {
-        //            player.foul = 3;
-        //        }
-        //    });
-        //}
+        else if (player.foul === 4) {
+            var config = new IDialogProperties_1.DialogProperties({
+                header: 'дискваліфікація',
+                okButton: 'OK',
+                cancelButton: 'CANCEL',
+                content: 'Дискваліфікувати гравця?',
+                customClass: 'testclass'
+            });
+            this.dialogService.show(config, null, null, true).then(function (result) {
+                if (!result) {
+                    player.foul = 3;
+                }
+            });
+        }
     };
     SoProtocol.prototype.zeroToNull = function (object, property) {
         if (typeof object[property] === "undefined")
@@ -575,21 +619,7 @@ SoProtocol = __decorate([
         styles: [require('./protocol.component.scss').toString()],
         template: require('./protocol.component.html')
     }),
-    __metadata("design:paramtypes", [material_1.MdDialog])
+    __metadata("design:paramtypes", [dialog_service_1.SoDialogService, angular2_jwt_1.AuthHttp, urls_1.UrlsService])
 ], SoProtocol);
 exports.SoProtocol = SoProtocol;
-var DialogResultExampleDialog = (function () {
-    function DialogResultExampleDialog(dialogRef) {
-        this.dialogRef = dialogRef;
-    }
-    return DialogResultExampleDialog;
-}());
-DialogResultExampleDialog = __decorate([
-    core_1.Component({
-        selector: 'dialog-result-example-dialog',
-        template: "<h1 md-dialog-title>Dialog</h1>\n    <div md-dialog-content>\u0414\u0438\u0441\u043A\u0432\u0430\u043B\u0456\u0444\u0456\u043A\u0443\u0432\u0430\u0442\u0438 \u0433\u0440\u0430\u0432\u0446\u044F?</div>\n    <div md-dialog-actions>\n    <button md-button(click)=\"dialogRef.close(true)\">OK</button>\n    <button md-button(click)=\"dialogRef.close(false)\">CANCEL</button>\n    </div>"
-    }),
-    __metadata("design:paramtypes", [material_1.MdDialogRef])
-], DialogResultExampleDialog);
-exports.DialogResultExampleDialog = DialogResultExampleDialog;
 //# sourceMappingURL=protocol.component.js.map

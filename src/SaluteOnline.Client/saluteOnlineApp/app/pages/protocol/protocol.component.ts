@@ -2,7 +2,11 @@
 import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { TimerObservable } from "rxjs/observable/TimerObservable";
-import { MdDialog, MdDialogRef } from '@angular/material';
+import { SoDialogService } from "../../services/dialog/dialog.service";
+import { DialogProperties, IDialogProperties } from "../../services/dialog/IDialogProperties";
+import { AuthHttp, tokenNotExpired } from 'angular2-jwt';
+import { UrlsService } from "../../services/urls";
+import { Headers, RequestOptions, RequestMethod, Request } from "@angular/http";
 import { IPlayerEntry, IProtocol, Protocol, PlayerEntry, Roles, Role, Teams, BestPlayers } from "../../domain/ProtocolEnums";
 
 @Component({
@@ -16,11 +20,8 @@ import { IPlayerEntry, IProtocol, Protocol, PlayerEntry, Roles, Role, Teams, Bes
 export class SoProtocol {
 
     defaultRolesAvailable: Role[];
-
     players: PlayerEntry[];
-
-    searchNick(event: any) {
-    }
+    searchNick(event: any) {}
 
     serviceProps : {
         night: boolean;
@@ -52,11 +53,50 @@ export class SoProtocol {
 
     protocol : IProtocol;
 
-    constructor(public dialog: MdDialog) {
+    constructor(private readonly dialogService: SoDialogService, private readonly authHttp: AuthHttp, private readonly urlsService: UrlsService) {
         this.setInitialState();
     }
 
-    setInitialState(): void {
+    save() {       
+        const headers = new Headers({ 'Content-Type': 'application/json' });
+        const requestOptions = new RequestOptions({
+            method: RequestMethod.Post,
+            url: this.urlsService.addProtocol,
+            headers: headers,
+            body: JSON.stringify(this.protocol)
+        });
+
+        this.authHttp.request(new Request(requestOptions))
+            .map(res => res.json())
+            .subscribe((result: any) => {
+                    var x = result;
+                },
+            () => {
+                var x = 'fail';
+            });   
+    }
+
+
+    private prepareData() {
+        
+    }
+
+    clear() {
+        const config = new DialogProperties({
+            header: 'очистити',
+            okButton: 'OK',
+            cancelButton: 'CANCEL',
+            content: 'Очистити протокол?',
+            customClass: ''
+        });
+        this.dialogService.show(config, null, null, true).then((result: boolean) => {
+            if (result) {
+                this.setInitialState();
+            }
+        });
+    }
+
+    private setInitialState(): void {
         this.players = new Array<PlayerEntry>();
         for (let i = 0; i < 10; i++) {
             const player = new PlayerEntry();
@@ -93,7 +133,6 @@ export class SoProtocol {
             active: false,
             startTick: 0
         }
-
         this.protocol = new Protocol;
     }
 
@@ -117,14 +156,20 @@ export class SoProtocol {
         if (player.foul === 0) {
             player.foul = null;
         }
-        //else if (player.foul === 4) {
-        //    const dialogRef = this.dialog.open(DialogResultExampleDialog);
-        //    dialogRef.afterClosed().subscribe((result: boolean) => {
-        //        if (!result) {
-        //            player.foul = 3;
-        //        }
-        //    });
-        //}
+        else if (player.foul === 4) {
+            const config = new DialogProperties({
+                header: 'дискваліфікація',
+                okButton: 'OK',
+                cancelButton: 'CANCEL',
+                content: 'Дискваліфікувати гравця?',
+                customClass: 'testclass'
+            });
+            this.dialogService.show(config, null, null, true).then((result: boolean) => {
+                if (!result) {
+                    player.foul = 3;
+                }
+            });
+        }
     }
 
     zeroToNull(object: any, property: string) : void {
@@ -626,17 +671,4 @@ export class SoProtocol {
     getTimerColor() {
         return (this.timerProps.halfTime ? 30 : 60) - this.timerProps.tick <= 10 ? '#009eeb' : '#292929';
     }
-}
-
-@Component({
-    selector: 'dialog-result-example-dialog',
-    template: `<h1 md-dialog-title>Dialog</h1>
-    <div md-dialog-content>Дискваліфікувати гравця?</div>
-    <div md-dialog-actions>
-    <button md-button(click)="dialogRef.close(true)">OK</button>
-    <button md-button(click)="dialogRef.close(false)">CANCEL</button>
-    </div>`
-})
-export class DialogResultExampleDialog {
-    constructor(public dialogRef: MdDialogRef<DialogResultExampleDialog>) { }
 }
