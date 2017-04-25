@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -72,9 +73,8 @@ namespace SaluteOnline.Controllers
         {
             try
             {
-                if (protocol == null)
-                    return BadRequest("Arguments omitted");
-                return Ok(await _protocolsService.AddProtocol(protocol));
+                Guid.TryParse(User?.Claims?.SingleOrDefault(t => t.Type == "guid")?.Value, out var guid);
+                return Ok(await _protocolsService.AddProtocol(protocol, guid, 1));
             }
             catch (Exception ex)
             {

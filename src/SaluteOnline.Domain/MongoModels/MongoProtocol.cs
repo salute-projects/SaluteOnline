@@ -16,6 +16,10 @@ namespace SaluteOnline.Domain.MongoModels
         [BsonElement("Id")]
         public int Id { get; set; }
 
+        public DateTimeOffset Added { get; set; }
+        public Guid UserGuid { get; set; }
+        public int ClubId { get; set; }
+
         public Teams Winner { get; set; }
         public int? Game { get; set; }
         public int? Table { get; set; }
@@ -28,6 +32,7 @@ namespace SaluteOnline.Domain.MongoModels
         public bool TechRed { get; set; }
         public bool TechBlack { get; set; }
         public IEnumerable<int> Ugadayka { get; set; }
+        public bool UgadaykaEnabled { get; set; }
         public int? FalseSheriff { get; set; }
         public bool SheriffFirstKilled { get; set; }
         public IEnumerable<PlayerEntry> Players { get; set; }

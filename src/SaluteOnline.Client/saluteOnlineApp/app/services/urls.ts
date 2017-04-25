@@ -21,4 +21,8 @@ export class UrlsService {
     // protocols
 
     addProtocol = this.apiUrl + 'Protocols';
+
+    // players
+
+    getNicknames = this.apiUrl + 'Players';
 }

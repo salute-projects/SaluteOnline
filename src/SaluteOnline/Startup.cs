@@ -5,12 +5,11 @@ using IdentityServer4.Services.InMemory;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Cors.Internal;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json.Serialization;
 using NLog.Extensions.Logging;
 using NLog.Web;
 using SaluteOnline.DAL;
@@ -62,7 +61,11 @@ namespace SaluteOnline
                 options =>
                     options.AddPolicy("AllowAll",
                         builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()));
-            services.AddMvc();
+            services.AddMvc().AddJsonOptions(jsonOptions =>
+            {
+                jsonOptions.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
+                jsonOptions.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            });
             services.AddIdentityServer()
                 .AddInMemoryStores()
                 .AddInMemoryClients(new List<Client>())

@@ -19,13 +19,24 @@ namespace SaluteOnline.Services
             _logger = logger;
         }
 
-        public async Task<int> AddProtocol(MongoProtocol protocol)
+        public async Task<int> AddProtocol(MongoProtocol protocol, Guid userGuid, int clubId)
         {
             try
             {
+                if (protocol == null || userGuid == Guid.Empty)
+                {
+                    throw new ArgumentException();
+                }
+                protocol.UserGuid = userGuid;
+                protocol.ClubId = clubId;
+                protocol.Added = DateTimeOffset.UtcNow;
                 var result = await _unitOfWork.Protocols.InsertAsync(protocol);
                 await _unitOfWork.SaveAsync();
                 return result.Id;
+            }
+            catch (ArgumentException)
+            {
+                throw new Exception("Arguments omitted");
             }
             catch (Exception ex)
             {

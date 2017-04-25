@@ -18,6 +18,7 @@ var material_1 = require("@angular/material");
 var login_service_1 = require("../services/login.service");
 var angular2_jwt_1 = require("angular2-jwt");
 var urls_1 = require("../services/urls");
+var players_service_1 = require("../services/players/players.service");
 var global_state_1 = require("../services/global.state");
 var auth_guard_service_1 = require("../services/auth-guard.service");
 var PagesModule = (function () {
@@ -28,7 +29,7 @@ var PagesModule = (function () {
 PagesModule = __decorate([
     core_1.NgModule({
         imports: [common_1.CommonModule, material_1.MdMenuModule, material_1.MdButtonModule, pages_routing_1.routing],
-        providers: [global_state_1.GlobalState, login_service_1.LoginService, angular2_jwt_1.AuthHttp, urls_1.UrlsService, auth_guard_service_1.AuthGuard,
+        providers: [global_state_1.GlobalState, login_service_1.LoginService, angular2_jwt_1.AuthHttp, urls_1.UrlsService, players_service_1.PlayersService, auth_guard_service_1.AuthGuard,
             angular2_jwt_1.provideAuth({
                 headerName: 'Authorization',
                 headerPrefix: 'bearer',

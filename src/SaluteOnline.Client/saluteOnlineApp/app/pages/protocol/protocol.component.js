@@ -15,16 +15,26 @@ var IDialogProperties_1 = require("../../services/dialog/IDialogProperties");
 var angular2_jwt_1 = require("angular2-jwt");
 var urls_1 = require("../../services/urls");
 var http_1 = require("@angular/http");
+var players_service_1 = require("../../services/players/players.service");
 var ProtocolEnums_1 = require("../../domain/ProtocolEnums");
 var SoProtocol = (function () {
-    function SoProtocol(dialogService, authHttp, urlsService) {
+    function SoProtocol(dialogService, authHttp, urlsService, playersService) {
+        var _this = this;
         this.dialogService = dialogService;
         this.authHttp = authHttp;
         this.urlsService = urlsService;
+        this.playersService = playersService;
         this.setInitialState();
+        this.playersService.getAllNicknames().subscribe(function (t) {
+            _this.allNicknames = t;
+        });
     }
-    SoProtocol.prototype.searchNick = function (event) { };
+    SoProtocol.prototype.searchNick = function (event) {
+        var query = event.query;
+        this.filteredNicknames = this.allNicknames.filter(function (item) { return item.toLowerCase().startsWith(query.toLowerCase()); });
+    };
     SoProtocol.prototype.save = function () {
+        this.prepareData();
         var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
         var requestOptions = new http_1.RequestOptions({
             method: http_1.RequestMethod.Post,
@@ -41,6 +51,24 @@ var SoProtocol = (function () {
         });
     };
     SoProtocol.prototype.prepareData = function () {
+        var players = [];
+        this.players.forEach(function (t) {
+            var dto = new ProtocolEnums_1.PlayerDto();
+            dto.role = t.role.role;
+            dto.bestPlayer = t.bestPlayer.value;
+            dto.checkedAtNight = t.checkedAtNight;
+            dto.foul = t.foul;
+            dto.fullBestWay = t.fullBestWay;
+            dto.halfBestWay = t.halfBestWay;
+            dto.killedAtDay = t.killedAtDay;
+            dto.killedAtNight = t.killedAtNight;
+            dto.index = t.index;
+            dto.nick = t.nick;
+            dto.positionInKillQueue = t.positionInKillQueue;
+            dto.result = t.result;
+            players.push(dto);
+        });
+        this.protocol.players = players;
     };
     SoProtocol.prototype.clear = function () {
         var _this = this;
@@ -74,7 +102,6 @@ var SoProtocol = (function () {
             miskills: 0,
             canFillRedRoles: false,
             canClearRoles: false,
-            ugadaykaEnabled: false,
             rolesValid: false,
             nicksValid: false,
             checkVisibility: false,
@@ -186,7 +213,7 @@ var SoProtocol = (function () {
         var alive = this.players.filter(function (t) { return !t.killedAtDay && !t.killedAtNight; });
         if (alive.length === 3) {
             this.protocol.ugadayka = alive.map(function (t) { return t.index; });
-            this.serviceProps.ugadaykaEnabled = true;
+            this.protocol.ugadaykaEnabled = true;
         }
     };
     SoProtocol.prototype.processFirstKill = function () {
@@ -361,7 +388,7 @@ var SoProtocol = (function () {
         var _this = this;
         if (this.protocol.bestWay.length !== 3 || !this.protocol.bestWay[0] || !this.protocol.bestWay[1] || !this.protocol.bestWay[2])
             return;
-        var firstKilled = this.players.find(function (t) { return t.positionInKillQueue === 1; });
+        var firstKilled = this.players.find(function (t) { return t.index === _this.protocol.killedAtNight[0]; });
         if (!firstKilled)
             return;
         var chosenPlayers = [];
@@ -416,7 +443,7 @@ var SoProtocol = (function () {
     };
     SoProtocol.prototype.checkUgadayka = function () {
         var _this = this;
-        if (!this.serviceProps.ugadaykaEnabled || this.protocol.ugadayka.length !== 3)
+        if (!this.protocol.ugadaykaEnabled || this.protocol.ugadayka.length !== 3)
             return;
         if (parseInt(this.protocol.winner.toString()) === ProtocolEnums_1.Teams.Black) {
             this.players.forEach(function (player) {
@@ -619,7 +646,7 @@ SoProtocol = __decorate([
         styles: [require('./protocol.component.scss').toString()],
         template: require('./protocol.component.html')
     }),
-    __metadata("design:paramtypes", [dialog_service_1.SoDialogService, angular2_jwt_1.AuthHttp, urls_1.UrlsService])
+    __metadata("design:paramtypes", [dialog_service_1.SoDialogService, angular2_jwt_1.AuthHttp, urls_1.UrlsService, players_service_1.PlayersService])
 ], SoProtocol);
 exports.SoProtocol = SoProtocol;
 //# sourceMappingURL=protocol.component.js.map

@@ -111,17 +111,17 @@
     <div class="protocol-aside-block row center-vertical">
         <div class="col-lg-4 font-family-alt">Відгадайка:</div>
         <div class="col-lg-8 input-container">
-            <md-checkbox class="white" [(ngModel)]="serviceProps.ugadaykaEnabled" mdTooltip="Враховувати відгадайку" mdTooltipPosition="above"></md-checkbox>
+            <md-checkbox class="white" [(ngModel)]="protocol.ugadaykaEnabled" mdTooltip="Враховувати відгадайку" mdTooltipPosition="above"></md-checkbox>
             <md-input-container class="pull-right so-input white small-numeric">
-                <input mdInput type="number" min="0" max="10" [disabled]="!serviceProps.ugadaykaEnabled" [(ngModel)]="protocol.ugadayka[0]"
+                <input mdInput type="number" min="0" max="10" [disabled]="!protocol.ugadaykaEnabled" [(ngModel)]="protocol.ugadayka[0]"
                        (change)="uniqueNumbers(protocol.ugadayka, 0)" autocomplete="off"/>
             </md-input-container>
             <md-input-container class="pull-right so-input white small-numeric">
-                <input mdInput type="number" min="0" max="10" [disabled]="!serviceProps.ugadaykaEnabled" [(ngModel)]="protocol.ugadayka[1]"
+                <input mdInput type="number" min="0" max="10" [disabled]="!protocol.ugadaykaEnabled" [(ngModel)]="protocol.ugadayka[1]"
                        (change)="uniqueNumbers(protocol.ugadayka, 1)" autocomplete="off"/>
             </md-input-container>
             <md-input-container class="pull-right so-input white small-numeric">
-                <input mdInput type="number" min="0" max="10" [disabled]="!serviceProps.ugadaykaEnabled" [(ngModel)]="protocol.ugadayka[2]"
+                <input mdInput type="number" min="0" max="10" [disabled]="!protocol.ugadaykaEnabled" [(ngModel)]="protocol.ugadayka[2]"
                        (change)="uniqueNumbers(protocol.ugadayka, 2)" autocomplete="off"/>
             </md-input-container>
         </div>
@@ -272,9 +272,9 @@
                 </td>
                 <td class="text-center font-family-alt player-box-td noselect font14"><div class="player-index-container">{{player.index}}</div></td>
                 <td class="col-md-4">
-                    <p-autoComplete minLength="3" [suggestions]="allNicks" appendTo="body" tabindex="{{i + 1}}" [(ngModel)]="player.nick"
+                    <p-autoComplete minLength="3" [suggestions]="allNicknames" appendTo="body" tabindex="{{i + 1}}" [(ngModel)]="player.nick"
                                          (completeMethod)="searchNick($event)" inputStyleClass="so-autocomplete-input transparent-theme full-width"
-                                         styleClass="so-autocomplete-popup full-width"></p-autoComplete>
+                                         styleClass="so-autocomplete-popup full-width"></p-autoComplete> 
                 </td>
                 <td [style.background-color]="getBackgroundColor(player.role)" class="role-td col-md-2">
                     <md-select [(ngModel)]="player.role" *ngIf="serviceProps.night" (change)="roleSelected()" class="so-custom-select no-underline role-select"
@@ -439,17 +439,17 @@
             <div class="row center-vertical">
                 <div class="col-lg-4 font-family-alt">Відгадайка:</div>
                 <div class="col-lg-8 input-container">
-                    <md-checkbox class="white" [(ngModel)]="serviceProps.ugadaykaEnabled" mdTooltip="Враховувати відгадайку" mdTooltipPosition="above"></md-checkbox>
+                    <md-checkbox class="white" [(ngModel)]="protocol.ugadaykaEnabled" mdTooltip="Враховувати відгадайку" mdTooltipPosition="above"></md-checkbox>
                     <md-input-container class="pull-right so-input white small-numeric">
-                        <input mdInput type="number" min="0" max="10" [disabled]="!serviceProps.ugadaykaEnabled" [(ngModel)]="protocol.ugadayka[0]"
+                        <input mdInput type="number" min="0" max="10" [disabled]="!protocol.ugadaykaEnabled" [(ngModel)]="protocol.ugadayka[0]"
                                (change)="uniqueNumbers(protocol.ugadayka, 0)" autocomplete="off" />
                     </md-input-container>
                     <md-input-container class="pull-right so-input white small-numeric">
-                        <input mdInput type="number" min="0" max="10" [disabled]="!serviceProps.ugadaykaEnabled" [(ngModel)]="protocol.ugadayka[1]"
+                        <input mdInput type="number" min="0" max="10" [disabled]="!protocol.ugadaykaEnabled" [(ngModel)]="protocol.ugadayka[1]"
                                (change)="uniqueNumbers(protocol.ugadayka, 1)" autocomplete="off" />
                     </md-input-container>
                     <md-input-container class="pull-right so-input white small-numeric">
-                        <input mdInput type="number" min="0" max="10" [disabled]="!serviceProps.ugadaykaEnabled" [(ngModel)]="protocol.ugadayka[2]"
+                        <input mdInput type="number" min="0" max="10" [disabled]="!protocol.ugadaykaEnabled" [(ngModel)]="protocol.ugadayka[2]"
                                (change)="uniqueNumbers(protocol.ugadayka, 2)" autocomplete="off" />
                     </md-input-container>
                 </div>

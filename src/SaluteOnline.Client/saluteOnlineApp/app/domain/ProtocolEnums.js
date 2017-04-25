@@ -46,8 +46,8 @@ var PlayerEntry = (function () {
             bestPlayer: new BestPlayer(BestPlayers.None, '', true),
             result: null,
             positionInKillQueue: null,
-            killedAtDay: null,
-            killedAtNight: null,
+            killedAtDay: false,
+            killedAtNight: false,
             checkedAtNight: null,
             rolesAvailable: [new Role(Roles.Шериф, Roles[1]), new Role(Roles.Дон, Roles[2]), new Role(Roles.Мафія, Roles[3]), new Role(Roles.Мирний, Roles[4])],
             bestPlayersAvailable: [new BestPlayer(BestPlayers.None, '', true), new BestPlayer(BestPlayers.Best1, 'Кращий 1', true),
@@ -88,6 +88,7 @@ var Protocol = (function () {
             techRed: false,
             techBlack: false,
             ugadayka: [],
+            ugadaykaEnabled: false,
             falseSheriff: null,
             sheriffFirstKilled: false,
             players: null
@@ -104,6 +105,7 @@ var Protocol = (function () {
         this.techRed = protocol.techRed;
         this.techBlack = protocol.techBlack;
         this.ugadayka = protocol.ugadayka;
+        this.ugadaykaEnabled = protocol.ugadaykaEnabled;
         this.falseSheriff = protocol.falseSheriff;
         this.sheriffFirstKilled = protocol.sheriffFirstKilled;
         this.players = protocol.players;
@@ -111,4 +113,10 @@ var Protocol = (function () {
     return Protocol;
 }());
 exports.Protocol = Protocol;
+var PlayerDto = (function () {
+    function PlayerDto() {
+    }
+    return PlayerDto;
+}());
+exports.PlayerDto = PlayerDto;
 //# sourceMappingURL=ProtocolEnums.js.map

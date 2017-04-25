@@ -9,7 +9,7 @@ namespace SaluteOnline.Domain.Common
         public Roles Role { get; set; }
         public int? Foul { get; set; }
         public BestPlayers BestPlayer { get; set; }
-        public int? Result { get; set; }
+        public float? Result { get; set; }
         public int? PositionInKillQueue { get; set; }
         public bool KilledAtDay { get; set; }
         public bool KillerAtNight { get; set; }

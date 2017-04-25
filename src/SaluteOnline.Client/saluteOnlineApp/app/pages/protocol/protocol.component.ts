@@ -7,7 +7,8 @@ import { DialogProperties, IDialogProperties } from "../../services/dialog/IDial
 import { AuthHttp, tokenNotExpired } from 'angular2-jwt';
 import { UrlsService } from "../../services/urls";
 import { Headers, RequestOptions, RequestMethod, Request } from "@angular/http";
-import { IPlayerEntry, IProtocol, Protocol, PlayerEntry, Roles, Role, Teams, BestPlayers } from "../../domain/ProtocolEnums";
+import { PlayersService } from "../../services/players/players.service";
+import { IPlayerEntry, IProtocol, Protocol, PlayerEntry, Roles, Role, Teams, BestPlayers, PlayerDto } from "../../domain/ProtocolEnums";
 
 @Component({
     selector: 'so-protocol',
@@ -21,7 +22,13 @@ export class SoProtocol {
 
     defaultRolesAvailable: Role[];
     players: PlayerEntry[];
-    searchNick(event: any) {}
+
+    allNicknames: string[];
+    filteredNicknames: string[];
+    searchNick(event: any) {
+        const query = event.query;
+        this.filteredNicknames = this.allNicknames.filter(item => item.toLowerCase().startsWith(query.toLowerCase()));
+    }
 
     serviceProps : {
         night: boolean;
@@ -31,7 +38,6 @@ export class SoProtocol {
         miskills: number;
         canFillRedRoles: boolean;
         canClearRoles: boolean;
-        ugadaykaEnabled: boolean;
         rolesValid: boolean;
         nicksValid: boolean;
         checkVisibility: boolean;
@@ -53,11 +59,15 @@ export class SoProtocol {
 
     protocol : IProtocol;
 
-    constructor(private readonly dialogService: SoDialogService, private readonly authHttp: AuthHttp, private readonly urlsService: UrlsService) {
+    constructor(private readonly dialogService: SoDialogService, private readonly authHttp: AuthHttp, private readonly urlsService: UrlsService, private readonly playersService: PlayersService) {
         this.setInitialState();
+        this.playersService.getAllNicknames().subscribe(t => {
+            this.allNicknames = t;
+        });
     }
 
-    save() {       
+    save() {
+        this.prepareData();
         const headers = new Headers({ 'Content-Type': 'application/json' });
         const requestOptions = new RequestOptions({
             method: RequestMethod.Post,
@@ -78,7 +88,24 @@ export class SoProtocol {
 
 
     private prepareData() {
-        
+        const players: PlayerDto[] = [];
+        this.players.forEach(t => {
+            var dto = new PlayerDto();
+            dto.role = t.role.role;
+            dto.bestPlayer = t.bestPlayer.value;
+            dto.checkedAtNight = t.checkedAtNight;
+            dto.foul = t.foul;
+            dto.fullBestWay = t.fullBestWay;
+            dto.halfBestWay = t.halfBestWay;
+            dto.killedAtDay = t.killedAtDay;
+            dto.killedAtNight = t.killedAtNight;
+            dto.index = t.index;
+            dto.nick = t.nick;
+            dto.positionInKillQueue = t.positionInKillQueue;
+            dto.result = t.result;
+            players.push(dto);
+        });
+        this.protocol.players = players;
     }
 
     clear() {
@@ -114,7 +141,6 @@ export class SoProtocol {
             miskills: 0,
             canFillRedRoles: false,
             canClearRoles: false,
-            ugadaykaEnabled: false,
             rolesValid: false,
             nicksValid: false,
             checkVisibility: false,
@@ -235,7 +261,7 @@ export class SoProtocol {
         const alive = this.players.filter(t => !t.killedAtDay && !t.killedAtNight);
         if (alive.length === 3) {
             this.protocol.ugadayka = alive.map(t => t.index);
-            this.serviceProps.ugadaykaEnabled = true;
+            this.protocol.ugadaykaEnabled = true;
         }
     }
 
@@ -415,7 +441,7 @@ export class SoProtocol {
     private bestWayCount() {
         if (this.protocol.bestWay.length !== 3 || !this.protocol.bestWay[0] || !this.protocol.bestWay[1] || !this.protocol.bestWay[2])
             return;
-        const firstKilled = this.players.find(t => t.positionInKillQueue === 1);
+        const firstKilled = this.players.find(t => t.index === this.protocol.killedAtNight[0]);
         if (!firstKilled)
             return;
         const chosenPlayers: PlayerEntry[] = [];
@@ -469,7 +495,7 @@ export class SoProtocol {
     }
 
     private checkUgadayka() {
-        if (!this.serviceProps.ugadaykaEnabled || this.protocol.ugadayka.length !== 3)
+        if (!this.protocol.ugadaykaEnabled || this.protocol.ugadayka.length !== 3)
             return;
         if (parseInt(this.protocol.winner.toString()) === Teams.Black) {
             this.players.forEach((player: PlayerEntry) => {

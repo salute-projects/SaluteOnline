@@ -64,8 +64,8 @@ export class PlayerEntry implements IPlayerEntry {
         bestPlayer: new BestPlayer(BestPlayers.None, '', true),
         result: null,
         positionInKillQueue: null,
-        killedAtDay: null,
-        killedAtNight: null,
+        killedAtDay: false,
+        killedAtNight: false,
         checkedAtNight: null,
         rolesAvailable: [new Role(Roles.Шериф, Roles[1]), new Role(Roles.Дон, Roles[2]), new Role(Roles.Мафія, Roles[3]), new Role(Roles.Мирний, Roles[4])],
         bestPlayersAvailable: [new BestPlayer(BestPlayers.None, '', true), new BestPlayer(BestPlayers.Best1, 'Кращий 1', true),
@@ -118,9 +118,10 @@ export interface IProtocol {
     techRed: boolean;
     techBlack: boolean;
     ugadayka: number[];
+    ugadaykaEnabled: boolean;
     falseSheriff: number | null;
     sheriffFirstKilled: boolean;
-    players: PlayerEntry[];
+    players: PlayerDto[];
 }
 
 export class Protocol implements IProtocol {
@@ -137,6 +138,7 @@ export class Protocol implements IProtocol {
         techRed: false,
         techBlack: false,
         ugadayka: [],
+        ugadaykaEnabled: false,
         falseSheriff: null,
         sheriffFirstKilled: false,
         players: null
@@ -153,6 +155,7 @@ export class Protocol implements IProtocol {
         this.techRed = protocol.techRed;
         this.techBlack = protocol.techBlack;
         this.ugadayka = protocol.ugadayka;
+        this.ugadaykaEnabled = protocol.ugadaykaEnabled;
         this.falseSheriff = protocol.falseSheriff;
         this.sheriffFirstKilled = protocol.sheriffFirstKilled;
         this.players = protocol.players;
@@ -170,7 +173,23 @@ export class Protocol implements IProtocol {
     techRed: boolean;
     techBlack: boolean;
     ugadayka: number[];
+    ugadaykaEnabled: boolean;
     falseSheriff: number;
     sheriffFirstKilled: boolean;
-    players: PlayerEntry[];
+    players: PlayerDto[];
+}
+
+export class PlayerDto {
+    index: number;
+    nick: string;
+    role: Roles;
+    foul: number | null;
+    bestPlayer: BestPlayers;
+    result: number | null;
+    positionInKillQueue: number | null;
+    killedAtDay: boolean;
+    killedAtNight: boolean;
+    checkedAtNight: number | null;
+    halfBestWay: boolean;
+    fullBestWay: boolean;
 }

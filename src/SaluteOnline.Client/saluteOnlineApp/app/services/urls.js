@@ -20,6 +20,8 @@ var UrlsService = (function () {
         this.sendFeedback = this.apiUrl + 'System/SendFeedback';
         // protocols
         this.addProtocol = this.apiUrl + 'Protocols';
+        // players
+        this.getNicknames = this.apiUrl + 'Players';
     }
     return UrlsService;
 }());
