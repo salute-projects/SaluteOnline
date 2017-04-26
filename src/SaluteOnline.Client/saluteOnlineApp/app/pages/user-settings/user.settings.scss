@@ -87,35 +87,6 @@
     }
 }
 
-.so-autocomplete-popup {
-    border-radius: 0 !important;
-    font-family: $font-family !important;
-    font-size: 1.4rem !important;
-}
-
-.ui-autocomplete-panel {
-    border: none !important;
-    width: 250px !important;
-    border-radius: 0 !important;
-    background-color: $main-white;
-
-    .ui-autocomplete-list {
-        border-radius: 0 !important;
-        padding: 0 !important;
-        background-color: $main-white;
-
-        .ui-autocomplete-list-item {
-            border-radius: 0 !important;
-            padding: 0.4em 0.8em !important;
-
-            &.ui-state-highlight {
-                background-color: $main-red-hover !important;
-                color: $main-white;
-            }
-        }
-    }
-}
-
 .so-datepicker {
     margin-top: 20px;
 

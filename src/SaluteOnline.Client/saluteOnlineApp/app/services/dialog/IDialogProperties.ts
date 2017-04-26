@@ -1,4 +1,5 @@
 ﻿export interface IDialogProperties {
+    confirm: boolean;
     header: string;
     content: string;
     okButton: string;
@@ -8,12 +9,14 @@
 
 export class DialogProperties implements IDialogProperties {
     constructor(config: IDialogProperties = {
+        confirm: true,
         header: '',
         content: '',
         okButton: 'OK',
         cancelButton: 'CANCEL',
         customClass: ''
     }) {
+        this.confirm = config.confirm;
         this.header = config.header;
         this.content = config.content;
         this.okButton = config.okButton;
@@ -21,6 +24,7 @@ export class DialogProperties implements IDialogProperties {
         this.customClass = config.customClass;
     }
 
+    confirm: boolean;
     header: string;
     content: string;
     okButton: string;

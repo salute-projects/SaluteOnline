@@ -272,8 +272,8 @@
                 </td>
                 <td class="text-center font-family-alt player-box-td noselect font14"><div class="player-index-container">{{player.index}}</div></td>
                 <td class="col-md-4">
-                    <p-autoComplete minLength="3" [suggestions]="allNicknames" appendTo="body" tabindex="{{i + 1}}" [(ngModel)]="player.nick"
-                                         (completeMethod)="searchNick($event)" inputStyleClass="so-autocomplete-input transparent-theme full-width"
+                    <p-autoComplete minLength="3" [suggestions]="nicknameSuggestions[index]" appendTo="body" tabindex="{{i + 1}}" [(ngModel)]="player.nick"
+                                         (completeMethod)="searchNick($event, index)" inputStyleClass="so-autocomplete-input transparent-theme full-width"
                                          styleClass="so-autocomplete-popup full-width"></p-autoComplete> 
                 </td>
                 <td [style.background-color]="getBackgroundColor(player.role)" class="role-td col-md-2">

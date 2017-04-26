@@ -36,6 +36,22 @@ var SoDialogService = (function () {
             });
         });
     };
+    SoDialogService.prototype.showError = function (message, width, height) {
+        var _this = this;
+        if (width === void 0) { width = 'auto'; }
+        if (height === void 0) { height = 'auto'; }
+        var config = this.setDefaultConfig();
+        config.content = message;
+        config.confirm = false;
+        return new Promise(function () {
+            _this.mdMdialog.open(dialog_component_1.SoDialog, {
+                width: width,
+                height: height,
+                data: config,
+                disableClose: true
+            });
+        });
+    };
     SoDialogService.prototype.setDefaultConfig = function () {
         return new IDialogProperties_1.DialogProperties();
     };

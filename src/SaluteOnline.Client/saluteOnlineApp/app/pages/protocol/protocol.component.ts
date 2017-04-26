@@ -22,12 +22,13 @@ export class SoProtocol {
 
     defaultRolesAvailable: Role[];
     players: PlayerEntry[];
+    nicknameSuggestions: string[][];
 
     allNicknames: string[];
-    filteredNicknames: string[];
-    searchNick(event: any) {
+    searchNick(event: any, index: number) {
         const query = event.query;
-        this.filteredNicknames = this.allNicknames.filter(item => item.toLowerCase().startsWith(query.toLowerCase()));
+        const existing = this.players.map(t => t.nick);
+        this.nicknameSuggestions[index] = this.allNicknames.filter(item => item.toLowerCase().startsWith(query.toLowerCase()) && !existing.includes(item)); 
     }
 
     serviceProps : {
@@ -68,21 +69,27 @@ export class SoProtocol {
 
     save() {
         this.prepareData();
-        const headers = new Headers({ 'Content-Type': 'application/json' });
         const requestOptions = new RequestOptions({
             method: RequestMethod.Post,
             url: this.urlsService.addProtocol,
-            headers: headers,
+            headers: new Headers({ 'Content-Type': 'application/json' }),
             body: JSON.stringify(this.protocol)
         });
 
         this.authHttp.request(new Request(requestOptions))
             .map(res => res.json())
-            .subscribe((result: any) => {
-                    var x = result;
+            .subscribe(() => {
+                const config = new DialogProperties();
+                config.header = 'Збережено';
+                config.content = 'Протокол успішно збережено. Створити новий?';
+                this.dialogService.show(config, null, null, true).then((res: boolean) => {
+                    if (res) {
+                        this.setInitialState();
+                    }
+                });
                 },
             () => {
-                var x = 'fail';
+                this.dialogService.showError('Помилка при збереженні протоколу', null, null);
             });   
     }
 
@@ -109,13 +116,9 @@ export class SoProtocol {
     }
 
     clear() {
-        const config = new DialogProperties({
-            header: 'очистити',
-            okButton: 'OK',
-            cancelButton: 'CANCEL',
-            content: 'Очистити протокол?',
-            customClass: ''
-        });
+        const config = new DialogProperties();
+        config.header = 'очистити';
+        config.content = 'Очистити протокол?';
         this.dialogService.show(config, null, null, true).then((result: boolean) => {
             if (result) {
                 this.setInitialState();
@@ -124,6 +127,7 @@ export class SoProtocol {
     }
 
     private setInitialState(): void {
+        this.nicknameSuggestions = [];
         this.players = new Array<PlayerEntry>();
         for (let i = 0; i < 10; i++) {
             const player = new PlayerEntry();
@@ -183,13 +187,9 @@ export class SoProtocol {
             player.foul = null;
         }
         else if (player.foul === 4) {
-            const config = new DialogProperties({
-                header: 'дискваліфікація',
-                okButton: 'OK',
-                cancelButton: 'CANCEL',
-                content: 'Дискваліфікувати гравця?',
-                customClass: 'testclass'
-            });
+            const config = new DialogProperties();
+            config.header = 'Дискваліфікація';
+            config.content = 'Дискваліфікувати гравця?';
             this.dialogService.show(config, null, null, true).then((result: boolean) => {
                 if (!result) {
                     player.foul = 3;

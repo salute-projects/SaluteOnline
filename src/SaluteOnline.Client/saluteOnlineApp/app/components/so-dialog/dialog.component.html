@@ -3,6 +3,6 @@
     <div class="so-dialog-content" md-dialog-content>{{config.content}}</div>
     <div md-dialog-actions class="so-dialog-buttons">
         <button md-button (click)="dialogRef.close(true)" class="so-primary-button blue-button">{{config.okButton}}</button>
-        <button md-button (click)="dialogRef.close(false)" class="so-primary-button margin-left-min">{{config.cancelButton}}</button>
+        <button md-button (click)="dialogRef.close(false)" *ngIf="config.confirm" class="so-primary-button margin-left-min">{{config.cancelButton}}</button>
     </div>
 </div>

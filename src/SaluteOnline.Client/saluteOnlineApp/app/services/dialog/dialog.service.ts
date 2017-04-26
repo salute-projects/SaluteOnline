@@ -27,6 +27,20 @@ export class SoDialogService {
         });
     }
 
+    showError(message: string, width: string = 'auto', height: string = 'auto') {
+        const config = this.setDefaultConfig();
+        config.content = message;
+        config.confirm = false;
+        return new Promise((): void => {
+            this.mdMdialog.open(SoDialog, {
+                width: width,
+                height: height,
+                data: config,
+                disableClose: true
+            });
+        });
+    }
+
     private setDefaultConfig() {
         return new DialogProperties();
     }

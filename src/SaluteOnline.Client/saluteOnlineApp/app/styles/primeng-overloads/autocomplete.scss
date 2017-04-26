@@ -17,3 +17,27 @@
         border-bottom: 2px solid $main-red !important;
     }
 }
+
+
+.ui-autocomplete-panel {
+    border: none !important;
+    width: 250px !important;
+    border-radius: 0 !important;
+    background-color: $main-white;
+
+    .ui-autocomplete-list {
+        border-radius: 0 !important;
+        padding: 0 !important;
+        background-color: $main-white;
+
+        .ui-autocomplete-list-item {
+            border-radius: 0 !important;
+            padding: 0.4em 0.8em !important;
+
+            &.ui-state-highlight {
+                background-color: $main-red-hover !important;
+                color: $main-white;
+            }
+        }
+    }
+}

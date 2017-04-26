@@ -29,25 +29,33 @@ var SoProtocol = (function () {
             _this.allNicknames = t;
         });
     }
-    SoProtocol.prototype.searchNick = function (event) {
+    SoProtocol.prototype.searchNick = function (event, index) {
         var query = event.query;
-        this.filteredNicknames = this.allNicknames.filter(function (item) { return item.toLowerCase().startsWith(query.toLowerCase()); });
+        var existing = this.players.map(function (t) { return t.nick; });
+        this.nicknameSuggestions[index] = this.allNicknames.filter(function (item) { return item.toLowerCase().startsWith(query.toLowerCase()) && !existing.includes(item); });
     };
     SoProtocol.prototype.save = function () {
+        var _this = this;
         this.prepareData();
-        var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
         var requestOptions = new http_1.RequestOptions({
             method: http_1.RequestMethod.Post,
             url: this.urlsService.addProtocol,
-            headers: headers,
+            headers: new http_1.Headers({ 'Content-Type': 'application/json' }),
             body: JSON.stringify(this.protocol)
         });
         this.authHttp.request(new http_1.Request(requestOptions))
             .map(function (res) { return res.json(); })
-            .subscribe(function (result) {
-            var x = result;
+            .subscribe(function () {
+            var config = new IDialogProperties_1.DialogProperties();
+            config.header = 'Збережено';
+            config.content = 'Протокол успішно збережено. Створити новий?';
+            _this.dialogService.show(config, null, null, true).then(function (res) {
+                if (res) {
+                    _this.setInitialState();
+                }
+            });
         }, function () {
-            var x = 'fail';
+            _this.dialogService.showError('Помилка при збереженні протоколу', null, null);
         });
     };
     SoProtocol.prototype.prepareData = function () {
@@ -72,13 +80,9 @@ var SoProtocol = (function () {
     };
     SoProtocol.prototype.clear = function () {
         var _this = this;
-        var config = new IDialogProperties_1.DialogProperties({
-            header: 'очистити',
-            okButton: 'OK',
-            cancelButton: 'CANCEL',
-            content: 'Очистити протокол?',
-            customClass: ''
-        });
+        var config = new IDialogProperties_1.DialogProperties();
+        config.header = 'очистити';
+        config.content = 'Очистити протокол?';
         this.dialogService.show(config, null, null, true).then(function (result) {
             if (result) {
                 _this.setInitialState();
@@ -86,6 +90,7 @@ var SoProtocol = (function () {
         });
     };
     SoProtocol.prototype.setInitialState = function () {
+        this.nicknameSuggestions = [];
         this.players = new Array();
         for (var i = 0; i < 10; i++) {
             var player = new ProtocolEnums_1.PlayerEntry();
@@ -139,13 +144,9 @@ var SoProtocol = (function () {
             player.foul = null;
         }
         else if (player.foul === 4) {
-            var config = new IDialogProperties_1.DialogProperties({
-                header: 'дискваліфікація',
-                okButton: 'OK',
-                cancelButton: 'CANCEL',
-                content: 'Дискваліфікувати гравця?',
-                customClass: 'testclass'
-            });
+            var config = new IDialogProperties_1.DialogProperties();
+            config.header = 'Дискваліфікація';
+            config.content = 'Дискваліфікувати гравця?';
             this.dialogService.show(config, null, null, true).then(function (result) {
                 if (!result) {
                     player.foul = 3;
