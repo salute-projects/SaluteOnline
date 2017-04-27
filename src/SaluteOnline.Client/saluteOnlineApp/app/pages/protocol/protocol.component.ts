@@ -8,7 +8,8 @@ import { AuthHttp, tokenNotExpired } from 'angular2-jwt';
 import { UrlsService } from "../../services/urls";
 import { Headers, RequestOptions, RequestMethod, Request } from "@angular/http";
 import { PlayersService } from "../../services/players/players.service";
-import { IPlayerEntry, IProtocol, Protocol, PlayerEntry, Roles, Role, Teams, BestPlayers, PlayerDto } from "../../domain/ProtocolEnums";
+import { IPlayerEntry, IProtocol, Protocol, PlayerEntry, Roles, Role, Teams, BestPlayers, PlayerDto, ServiceProps } from "../../domain/ProtocolEnums";
+import { SoCoreService } from "../../services/protocol/protocol.service";
 
 @Component({
     selector: 'so-protocol',
@@ -60,7 +61,8 @@ export class SoProtocol {
 
     protocol : IProtocol;
 
-    constructor(private readonly dialogService: SoDialogService, private readonly authHttp: AuthHttp, private readonly urlsService: UrlsService, private readonly playersService: PlayersService) {
+    constructor(private readonly dialogService: SoDialogService, private readonly authHttp: AuthHttp, private readonly urlsService: UrlsService,
+        private readonly playersService: PlayersService, private readonly coreService: SoCoreService) {
         this.setInitialState();
         this.playersService.getAllNicknames().subscribe(t => {
             this.allNicknames = t;
@@ -134,25 +136,8 @@ export class SoProtocol {
             player.index = i + 1;
             this.players.push(player);
         }
-        this.defaultRolesAvailable = [new Role(Roles.Шериф, Roles[1]), new Role(Roles.Дон, Roles[2]), new Role(Roles.Мафія, Roles[3]), new Role(Roles.Мирний, Roles[4])
-        ];
-
-        this.serviceProps = {
-            night: true,
-            notOnVote: Array.apply(null, { length: 10 }).map((value: any, index: number) => index + 1),
-            onVote: [],
-            killQueue: 1,
-            miskills: 0,
-            canFillRedRoles: false,
-            canClearRoles: false,
-            rolesValid: false,
-            nicksValid: false,
-            checkVisibility: false,
-            checkSuccess: null,
-            checkTypeIsDon: null,
-            currentCheckIndex: null
-        }
-
+        this.defaultRolesAvailable = [new Role(Roles.Шериф, Roles[1]), new Role(Roles.Дон, Roles[2]), new Role(Roles.Мафія, Roles[3]), new Role(Roles.Мирний, Roles[4])];
+        this.serviceProps = new ServiceProps();
         this.timerProps = {
             timerVisible: false,
             timerSpeaker: false,
@@ -356,16 +341,7 @@ export class SoProtocol {
     }
 
     private countResults(): void {
-        this.setResult();
-        this.bestWayCount();
-        this.donCheck();
-        this.threeZvCheck();
-        this.technicalCheck();
-        this.checkUgadayka();
-        this.checkFirstKill();
-        this.checkBestPlayers();
-        this.checkFalseCom();
-        this.foulCheck();
+        this.coreService.processProtocol(this.protocol, this.players);
         this.serviceProps.night = true;
     }
 
@@ -392,171 +368,6 @@ export class SoProtocol {
             }
         }
         return false;
-    }
-
-    private setResult() {
-        if (this.redWins()) {
-            this.players.forEach((player: PlayerEntry) => {
-                switch (player.role.role) {
-                    case Roles.Дон:
-                        player.result = -1;
-                        break;
-                    case Roles.Мафія:
-                        player.result = 0;
-                        break;
-                    case Roles.Мирний:
-                        player.result = 4;
-                        break;
-                    case Roles.Шериф:
-                        player.result = 5;
-                        break;
-                    default:
-                        player.result = null;
-                        break;
-                }
-            });
-        } else if (this.blackWins()) {
-            this.players.forEach((player: PlayerEntry) => {
-                switch (player.role.role) {
-                    case Roles.Дон:
-                        player.result = 5;
-                        break;
-                    case Roles.Мафія:
-                        player.result = 4;
-                        break;
-                    case Roles.Мирний:
-                        player.result = 0;
-                        break;
-                    case Roles.Шериф:
-                        player.result = -1;
-                        break;
-                    default:
-                        player.result = null;
-                        break;
-                }
-            });
-        }
-    }
-
-    private bestWayCount() {
-        if (this.protocol.bestWay.length !== 3 || !this.protocol.bestWay[0] || !this.protocol.bestWay[1] || !this.protocol.bestWay[2])
-            return;
-        const firstKilled = this.players.find(t => t.index === this.protocol.killedAtNight[0]);
-        if (!firstKilled)
-            return;
-        const chosenPlayers: PlayerEntry[] = [];
-        this.players.forEach((value: PlayerEntry) => {
-            if (this.protocol.bestWay.includes(value.index) && this.isBlack(value))
-                chosenPlayers.push(value);
-        });
-        if (chosenPlayers.length === 2) {
-            firstKilled.result += 0.5;
-            firstKilled.halfBestWay = true;
-        } else if (chosenPlayers.length === 3) {
-            firstKilled.result++;
-            firstKilled.fullBestWay = true;
-        }
-    }
-
-    private donCheck() {
-        if (!this.protocol.donCheck)
-            return;
-        const don = this.players.find(t => { return t.role.role === Roles.Дон });
-        const target = this.players.find(t => { return t.index === this.protocol.donCheck });
-        if (!target || !don)
-            return;
-        if (target.role.role === Roles.Шериф)
-            don.result += 0.5;
-    }
-
-    private threeZvCheck() {
-        if (!this.protocol.threeCheck)
-            return;
-        const sheriff = this.players.find(t => { return t.role.role === Roles.Шериф });
-        if (!sheriff)
-            return;
-        sheriff.result++;
-    }
-
-    private technicalCheck() {
-        if (!this.protocol.techRed && !this.protocol.techBlack)
-            return;
-        if (this.protocol.techBlack) {
-            this.players.forEach((player: PlayerEntry) => {
-                if (this.isBlack(player))
-                    player.result++;
-            });
-        } else if (this.protocol.techRed) {
-            this.players.forEach((player: PlayerEntry) => {
-                if (this.isRed(player))
-                    player.result++;
-            });
-        }
-    }
-
-    private checkUgadayka() {
-        if (!this.protocol.ugadaykaEnabled || this.protocol.ugadayka.length !== 3)
-            return;
-        if (parseInt(this.protocol.winner.toString()) === Teams.Black) {
-            this.players.forEach((player: PlayerEntry) => {
-                if (this.protocol.ugadayka.includes(player.index) && this.isBlack(player)) {
-                    player.result++;
-                }
-            });
-        } else if (parseInt(this.protocol.winner.toString()) === Teams.Red) {
-            this.players.forEach((player: PlayerEntry) => {
-                if (this.protocol.ugadayka.includes(player.index) && this.isRed(player)) {
-                    player.result++;
-                }
-            });
-        }
-    }
-
-    private checkFirstKill() {
-        if (!this.protocol.killedAtNight[0])
-            return;
-        const don = this.players.find(t => { return t.role.role === Roles.Дон });
-        const sheriff = this.players.find((player: PlayerEntry) => { return player.role.role === Roles.Шериф });
-        if (!don || !sheriff)
-            return;
-        if (parseInt(this.protocol.winner.toString()) === Teams.Black &&
-            this.protocol.killedAtNight[0] === sheriff.index) {
-            don.result++;
-        }
-        if (this.protocol.sheriffFirstKilled && this.blackWins()) {
-            sheriff.result++;
-        }
-    }
-
-    private checkBestPlayers() {
-        const firstBest = this.players.find(t => { return t.bestPlayer.value === BestPlayers.Best1; });
-        const secondBest = this.players.find(t => { return t.bestPlayer.value === BestPlayers.Best2; });
-        const thirdBest = this.players.find(t => { return t.bestPlayer.value === BestPlayers.Best3; });
-        if (firstBest) {
-            firstBest.result++;
-        }
-        if (secondBest) {
-            secondBest.result += 0.5;
-        }
-        if (thirdBest) {
-            thirdBest.result += 0.5;
-        }
-    }
-
-    private checkFalseCom() {
-        if (!this.protocol.falseSheriff || this.blackWins())
-            return;
-        const falseCom = this.players.find(t => { return t.index === this.protocol.falseSheriff; });
-        if (!falseCom)
-            return;
-        falseCom.result++;
-    }
-
-    private foulCheck() {
-        this.players.forEach((player: PlayerEntry) => {
-            if (player.foul === 4)
-                player.result = -1;
-        });
     }
 
     winnerChanged(): void {

@@ -4,6 +4,7 @@ import { routing } from "./protocol.routing";
 import { SoProtocol } from "./protocol.component";
 import { FormsModule } from '@angular/forms';
 import { SoDialogService } from "../../services/dialog/dialog.service";
+import { SoCoreService } from "../../services/protocol/protocol.service";
 import { MdInputModule, MdSlideToggleModule, MdButtonModule, MdSelectModule, MdCheckboxModule, MdRadioModule, MdTooltipModule } from "@angular/material";
 import { AutoCompleteModule, DialogModule } from "primeng/primeng";
 
@@ -11,7 +12,7 @@ import { AutoCompleteModule, DialogModule } from "primeng/primeng";
     imports: [CommonModule, MdInputModule, MdSlideToggleModule, MdButtonModule, MdSelectModule, MdCheckboxModule, MdRadioModule, MdTooltipModule, FormsModule,
         AutoCompleteModule, DialogModule, routing],
     declarations: [SoProtocol],
-    providers: [SoDialogService]
+    providers: [SoDialogService, SoCoreService]
 })
 
 export class ProtocolModule {

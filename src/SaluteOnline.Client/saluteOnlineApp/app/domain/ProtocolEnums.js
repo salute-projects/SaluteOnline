@@ -45,6 +45,8 @@ var PlayerEntry = (function () {
             foul: null,
             bestPlayer: new BestPlayer(BestPlayers.None, '', true),
             result: null,
+            mainScore: 0,
+            additionalScore: 0,
             positionInKillQueue: null,
             killedAtDay: false,
             killedAtNight: false,
@@ -61,6 +63,8 @@ var PlayerEntry = (function () {
         this.foul = player.foul;
         this.bestPlayer = player.bestPlayer;
         this.result = player.result;
+        this.mainScore = player.mainScore;
+        this.additionalScore = player.additionalScore;
         this.positionInKillQueue = player.positionInKillQueue;
         this.killedAtDay = player.killedAtDay;
         this.killedAtNight = player.killedAtNight;
@@ -119,4 +123,23 @@ var PlayerDto = (function () {
     return PlayerDto;
 }());
 exports.PlayerDto = PlayerDto;
+var ServiceProps = (function () {
+    function ServiceProps() {
+        this.night = true;
+        this.notOnVote = Array.apply(null, { length: 10 }).map(function (value, index) { return index + 1; });
+        this.onVote = [];
+        this.killQueue = 1;
+        this.miskills = 0;
+        this.canFillRedRoles = false;
+        this.canClearRoles = false;
+        this.rolesValid = false;
+        this.nicksValid = false;
+        this.checkVisibility = false;
+        this.checkSuccess = null;
+        this.checkTypeIsDon = null;
+        this.currentCheckIndex = null;
+    }
+    return ServiceProps;
+}());
+exports.ServiceProps = ServiceProps;
 //# sourceMappingURL=ProtocolEnums.js.map

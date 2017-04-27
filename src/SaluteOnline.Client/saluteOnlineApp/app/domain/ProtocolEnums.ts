@@ -45,6 +45,8 @@ export interface IPlayerEntry {
     foul?: number;
     bestPlayer: BestPlayer;
     result?: number;
+    mainScore: number;
+    additionalScore: number;
     positionInKillQueue?: number;
     killedAtDay?: boolean;
     killedAtNight?: boolean;
@@ -63,6 +65,8 @@ export class PlayerEntry implements IPlayerEntry {
         foul: null,
         bestPlayer: new BestPlayer(BestPlayers.None, '', true),
         result: null,
+        mainScore: 0,
+        additionalScore: 0,
         positionInKillQueue: null,
         killedAtDay: false,
         killedAtNight: false,
@@ -79,6 +83,8 @@ export class PlayerEntry implements IPlayerEntry {
         this.foul = player.foul;
         this.bestPlayer = player.bestPlayer;
         this.result = player.result;
+        this.mainScore = player.mainScore;
+        this.additionalScore = player.additionalScore;
         this.positionInKillQueue = player.positionInKillQueue;
         this.killedAtDay = player.killedAtDay;
         this.killedAtNight = player.killedAtNight;
@@ -95,6 +101,8 @@ export class PlayerEntry implements IPlayerEntry {
     foul: number | null;
     bestPlayer: BestPlayer;
     result: number | null;
+    mainScore: number;
+    additionalScore: number;
     positionInKillQueue: number;
     killedAtDay: boolean;
     killedAtNight: boolean;
@@ -192,4 +200,37 @@ export class PlayerDto {
     checkedAtNight: number | null;
     halfBestWay: boolean;
     fullBestWay: boolean;
+}
+
+export class ServiceProps {
+
+    constructor() {
+        this.night = true;
+        this.notOnVote = Array.apply(null, { length: 10 }).map((value: any, index: number) => index + 1);
+        this.onVote = [];
+        this.killQueue = 1;
+        this.miskills = 0;
+        this.canFillRedRoles = false;
+        this.canClearRoles = false;
+        this.rolesValid = false;
+        this.nicksValid = false;
+        this.checkVisibility = false;
+        this.checkSuccess = null;
+        this.checkTypeIsDon = null;
+        this.currentCheckIndex = null;
+    }
+
+    night: boolean;
+    onVote: number[];
+    notOnVote: number[];
+    killQueue: number;
+    miskills: number;
+    canFillRedRoles: boolean;
+    canClearRoles: boolean;
+    rolesValid: boolean;
+    nicksValid: boolean;
+    checkVisibility: boolean;
+    checkSuccess: boolean | null;
+    checkTypeIsDon: boolean | null;
+    currentCheckIndex: number | null;
 }

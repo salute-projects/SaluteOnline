@@ -11,6 +11,7 @@ var protocol_routing_1 = require("./protocol.routing");
 var protocol_component_1 = require("./protocol.component");
 var forms_1 = require("@angular/forms");
 var dialog_service_1 = require("../../services/dialog/dialog.service");
+var protocol_service_1 = require("../../services/protocol/protocol.service");
 var material_1 = require("@angular/material");
 var primeng_1 = require("primeng/primeng");
 var ProtocolModule = (function () {
@@ -23,7 +24,7 @@ ProtocolModule = __decorate([
         imports: [common_1.CommonModule, material_1.MdInputModule, material_1.MdSlideToggleModule, material_1.MdButtonModule, material_1.MdSelectModule, material_1.MdCheckboxModule, material_1.MdRadioModule, material_1.MdTooltipModule, forms_1.FormsModule,
             primeng_1.AutoCompleteModule, primeng_1.DialogModule, protocol_routing_1.routing],
         declarations: [protocol_component_1.SoProtocol],
-        providers: [dialog_service_1.SoDialogService]
+        providers: [dialog_service_1.SoDialogService, protocol_service_1.SoCoreService]
     })
 ], ProtocolModule);
 exports.ProtocolModule = ProtocolModule;
